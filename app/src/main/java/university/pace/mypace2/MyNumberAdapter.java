@@ -20,9 +20,9 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public ViewHolder(TextView v) {
+        public ViewHolder(View v) {
             super(v);
-            mTextView = v;
+            mTextView = (TextView) v.findViewById(R.id.textView);
         }
     }
 
@@ -40,7 +40,7 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
                 .inflate(R.layout.mytextview, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        ViewHolder vh = new ViewHolder((TextView) v);
+        ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
