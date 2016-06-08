@@ -86,7 +86,7 @@ public class ImportantNumbers extends AppCompatActivity {
 
         @Override
         public String toString() {
-            return name + "\n" + number;
+            return name + "\nTelephone: " + number;
         }
 
     }

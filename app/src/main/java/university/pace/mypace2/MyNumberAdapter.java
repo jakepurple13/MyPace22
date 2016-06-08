@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,10 +25,13 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
+        public ImageView iv;
+
+
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.textView);
-
+            iv = (ImageView) v.findViewById(R.id.callArrow);
 
 
         }
@@ -59,14 +63,17 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position).toString());
 
-        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener von = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + mDataset.get(position).number));
                 in.startActivity(intent);
             }
-        });
+        };
+
+        holder.mTextView.setOnClickListener(von);
+        holder.iv.setOnClickListener(von);
 
 
     }
