@@ -1,5 +1,7 @@
 package university.pace.mypace2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHolder> {
     private ArrayList<ImportantNumbers.ImportantInfo> mDataset;
 
+    ImportantNumbers in;
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -23,12 +27,16 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.textView);
+
+
+
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyNumberAdapter(ArrayList<ImportantNumbers.ImportantInfo> myDataset) {
+    public MyNumberAdapter(ArrayList<ImportantNumbers.ImportantInfo> myDataset, ImportantNumbers in) {
         mDataset = myDataset;
+        this.in = in;
     }
 
     // Create new views (invoked by the layout manager)
@@ -46,10 +54,20 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position).toString());
+
+        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + mDataset.get(position).number));
+                in.startActivity(intent);
+            }
+        });
+
 
     }
 

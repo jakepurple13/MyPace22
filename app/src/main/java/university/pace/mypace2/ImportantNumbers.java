@@ -65,11 +65,8 @@ public class ImportantNumbers extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyNumberAdapter(al);
+        mAdapter = new MyNumberAdapter(al, this);
         mRecyclerView.setAdapter(mAdapter);
-
-
-
     }
 
 
@@ -89,7 +86,7 @@ public class ImportantNumbers extends AppCompatActivity {
 
         @Override
         public String toString() {
-            return name + number;
+            return name + "\n" + number;
         }
 
     }
