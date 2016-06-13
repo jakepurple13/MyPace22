@@ -1,6 +1,5 @@
 package university.pace.mypace2;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
