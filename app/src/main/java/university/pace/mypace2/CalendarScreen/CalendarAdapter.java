@@ -31,7 +31,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            mTextView = (TextView) v.findViewById(R.id.textView);
+            mTextView = (TextView) v.findViewById(R.id.calendarTexted);
 
         }
     }

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -48,6 +49,7 @@
 
         </activity>
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers"></activity>
+
         <activity android:name=".CalendarScreen.CalendarScreen"></activity>
 
 

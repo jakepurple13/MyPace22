@@ -103,8 +103,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new CalendarAdapter(events, this);
-        mRecyclerView.setAdapter(mAdapter);
+        //mAdapter = new CalendarAdapter(events, this);
+        //mRecyclerView.setAdapter(mAdapter);
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
@@ -364,7 +364,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
-                    .setMaxResults(100)
+                    .setMaxResults(20)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
