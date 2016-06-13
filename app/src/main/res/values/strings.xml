@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MyPace2</string>
+    <string name="title_activity_pace_maps">Map</string>
+    <string name="title_activity_pace_map">Map</string>
+    <string name="gps_network_not_enabled">Your gps location is not enable! Would you like to turn it on?</string>
+    <string name="open_location_settings">Yes</string>
+    <string name="Cancel">No</string>
+    <string name="gps_network_enabled">Enable you location?</string>
+    <string name="mypace2_was_developed">MyPace2 was Developed by Pace University Students(George Samuels II and Jacob Rein)</string>
+
 </resources>
