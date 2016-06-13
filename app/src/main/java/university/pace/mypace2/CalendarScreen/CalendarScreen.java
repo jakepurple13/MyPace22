@@ -35,6 +35,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -105,6 +106,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         // specify an adapter (see also next example)
         //mAdapter = new CalendarAdapter(events, this);
         //mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(
+                new DividerItemDecoration(this, R.drawable.divider));
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
@@ -387,7 +390,6 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         @Override
         protected void onPreExecute() {
-            //mOutputText.setText("");
             mProgress.show();
         }
 
@@ -398,12 +400,17 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
             } else {
                 //output.add(0, "Data retrieved using the Google Calendar API:");
-                events.add(new CalendarInfo(TextUtils.join("\n", output)));
+                for (int i = 0; i < output.size(); i++) {
+                    events.add(new CalendarInfo(output.get(i)));
+                }
+
                 for (CalendarInfo e : events) {
                     System.out.println(e);
                 }
+
                 mAdapter = new CalendarAdapter(events, CalendarScreen.this);
                 mRecyclerView.setAdapter(mAdapter);
+
             }
         }
 
