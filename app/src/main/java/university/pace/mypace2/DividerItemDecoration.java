@@ -1,4 +1,4 @@
-package university.pace.mypace2.CalendarScreen;
+package university.pace.mypace2;
 
 import android.content.Context;
 import android.content.res.TypedArray;

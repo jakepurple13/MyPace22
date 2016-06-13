@@ -33,14 +33,9 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +46,7 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-import university.pace.mypace2.ImportantNumbersScreen.MyNumberAdapter;
+import university.pace.mypace2.DividerItemDecoration;
 import university.pace.mypace2.R;
 
 
@@ -75,6 +70,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<CalendarInfo> events = new ArrayList<>();
+    ArrayList<Event> eventsFromGoogle = new ArrayList<>();
 
     CalendarView cv;
 
@@ -383,6 +379,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 }
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), start));
+                eventsFromGoogle.add(event);
             }
             return eventStrings;
         }
@@ -400,8 +397,10 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
             } else {
                 //output.add(0, "Data retrieved using the Google Calendar API:");
-                for (int i = 0; i < output.size(); i++) {
-                    events.add(new CalendarInfo(output.get(i)));
+                for (int i = 0; i < eventsFromGoogle.size(); i++) {
+                    //events.add(new CalendarInfo(output.get(i)));
+                    events.add(new CalendarInfo(eventsFromGoogle.get(i)));
+                    Log.e("Line 402", eventsFromGoogle.get(i).getSummary());
                 }
 
                 for (CalendarInfo e : events) {
@@ -439,14 +438,23 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
     public class CalendarInfo {
         String name;
+        Event event;
 
         public CalendarInfo(String name) {
             this.name = name;
         }
 
+        public CalendarInfo(Event event) {
+            this.event = event;
+        }
+
+        public Event getEvent() {
+            return event;
+        }
+
         @Override
         public String toString() {
-            return name;
+            return event.getSummary();
         }
 
     }

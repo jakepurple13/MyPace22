@@ -3,13 +3,24 @@ package university.pace.mypace2.CalendarScreen;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.Event;
+
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import university.pace.mypace2.R;
 
@@ -60,10 +71,37 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).toString());
+
+        String info = "";
+        Event event = mDataset.get(position).getEvent();
+
+
+        //Log.e("EventDateTime line 69", event.getStart().getDateTime() + "");
+
+
+        Log.e("Line 78", event.getStart().getDateTime() + "");
+        Log.e("Line 79", event.getStart().getDate() + "");
+
+        DateTimeFormatter dateFormatter = ISODateTimeFormat.dateTime();
+        org.joda.time.DateTime dateTime = dateFormatter.parseDateTime(event.getStart().getDateTime().toString());
+        Log.e("Line 88", dateTime.toDate() + "");
+        //Log.e("Line 81", event.getStart() + "");
+
+
+        info += event.getSummary() + "\n" +
+                "Description: " + event.getDescription() + "\n" +
+                "Date: " + event.getStart().getDate() + " - " + event.getEnd().getDate() + "\n" +
+                "From: " + event.getStart().getDateTime();
+
+
+        //TODO: Work here on getting this looking nicer
+
+        //holder.mTextView.setText(mDataset.get(position).toString());
+        holder.mTextView.setText(info);
 
 
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
