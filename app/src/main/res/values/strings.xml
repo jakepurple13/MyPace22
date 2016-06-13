@@ -7,5 +7,7 @@
     <string name="Cancel">No</string>
     <string name="gps_network_enabled">Enable you location?</string>
     <string name="mypace2_was_developed">MyPace2 was Developed by Pace University Students(George Samuels II and Jacob Rein)</string>
-
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyB2csJ6GbjvTk_wufl39Li02CQBx7PvZIw
+    </string>
 </resources>
