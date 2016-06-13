@@ -1,4 +1,4 @@
-package university.pace.mypace2;
+package university.pace.mypace2.ImportantNumbersScreen;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import university.pace.mypace2.R;
 
 /**
  * Created by Jacob on 6/8/16.

@@ -1,4 +1,4 @@
-package university.pace.mypace2;
+package university.pace.mypace2.ImportantNumbersScreen;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import university.pace.mypace2.R;
 
 public class ImportantNumbers extends AppCompatActivity {
 
