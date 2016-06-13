@@ -17,15 +17,7 @@
         android:theme="@style/AppTheme">
 
 
-
-
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".MyPaceSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,9 +47,8 @@
             android:label="@string/title_activity_pace_maps">
 
         </activity>
-        <activity android:name=".ImportantNumbersScreen.ImportantNumbers">
-
-        </activity>
+        <activity android:name=".ImportantNumbersScreen.ImportantNumbers"></activity>
+        <activity android:name=".CalendarScreen.CalendarScreen"></activity>
 
 
     </application>
