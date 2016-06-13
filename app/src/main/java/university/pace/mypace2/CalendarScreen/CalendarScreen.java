@@ -31,13 +31,17 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +50,8 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.mypace2.ImportantNumbersScreen.MyNumberAdapter;
+import university.pace.mypace2.R;
 
 
 public class CalendarScreen extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
@@ -63,6 +69,14 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {CalendarScopes.CALENDAR_READONLY};
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    ArrayList<CalendarInfo> events = new ArrayList<>();
+
+    CalendarView cv;
+
     /**
      * Create the main activity.
      *
@@ -71,49 +85,33 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
+        setContentView(R.layout.activity_calendar_screen);
 
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mCallApiButton = new Button(this);
-        mCallApiButton.setText(BUTTON_TEXT);
-        mCallApiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
-                mOutputText.setText("");
-                getResultsFromApi();
-                mCallApiButton.setEnabled(true);
-            }
-        });
-        activityLayout.addView(mCallApiButton);
-
-        mOutputText = new TextView(this);
-        mOutputText.setLayoutParams(tlp);
-        mOutputText.setPadding(16, 16, 16, 16);
-        mOutputText.setVerticalScrollBarEnabled(true);
-        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-        mOutputText.setText(
-                "Click the \'" + BUTTON_TEXT + "\' button to test the API.");
-        activityLayout.addView(mOutputText);
+        cv = (CalendarView) findViewById(R.id.calendarView);
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
 
-        setContentView(activityLayout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_viewCal);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new CalendarAdapter(events, this);
+        mRecyclerView.setAdapter(mAdapter);
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
+
+        getResultsFromApi();
     }
 
 
@@ -130,7 +128,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (!isDeviceOnline()) {
-            mOutputText.setText("No network connection available.");
+            Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
         } else {
             new MakeRequestTask(mCredential).execute();
         }
@@ -189,9 +187,9 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
-                    mOutputText.setText(
+                    Toast.makeText(this,
                             "This app requires Google Play Services. Please install " +
-                                    "Google Play Services on your device and relaunch this app.");
+                                    "Google Play Services on your device and relaunch this app.", Toast.LENGTH_SHORT).show();
                 } else {
                     getResultsFromApi();
                 }
@@ -366,7 +364,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
-                    .setMaxResults(10)
+                    .setMaxResults(100)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
@@ -389,7 +387,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         @Override
         protected void onPreExecute() {
-            mOutputText.setText("");
+            //mOutputText.setText("");
             mProgress.show();
         }
 
@@ -397,10 +395,15 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         protected void onPostExecute(List<String> output) {
             mProgress.hide();
             if (output == null || output.size() == 0) {
-                mOutputText.setText("No results returned.");
+                Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                //output.add(0, "Data retrieved using the Google Calendar API:");
+                events.add(new CalendarInfo(TextUtils.join("\n", output)));
+                for (CalendarInfo e : events) {
+                    System.out.println(e);
+                }
+                mAdapter = new CalendarAdapter(events, CalendarScreen.this);
+                mRecyclerView.setAdapter(mAdapter);
             }
         }
 
@@ -417,14 +420,30 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             CalendarScreen.REQUEST_AUTHORIZATION);
                 } else {
-                    mOutputText.setText("The following error occurred:\n"
-                            + mLastError.getMessage());
+                    Toast.makeText(CalendarScreen.this, "The following error occurred:\n"
+                            + mLastError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                mOutputText.setText("Request cancelled.");
+                Toast.makeText(CalendarScreen.this, "Request cancelled.", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
+    public class CalendarInfo {
+        String name;
+
+        public CalendarInfo(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+    }
+
 }
 
 

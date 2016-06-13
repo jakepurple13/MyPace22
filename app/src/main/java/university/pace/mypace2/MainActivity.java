@@ -46,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.calBut:
 
-                Intent intent = new Intent(this, CalendarScreen.class);
-                startActivity(intent);
-                //changeScreen(CalendarScreen.class);
+                changeScreen(CalendarScreen.class);
 
                 break;
 
