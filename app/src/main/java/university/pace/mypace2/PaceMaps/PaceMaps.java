@@ -17,6 +17,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -46,6 +49,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     /*Gets user Location */
 
 
+    // Add a marker in Pleasantville and move the camera
+    private LatLng PaceUniPLV = new LatLng(Pace_PLV_LAT, Pace_PLV_LNG);
+
+    // Add a marker in NYC and move the camera
+    private LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
+
+    /*Default Map view*/
+    private LatLng Position = PaceUniPLV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,6 +77,34 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //If a user is currently authenticated, display a logout menu
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.ToggleMap) {
+            changeMap();
+            //    menuview.logout();
+            return true;
+        }
+        if (id == R.id.MapTypeChange) {
+            changeType();  /**Change to satellite**/
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -80,51 +119,53 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         Location location = locationManager.getLastKnownLocation(locationManager
                 .getBestProvider(criteria, false));
         double latitude = location.getLatitude();
+
+        /*ECHO SHOW USER's LAT    */
+        System.out.println("user's latitude" + latitude);
         double longitude = location.getLongitude();
         // LatLng NYC=new LatLng(40.746924,-73.856792);
         // LatLng PLV= new LatLng(43.746729,-73.794852);
 
 
-        // Add a marker in Pleasantville and move the camera
-        LatLng PaceUniPLV = new LatLng(Pace_PLV_LAT,Pace_PLV_LNG);
-
-        // Add a marker in NYC and move the camera
-        LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT,Pace_NYC_LNG);
-
-
+        if (mMap != null) {
           /*If latitude is greater than user latitude user is north */
-        if(latitude>=Pace_PLV_LAT )
-
-        {
 
 
-            mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
+            if (latitude >= Pace_PLV_LAT)
 
-            Log.d("User is North","Showing PLV");
-        }
+            {
+
+
+                mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
+                Position = PaceUniPLV;
+                Log.d("User is North", "Showing PLV");
+
+            }
            /*If latitude is less than user latitude user is south  */
-      else  if(latitude<=Pace_NYC_LAT)
+            if (latitude <= Pace_NYC_LAT)  //TODO:CHANGE THE LAT
 
-        {
+            {
 
 
-            mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 15));
-
-            Log.d("User is South","Showing NYC");
-        }
+                mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 15));
+                Position = PaceUniNYC;
+                Log.d("User is South", "Showing NYC");
+            }
           /*If latitude is greater than user latitude user is north */
-else
-        {
+            else {
 
 
-            mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
+                mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
 
-            Log.d("default","Showing PLV");
-        }
+                Log.d("default", "Showing PLV");
+            }
 /*If latitude not there or something- default */
+        }
+
+
 
 
         /** Premission request to Find current location**/
@@ -145,6 +186,38 @@ else
         mMap.setMyLocationEnabled(true);
         /** Max zoom on School**/
         mMap.getMaxZoomLevel();
+    }
+
+    /**
+     * Normal to satellite view
+     **/
+    public void changeType() {
+        if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        } else
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    /**
+     * Show different map manual
+     **/
+    public void changeMap() {
+        if (mMap != null) {
+
+            if (Position == PaceUniPLV) {
+                mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 15));
+
+                Log.d("User toggled", "Showing NYC");
+            } else {
+                mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
+
+                Log.d("User toggled", "Showing PLV");
+
+            }
+
+        }
     }
 
 
@@ -178,57 +251,5 @@ else
     }
 
 
-    /*  public double FindDistance() {
-    /*Gets user Location
-          double latitude = location.getLatitude();
-       double longitude = location.getLongitude();
-          double lat2 = Pace_PLV_LAT;
-          double lon2 = Pace_PLV_LNG;                    /*Gets PLV Location
-        double distance = distance(latitude, longitude, lat2, lon2);
-        double miles=(distance/8 *5) ; //distance in miles
-        return  (miles* 5280.0 );//distance in feet
-    }
-    */
 
-
- /*   public static  double distance(double lat1, double lon1, double lat2, double lon2)
-    {
-Gets longitude and latitude of both points
-        double RadiusofEarth=6371;
-        double dlat=deg2rad(lat2-lat1);
-        double dlon=deg2rad(lon2-lon1);
-        double nesscaryMath= Math.sin(dlat/2)*Math.sin(dlat/2)+Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))
-                *Math.sin(dlon/2)*Math.sin(dlon/2);
-        double calculation=2 * Math.atan2(Math.sqrt(nesscaryMath),Math.sqrt(1-nesscaryMath));
-        double dist=RadiusofEarth*calculation;  //Distance in km
-        return (dist);
-    } */
-
-    /*Converts Degrees to radians
-    private static  double deg2rad(double deg)
-    {
-        return (deg * Math.PI / 180.0);
-    }
-private  LatLng getUserLocation(){
-
-    LatLng UserLocation;
-    double latitude = location.getLatitude();
-     double longitude = location.getLongitude();
-    LatLng userLatLng= new LatLng(latitude,longitude);
-
-    UserLocation=userLatLng;
-
-    return UserLocation;
-}
-    */
-    /*Gets user Location versus Bread of Life Distance Only
-    public  void ShowMyDistance(View view)
-    {   try {
-        Toast.makeText(getApplicationContext(), "You are " + ((int) FindDistance()) + " Miles Away From Bread Of Life", Toast.LENGTH_LONG).show();
-    }
-    catch (Exception nd)
-    {
-    }
-    }
-*/
 }

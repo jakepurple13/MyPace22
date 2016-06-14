@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyPace2</string>
+    <string name="app_name">SSS Freshman App</string>
     <string name="title_activity_pace_maps">Map</string>
     <string name="title_activity_pace_map">Map</string>
     <string name="gps_network_not_enabled">Your gps location is not enable! Would you like to turn it on?</string>
@@ -10,4 +10,6 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyB2csJ6GbjvTk_wufl39Li02CQBx7PvZIw
     </string>
+    <string name="ToggleMap">Toggle Campus Map</string>
+    <string name="ChangeMapType">Change Map Type</string>
 </resources>
