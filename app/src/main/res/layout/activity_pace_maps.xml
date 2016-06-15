@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
 
     >
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/address"
+            android:hint="Find any Location" />
 
-    <EditText
-        android:layout_width="262dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/address"
-        android:hint="Find any Location" />
-    <Button
-        style="@android:style/Widget.Button"
-        android:layout_width="97dp"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/Bsearch"
-        android:onClick="onSearch"
-        android:clickable="true" />
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
-        android:layout_height="467dp" android:id="@+id/map" tools:context=".GoogleMaps"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        <Button
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/Bsearch"
+            android:onClick="onSearch"
+            android:clickable="true" />
 
-</LinearLayout>
+        <Button
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toggle Map"
+            android:id="@+id/Btype"
+            android:layout_gravity="right"
+            android:nestedScrollingEnabled="false"
+            android:onClick="changeMap"
+            android:background="#f7fb1e"
+            android:clickable="true" />
+
+        <Button
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/satellite"
+            android:layout_gravity="right"
+            android:nestedScrollingEnabled="false"
+            android:onClick="changeType"
+            android:text="Map Type"
+            android:background="#000000"
+            android:textColor="#ffffff"
+            android:clickable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/map"
+            tools:context=".GoogleMaps"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    </LinearLayout>
 </LinearLayout>
