@@ -12,4 +12,5 @@
     </string>
     <string name="ToggleMap">Toggle Campus Map</string>
     <string name="ChangeMapType">Change Map Type</string>
+    <string name="enable_gps_question">Turn your Location on?</string>
 </resources>

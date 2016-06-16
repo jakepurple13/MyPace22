@@ -50,7 +50,8 @@
 
         <activity
             android:name=".PaceMaps.PaceMaps"
-            android:label="@string/title_activity_pace_maps">
+            android:label="@string/title_activity_pace_maps"
+            android:theme="@style/Theme.AppCompat">
 
         </activity>
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers">
