@@ -220,7 +220,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             return true;
         }
         if (id == R.id.MapTypeChange) {
-            //**   changeType();    Change to satellite  **//*
+            /**   changeType();    Change to satellite  **/
             return true;
         }
 
@@ -412,7 +412,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private void PleasantvilleCampusOnMapView() {
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("Pace University - Pleasantville Campus").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA).title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_OSA)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA).title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Environmental).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)));
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Lienhard).title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
