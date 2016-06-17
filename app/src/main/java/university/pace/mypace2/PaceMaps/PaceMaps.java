@@ -4,6 +4,7 @@ import android.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -23,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,8 @@ import university.pace.mypace2.R;
 
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
+
+
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -116,48 +120,67 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     /**
      * PACE New York Longitude/Latitude
      **/
+/*If User is at this point they are consider in the city*/
+    private final double Pace_NYC_ACCESSPOINT_LNG = -73.879967;
+    private final double Pace_NYC_ACCESSPOINT_LAT = 40.870803;
+
+
+
     private final double Pace_NYC_LNG = -74.005043;
     private final double Pace_NYC_LAT = 40.711353;
 
+    private final double Pace_NYC_Broadway_LNG = -74.009344;
+    private final double Pace_NYC_Broadway_LAT = 40.710031;
 
-    /**
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     * <p>
-     * private final double Pace_PLV_Martin_LNG = -73.806595;
-     * private final double Pace_PLV_Martin_LAT = 41.129335;
-     **/
+    private final double Pace_NYC_JohnStreet_LNG = -74.007566;
+    private final double Pace_NYC_JohnStreet_LAT = 40.709136;
 
+    private final double Pace_NYC_fulton_LNG = -74.007007;
+    private final double Pace_NYC_fulton_LAT = 40.709703;
 
+    private final double Pace_NYC_William_LNG = -74.005368;
+    private final double Pace_NYC_William_LAT = 40.709811;
 
+    private final double Pace_NYC_WilliamII_LNG = -74.006147;
+    private final double Pace_NYC_WilliamII_LAT = 40.710184;
 
+    private final double Pace_NYC_Maria_LNG = -74.004736;
+    private final double Pace_NYC_Maria_LAT = 40.710840;
 
+    private final double Pace_NYC_OnePace_LNG = -74.004740;
+    private final double Pace_NYC_OnePace_LAT = 40.710968;
+
+    private final double Pace_NYC_ParksRow_LNG = -74.006211;
+    private final double Pace_NYC_ParksRow_LAT = 40.711674;
+
+    private final double Pace_NYC_ParksRow_Bookstore_LNG = -74.006244;
+    private final double Pace_NYC_ParksRow_Bookstore_LAT = 40.711616;
+
+    private final double Pace_NYC_Library_LNG = -74.004317;
+    private final double Pace_NYC_Library_LAT = 40.710556;
 
 
+    private final double Pace_NYC_Lubin_LNG = -74.005043;
+    private final double Pace_NYC_Lubin_LAT = 40.711353;
+
+    private final double Pace_NYC_TasteOfSeaPort_LNG = -74.005324;
+    private final double Pace_NYC_TasteOfSeaPort_LAT = 40.711033;
+
+
+    private final double Pace_NYC_Confucius_LNG = -74.006387;
+    private final double Pace_NYC_Confucius_LAT = 40.711704;
+
+    private final double Pace_NYC_Schimmel_LNG = -74.004687;
+    private final double Pace_NYC_Schimmel_LAT = 40.710839;
 
 
 
 
 
-    /*Gets user Location */
+
+
+
+
 
 
     // Add a marker in Pleasantville and move the camera
@@ -181,6 +204,26 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
     // Add a marker in NYC and move the camera
     private LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
+    private LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_Broadway_LNG);
+    private LatLng PaceUniNYC_William = new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
+    private LatLng PaceUniNYC_WilliamII = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
+    private LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
+    private LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
+    private LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
+    private LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
+    private LatLng PaceUniNYC_TasteOfSeaPort = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
+    private LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
+    private LatLng PaceUniNYC_Library = new LatLng(Pace_NYC_Library_LAT, Pace_NYC_Library_LNG);
+    private LatLng PaceUniNYC_Confucius = new LatLng(Pace_NYC_Confucius_LAT, Pace_NYC_Confucius_LNG);
+    private LatLng PaceUniNYC_ParksRow = new LatLng(Pace_NYC_ParksRow_LAT, Pace_NYC_ParksRow_LNG);
+    private LatLng PaceUniNYC_Maria = new LatLng(Pace_NYC_Maria_LAT, Pace_NYC_Maria_LNG);
+    private LatLng PaceUniNYC_Schimmel = new LatLng(Pace_NYC_Schimmel_LAT, Pace_NYC_Schimmel_LNG);
+
+
+
+
+
+
 
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
@@ -234,52 +277,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
 
-        LocationManager locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
+
 
         try {
-
-            Location location = locationManager.getLastKnownLocation(locationManager
-                    .getBestProvider(criteria, false));
-            double latitude = location.getLatitude();
-
-        /*ECHO SHOW USER's LAT    */
-            System.out.println("user's latitude" + latitude);
-            double longitude = location.getLongitude();
-
-/**checks if Location is on if not then show default map**/
-            if (mMap != null && isLocationEnabled(getApplicationContext())) {
-
-
-                if (latitude >= Pace_PLV_LAT)
-
-                {
- /*If latitude is greater than user latitude user is north */
-                    PleasantvilleCampusOnMapView();
-                    Position = PaceUniPLV;
-                    Log.d("User is North", "Showing PLV");
-
-                }
-           /*If latitude is less than user latitude user is south  */
-                if (latitude <= Pace_NYC_LAT)  //TODO:CHANGE THE LAT
-
-                {
-                    NYVCampusOnMapView();
-                    Position = PaceUniNYC;
-                    Log.d("User is South", "Showing NYC");
-                }
-
-            } else {
-/*If latitude not there or something- default */
-                PleasantvilleCampusOnMapView();
-                Log.d("default", "Showing PLV");
-
-            }
-
             /** Premission request to Find current location**/
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
                     // here to request the missing permissions, and then overriding
@@ -293,30 +298,49 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             /** Find current location**/
             mMap.setMyLocationEnabled(true);
+ /*   Gets user Location */
+            LocationManager locationManager = (LocationManager)
+                    getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+
+            Location location = locationManager.getLastKnownLocation(locationManager
+                    .getBestProvider(criteria, false));
+            double latitude = location.getLatitude();
+
+        /*ECHO SHOW USER's LAT    */
+            System.out.println("user's latitude" + latitude);
+            double longitude = location.getLongitude();
+
+/**checks if Location is on if not then show default map**/
+            if (mMap != null) {
+
+
+                if (latitude >= Pace_PLV_LAT)
+
+                {
+ /*If latitude is greater than user latitude user is north */
+                    PleasantvilleCampusOnMapView();
+                    Position = PaceUniPLV;
+                    Log.d("User is North", "Showing PLV");
+
+                }
+           /*If latitude is less than user latitude user is south  */
+                if (latitude <= Pace_NYC_ACCESSPOINT_LAT)  //TODO:CHANGE THE LAT
+
+                {
+                    NYVCampusOnMapView();
+                    Position = PaceUniNYC;
+                    Log.d("User is South", "Showing NYC");
+                }
+
+            }
+
             /** Max zoom on School**/
             mMap.getMaxZoomLevel();
         } catch (Exception e) {
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-            dialog.setMessage(getApplicationContext().getResources().getString(R.string.gps_network_not_enabled));
-            dialog.setPositiveButton(getApplicationContext().getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
-                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    getApplicationContext().startActivity(myIntent);
-                    //get gps
-                }
-            });
-            dialog.setNegativeButton(getApplicationContext().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
-
-                }
-            });
-            dialog.show();
+/*If latitude not there or something- default */
+            PleasantvilleCampusOnMapView();
 
             Log.d("error", "Location");
         }
@@ -334,7 +358,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     }
 
     /**
-     * Show different map manual
+     * Show different map manual Pace/NYC
      **/
     public void changeMap(View view) {
         if (mMap != null) {
@@ -380,97 +404,100 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
 /*User can Search any location*/
-                mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(location).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             }
         }
     }
 
-    private void InfoWindow() {
 
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                View view = getLayoutInflater().inflate(R.layout.infowindow_maps, null);
-                TextView tvLocality = (TextView) findViewById(R.id.tv_locality);
-                TextView tvDescription = (TextView) findViewById(R.id.tv_des);
-
-                //       LatLng latLng=marker.getPosition();
-                tvLocality.setText(marker.getTitle());
-                tvDescription.setText(marker.getSnippet());
-                return view;
-            }
-        });
-
-
-    }
 
     private void PleasantvilleCampusOnMapView() {
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("Pace University - Pleasantville Campus").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA).title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Environmental).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Lienhard).title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien).title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym).title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks).title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Dyson).title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox).title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel).title("Kessel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Library).title("Mortola Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Pond).title("Choate Pond").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_pond)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Choate).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_North).title("North Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Elm).title("Elm Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Alumni).title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Martin).title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV)
+                .title("Pace University - Pleasantville Campus").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks))
+                .snippet("861 Bedford Rd, Pleasantville, NY 10570"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA)
+                .title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Environmental
+        ).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller
+        ).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin)
+                .title("Lubin School of Business").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien)
+                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
+                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet("k"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
+                .title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Dyson)
+                .title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("k"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox)
+                .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel)
+                .title("Kessel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)).snippet("k"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Library)
+                .title("Mortola Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Pond)
+                .title("Choate Pond").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_pond)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Choate
+        ).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_North
+        ).title("North Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("k"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Elm)
+                .title("Elm Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Alumni)
+                .title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Martin)
+                .title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
     }
 
     private void NYVCampusOnMapView() {
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-        /*
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Lienhard).title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien).title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym).title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Dyson).title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox).title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel).title("Kessel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_small)));
-*/
+
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA).title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel).title("Schimmel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius).title("The Confucius Institute").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore).title("Barns & Noble BookStore").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow).title("41 Parks Row").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_TasteOfSeaPort).title("Taste Of Seaport").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_WilliamII).title("163 William Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William).title("156 William Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+
+
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
     }
 
 
-    public static boolean isLocationEnabled(Context context) {
-        int locationMode = 0;
-        String locationProviders;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
-
-
-        } else {
-            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            return !TextUtils.isEmpty(locationProviders);
-        }
 
 
 
-    }
 
 
 }
