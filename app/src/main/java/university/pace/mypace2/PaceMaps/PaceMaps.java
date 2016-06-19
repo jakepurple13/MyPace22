@@ -1,6 +1,7 @@
 package university.pace.mypace2.PaceMaps;
 
 import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -46,7 +48,8 @@ import university.pace.mypace2.R;
 
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-
+    private final int REQUEST_LOCATION = 1;
+    private double latitude;
 
     /**
      * PACE Weschester Longitude/Latitude
@@ -120,14 +123,13 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     /**
      * PACE New York Longitude/Latitude
      **/
-/*If User is at this point they are consider in the city*/
-    private final double Pace_NYC_ACCESSPOINT_LNG = -73.879967;
-    private final double Pace_NYC_ACCESSPOINT_LAT = 40.870803;
+/*If User is at this point(Yonkers) they are consider in the city*/
+    private final double Pace_NYC_ACCESSPOINT_LNG = -73.898747;
+    private final double Pace_NYC_ACCESSPOINT_LAT = 40.931210;
 
 
-
-    private final double Pace_NYC_LNG = -74.005043;
-    private final double Pace_NYC_LAT = 40.711353;
+    private final double Pace_NYC_LNG = -74.005452;
+    private final double Pace_NYC_LAT = 40.711590;
 
     private final double Pace_NYC_Broadway_LNG = -74.009344;
     private final double Pace_NYC_Broadway_LAT = 40.710031;
@@ -160,8 +162,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private final double Pace_NYC_Library_LAT = 40.710556;
 
 
-    private final double Pace_NYC_Lubin_LNG = -74.005043;
-    private final double Pace_NYC_Lubin_LAT = 40.711353;
+    private final double Pace_NYC_Lubin_LNG = -74.005084;
+    private final double Pace_NYC_Lubin_LAT = 40.711196;
 
     private final double Pace_NYC_TasteOfSeaPort_LNG = -74.005324;
     private final double Pace_NYC_TasteOfSeaPort_LAT = 40.711033;
@@ -204,7 +206,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
     // Add a marker in NYC and move the camera
     private LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
-    private LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_Broadway_LNG);
+    private LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
     private LatLng PaceUniNYC_William = new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
     private LatLng PaceUniNYC_WilliamII = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
     private LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
@@ -271,6 +273,31 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // SHOW CAMPUS NEAR USER.
+                    ShowCampusNearMe(latitude);
+                } else {
+                    Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -291,7 +318,29 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                     //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
-                    // for Activity#requestPermissions for more details.
+
+                    // Should we show an explanation?
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                        // Show an expanation to the user *asynchronously* -- don't block
+                        // this thread waiting for the user's response! After the user
+                        // sees the explanation, try again to request the permission.
+                        Toast.makeText(this, "Location permission is need to show the Campus closet to you", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        // No explanation needed, we can request the permission.
+
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION
+                        );
+
+                        // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                        // app-defined int constant. The callback method gets the
+                        // result of the request.
+                    }
+
+
                     return;
                 }
             }
@@ -305,7 +354,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             Location location = locationManager.getLastKnownLocation(locationManager
                     .getBestProvider(criteria, false));
-            double latitude = location.getLatitude();
+            latitude = location.getLatitude();
 
         /*ECHO SHOW USER's LAT */
             System.out.println("user's latitude" + latitude);
@@ -316,28 +365,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             if (mMap != null) {
 
+                ShowCampusNearMe(latitude);
 
-                if (latitude >= Pace_NYC_ACCESSPOINT_LAT)
-
-                {
- /*If latitude is greater than user latitude user is north */
-                    PleasantvilleCampusOnMapView();
-
-                    Position = PaceUniPLV;
-                    Log.d("User is North", "Showing PLV");
-
-                }
-           /*If latitude is less than user latitude user is south  */
-                if (latitude <= Pace_NYC_ACCESSPOINT_LAT)  //TODO:CHANGE THE LAT
-
-                {
-                    NYVCampusOnMapView();
-                    Position = PaceUniNYC;
-                    Log.d("User is South", "Showing NYC");
-                }
                 /** Max zoom on School**/
                 mMap.getMaxZoomLevel();
-            }
+                }
 
 
         } catch (Exception e) {
@@ -415,6 +447,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         List<Address> addressList = null;
         if (location == null) {
+            Toast.makeText(this, "Value must be entered to Search", Toast.LENGTH_LONG).show();
+
             if (location != null) {
                 Geocoder geocoder = new Geocoder(this);
 
@@ -439,16 +473,16 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private void PleasantvilleCampusOnMapView() {
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV)
-                .title("Pace University - Pleasantville Campus").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks))
-                .snippet("861 Bedford Rd, Pleasantville, NY 10570"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("Pace University - Pleasantville Campus").snippet("861 Bedford Rd, Pleasantville, NY 10570")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks))
+        );
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA)
-                .title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)).snippet("The Office of Student Assistance (OSA)" +
-                        " combines the services of Financial Aid, Student Accounts"));
+                .title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)).snippet(
+                        "Services of Financial Aid, Student Accounts"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Environmental
-        ).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)).snippet("This charming place is open to" +
+        ).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)).snippet("Charming place open to" +
                 " all and is especially a favorite destination of families with young children. "));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller
@@ -460,11 +494,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         " and College Nursing Building"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien)
-                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("College Academic Building " +
-                        "and home of Lubin and Computer Science students"));
+                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet(
+                        "Home of Lubin and Computer Science students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
-                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet("Athletics" +
+                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet(
                         "Gym,Pool & Basketball courts available"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
@@ -474,8 +508,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("Home to all Science students & Science Professors"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox)
-                .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("College Academic Building " +
-                        "and home of Performing Art students"));
+                .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("Academic Building & " +
+                        "home of Performing Art students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel)
                 .title("Kessel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)).snippet("Campus Food & Dinning Hall," +
@@ -509,21 +543,23 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private void NYVCampusOnMapView() {
 
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA).title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel).title("Schimmel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius).title("The Confucius Institute").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore).title("Barns & Noble BookStore").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow).title("41 Parks Row").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_TasteOfSeaPort).title("Taste Of Seaport").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_WilliamII).title("163 William Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William).title("156 William Street").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel).title("Schimmel Center").snippet("provides performance to the" +
+                " university and the general public").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_schimmel)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius).title("The Confucius Institute").snippet("Center for language instruction & cultural immersion").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore).title("Barns & Noble BookStore").snippet("Purchase books,apparel and more").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow).title("41 Parks Row").snippet("Classrooms and offices located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin).title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").snippet("Main building for the University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_TasteOfSeaPort).title("Taste Of The Seaport").snippet("we have food").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have foodk
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available to all students").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_WilliamII).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
 
 
 
@@ -531,6 +567,27 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
     }
 
+    private void ShowCampusNearMe(double lat) {
+
+        if (lat > Pace_NYC_ACCESSPOINT_LAT)
+
+        {
+ /*If latitude is greater than user latitude user is north */
+            PleasantvilleCampusOnMapView();
+
+            Position = PaceUniPLV;
+            Log.d("User is North", "Showing PLV");
+
+        }
+           /*If latitude is less than user latitude user is south  */
+        if (lat <= Pace_NYC_ACCESSPOINT_LAT)  //TODO:CHANGE THE LAT
+
+        {
+            NYVCampusOnMapView();
+            Position = PaceUniNYC;
+            Log.d("User is South", "Showing NYC");
+        }
+    }
 
 
 }

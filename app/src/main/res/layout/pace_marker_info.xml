@@ -10,21 +10,19 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginRight="5dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/pace_logo" />
+            android:src="@drawable/pace_gym" />
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/markertitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/accept"
             android:textSize="12dp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/snippet"
-            android:text="@string/accept"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp" />
