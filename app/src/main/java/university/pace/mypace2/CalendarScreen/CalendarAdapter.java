@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.api.services.calendar.model.Event;
 
@@ -83,23 +84,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         String info = "";
         final Event event = mDataset.get(position).getEvent();
 
-
-        //Log.e("EventDateTime line 69", event.getStart().getDateTime() + "");
-
-
-        //Log.e("Line 78", event.getStart().getDateTime() + "");
-        //Log.e("Line 79", event.getStart().getDate() + "");
-
-        //DateTimeFormatter dateFormatter = ISODateTimeFormat.dateTime();
-        //org.joda.time.DateTime dateTime = dateFormatter.parseDateTime(event.getStart().getDateTime().toString());
-        //Log.e("Line 88", dateTime.toDate() + "");
-        //Log.e("Line 81", event.getStart() + "");
-
-        //info += mDataset.get(position).toString();
-
         info += event.getSummary() + "\n" +
                 "Description: " + event.getDescription() + "\n" +
-                "Date: " + event.getStart().getDate() + " \n " + event.getEnd().getDate();
+                "Date: " + event.getStart().getDate() + "\n" + event.getEnd().getDate();
 
         //TODO: Work here on getting this looking nicer
 
@@ -115,7 +102,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                 events.put(CalendarContract.Events.TITLE, event.getSummary());
                 events.put(CalendarContract.Events.DESCRIPTION, event.getDescription());
                 event.setStart(event.getStart());
-                events.put(CalendarContract.Events.DTSTART, event.getStart().getDate().getValue());
+                events.put(CalendarContract.Events.DTSTART, event.getStart().getDate().getValue() + (1000 * 60 * 60 * 24));
                 events.put(CalendarContract.Events.DTEND, event.getEnd().getDate().getValue());
                 String timeZone = TimeZone.getDefault().getID();
                 events.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone);
@@ -129,6 +116,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
                 in.getContentResolver().insert(baseUri, events);
 
+                Toast.makeText(in, "Event Added", Toast.LENGTH_SHORT).show();
 
             }
         });

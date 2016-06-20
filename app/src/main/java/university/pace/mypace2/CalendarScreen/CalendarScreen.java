@@ -150,6 +150,11 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         getResultsFromApi();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     public String getMonthName(int monthNum) {
         String month = "";
@@ -477,7 +482,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         @Override
         protected void onPostExecute(List<String> output) {
-            mProgress.hide();
+            mProgress.dismiss(); //used to be hide
             if (output == null || output.size() == 0) {
                 Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
             } else {

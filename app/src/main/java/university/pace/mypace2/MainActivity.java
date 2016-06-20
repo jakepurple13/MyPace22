@@ -36,15 +36,16 @@ import university.pace.mypace2.PaceMaps.PaceMaps;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button phoneButton;
-
+    AudioManager am;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         phoneButton = (Button) findViewById(R.id.numbers);
-        //212-479-7990
 
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,20 +73,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String number = "3107350099";
 
                 Date dec = new Date();
-                dec.setMonth(5);
+                dec.setMonth(11);
 
                 if (new Date().getMonth() == dec.getMonth()) {
                     number = "7814522080";
                 }
 
 
-                try {
+               /* try {
                     Intent intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + number));
                     startActivity(intent);
-                } catch (SecurityException e) {
-                    AudioManager am =
-                            (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                } catch (SecurityException e) {*/
+
+                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
                     am.setStreamVolume(
                             AudioManager.STREAM_MUSIC,
@@ -97,8 +98,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mediaPlayer.start();
                     int duration = mediaPlayer.getDuration();
                     int current_position = mediaPlayer.getCurrentPosition();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        am.setStreamVolume(
+                                AudioManager.STREAM_MUSIC,
+                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                normalSound);
+                    }
+                });
 
-                }
+
+                //               }
 
                 return false;
             }
