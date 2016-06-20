@@ -40,7 +40,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import university.pace.mypace2.*;
@@ -50,7 +52,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;
     private double latitude;
-
+    private String[] Buildings;
+    private int count;
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -176,15 +179,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private final double Pace_NYC_Schimmel_LAT = 40.710839;
 
 
-
-
-
-
-
-
-
-
-
     // Add a marker in Pleasantville and move the camera
     private LatLng PaceUniPLV = new LatLng(Pace_PLV_LAT, Pace_PLV_LNG);
     private LatLng PaceUniPLV_OSA = new LatLng(Pace_PLV_OSA_LAT, Pace_PLV_OSA_LNG);
@@ -220,11 +214,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private LatLng PaceUniNYC_ParksRow = new LatLng(Pace_NYC_ParksRow_LAT, Pace_NYC_ParksRow_LNG);
     private LatLng PaceUniNYC_Maria = new LatLng(Pace_NYC_Maria_LAT, Pace_NYC_Maria_LNG);
     private LatLng PaceUniNYC_Schimmel = new LatLng(Pace_NYC_Schimmel_LAT, Pace_NYC_Schimmel_LNG);
-
-
-
-
-
 
 
     /*Default Map view*/
@@ -273,6 +262,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * Premission request Result
+     **/
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -302,8 +295,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
 
 
         try {
@@ -369,7 +360,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
                 /** Max zoom on School**/
                 mMap.getMaxZoomLevel();
-                }
+            }
 
 
         } catch (Exception e) {
@@ -421,12 +412,12 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         if (mMap != null) {
 
             if (Position == PaceUniPLV) {
-             NYVCampusOnMapView();
+                NYVCampusOnMapView();
                 Position = PaceUniNYC;
                 Log.d("User toggled", "Showing NYC");
 
             } else {
-              PleasantvilleCampusOnMapView();
+                PleasantvilleCampusOnMapView();
                 Position = PaceUniPLV;
                 Log.d("User toggled", "Showing PLV");
 
@@ -435,41 +426,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         }
     }
-
-
-    /**
-     * Search any loaction
-     **/
-    public void onSearch(View view) {
-
-        EditText location_tf = (EditText) findViewById(R.id.address);
-        String location = location_tf.getText().toString();
-
-        List<Address> addressList = null;
-        if (location == null) {
-            Toast.makeText(this, "Value must be entered to Search", Toast.LENGTH_LONG).show();
-
-            if (location != null) {
-                Geocoder geocoder = new Geocoder(this);
-
-                try {
-                    addressList = geocoder.getFromLocationName(location, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Address address = addressList.get(0);
-
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
-/*User can Search any location*/
-                mMap.addMarker(new MarkerOptions().position(latLng).title(location).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-        }
-    }
-
-
 
     private void PleasantvilleCampusOnMapView() {
 
@@ -562,8 +518,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
 
 
-
-
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
     }
 
@@ -588,6 +542,110 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             Log.d("User is South", "Showing NYC");
         }
     }
+
+    /**
+     * Search any Building
+     **/
+    public void onSearch(View view) {
+
+        EditText location_tf = (EditText) findViewById(R.id.address);
+        String location = location_tf.getText().toString();
+
+
+        if (!location.equals("")) {
+
+
+            LatLng BuildingLatLng = testPosition(location);
+
+
+            /*User can Search any location  */
+            SetMarker(BuildingLatLng, location, "Here is " + location);
+
+        } else
+            Toast.makeText(this, "Value must be entered to Search", Toast.LENGTH_LONG).show();
+
+    }
+
+
+
+
+
+
+    /*Reads in chose of Seacrhable PLV Buildings
+    private int SearchPLV(String building)
+    {
+boolean found=false;
+        int p=0;
+
+        Buildings=new String [100];
+
+        InputStreamReader PLV = new InputStreamReader(getResources().openRawResource(R.raw.plv_buildings));
+
+        BufferedReader br = new BufferedReader(PLV);
+
+        String line=" ";
+while(line!=null)
+{
+    try {
+        line=br.readLine();
+         count=Integer.parseInt(line);
+        for(int i=0;i<count;i++) {
+        Buildings[i]=br.readLine();
+
+        }
+        if(line==null)
+            break;
+
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+}
+
+        while(!found&&p<count)
+        {
+            if(Buildings[p].equalsIgnoreCase(building))
+            {
+                found=true;
+                Log.d("found a match building","found true");
+            }
+            else
+                p++;
+        }
+        if(found)
+            return p;
+
+        else return -1;
+    }
+    */
+
+    private LatLng testPosition(String location) {
+        LatLng latLngSpot = null;
+        if (location.equalsIgnoreCase("Miller Hall") || location.equalsIgnoreCase("Miller"))
+            latLngSpot = PaceUniPLV_Miller;
+        if (location.equalsIgnoreCase("Kessel Center") || location.equalsIgnoreCase("Kessel") || location.equalsIgnoreCase("food"))
+            latLngSpot = PaceUniPLV_Kessel;
+
+
+        return latLngSpot;
+    }
+
+    private void SetMarker(LatLng setposition, String title, String des) {
+        MarkerOptions marker = new MarkerOptions()
+                .title(title)
+                .snippet(des)
+                .position(setposition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        mMap.clear();
+        mMap.addMarker(marker);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
+
+    }
+
+
+
 
 
 }
