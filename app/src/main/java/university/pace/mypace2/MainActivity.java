@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mediaPlayer.start();
                     int duration = mediaPlayer.getDuration();
                     int current_position = mediaPlayer.getCurrentPosition();
+
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
