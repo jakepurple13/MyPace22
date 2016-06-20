@@ -1,8 +1,10 @@
 package university.pace.mypace2.CalendarScreen;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -19,6 +21,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.client.util.DateTime;
 
 import com.google.api.services.calendar.model.*;
+import com.google.api.services.calendar.model.Event;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -42,6 +45,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -63,7 +68,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = {CalendarScopes.CALENDAR_READONLY};
+    private static final String[] SCOPES = {CalendarScopes.CALENDAR};
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -72,7 +77,11 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     ArrayList<CalendarInfo> events = new ArrayList<>();
     ArrayList<Event> eventsFromGoogle = new ArrayList<>();
 
-    CalendarView cv;
+    HashMap<String, CalendarInfo> dateEvent = new HashMap<>();
+
+    TextView monthName;
+
+    CompactCalendarView compactCalendarView;
 
     /**
      * Create the main activity.
@@ -84,7 +93,36 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_screen);
 
-        cv = (CalendarView) findViewById(R.id.calendarView);
+        monthName = (TextView) findViewById(R.id.textView2);
+
+        compactCalendarView = (CompactCalendarView) findViewById(R.id.view);
+
+        com.github.sundeepk.compactcalendarview.domain.Event ge = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, new Date().getTime(), "akdslfh");
+        compactCalendarView.addEvent(ge);
+        com.github.sundeepk.compactcalendarview.domain.Event ge1 = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, System.currentTimeMillis());
+        compactCalendarView.addEvent(ge1, true);
+        com.github.sundeepk.compactcalendarview.domain.Event ge2 = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, System.currentTimeMillis());
+        compactCalendarView.addEvent(ge2, false);
+
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                List<com.github.sundeepk.compactcalendarview.domain.Event> events = compactCalendarView.getEvents(dateClicked);
+                Log.d("Line 105", "Day was clicked: " + dateClicked + " with events " + events);
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                Log.d("Line 110", "Month was scrolled to: " + firstDayOfNewMonth);
+                String month = getMonthName(firstDayOfNewMonth.getMonth());
+
+
+                monthName.setText(month);
+            }
+        });
+
+        monthName.setText(getMonthName(compactCalendarView.getFirstDayOfCurrentMonth().getMonth()));
+
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
@@ -111,6 +149,52 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 .setBackOff(new ExponentialBackOff());
 
         getResultsFromApi();
+    }
+
+
+    public String getMonthName(int monthNum) {
+        String month = "";
+        switch (monthNum) {
+            case 0:
+                month = "January";
+                break;
+            case 1:
+                month = "February";
+                break;
+            case 2:
+                month = "March";
+                break;
+            case 3:
+                month = "April";
+                break;
+            case 4:
+                month = "May";
+                break;
+            case 5:
+                month = "June";
+                break;
+            case 6:
+                month = "July";
+                break;
+            case 7:
+                month = "August";
+                break;
+            case 8:
+                month = "September";
+                break;
+            case 9:
+                month = "October";
+                break;
+            case 10:
+                month = "November";
+                break;
+            case 11:
+                month = "December";
+                break;
+            default:
+                return "";
+        }
+        return month;
     }
 
 
@@ -407,7 +491,9 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     System.out.println(e);
                 }
 
-                mAdapter = new CalendarAdapter(events, CalendarScreen.this);
+
+                //mAdapter = new CalendarAdapter(events, CalendarScreen.this);
+                mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
                 mRecyclerView.setAdapter(mAdapter);
 
             }

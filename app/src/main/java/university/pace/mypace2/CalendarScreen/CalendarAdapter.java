@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.api.services.calendar.model.Event;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import university.pace.mypace2.R;
 
@@ -17,7 +18,8 @@ import university.pace.mypace2.R;
  * Created by Jacob on 6/8/16.
  */
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
-    private ArrayList<CalendarScreen.CalendarInfo> mDataset;
+    //private ArrayList<CalendarScreen.CalendarInfo> mDataset;
+    private List<com.github.sundeepk.compactcalendarview.domain.Event> mDataset;
 
     CalendarScreen in;
 
@@ -38,6 +40,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public CalendarAdapter(ArrayList<CalendarScreen.CalendarInfo> myDataset, CalendarScreen in) {
+        //mDataset = myDataset;
+        this.in = in;
+    }
+
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public CalendarAdapter(List<com.github.sundeepk.compactcalendarview.domain.Event> myDataset, CalendarScreen in) {
         mDataset = myDataset;
         this.in = in;
     }
@@ -62,7 +70,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         // - replace the contents of the view with that element
 
         String info = "";
-        Event event = mDataset.get(position).getEvent();
+        //Event event = mDataset.get(position).getEvent();
 
 
         //Log.e("EventDateTime line 69", event.getStart().getDateTime() + "");
@@ -76,12 +84,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         //Log.e("Line 88", dateTime.toDate() + "");
         //Log.e("Line 81", event.getStart() + "");
 
+        info += mDataset.get(position).toString();
 
-        info += event.getSummary() + "\n" +
+        /*info += event.getSummary() + "\n" +
                 "Description: " + event.getDescription() + "\n" +
                 "Date: " + event.getStart().getDate() + " - " + event.getEnd().getDate() + "\n" +
                 "From: " + event.getStart().getDateTime();
-
+*/
 
         //TODO: Work here on getting this looking nicer
 

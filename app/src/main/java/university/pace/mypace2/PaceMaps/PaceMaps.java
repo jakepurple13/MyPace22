@@ -21,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -550,7 +551,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         EditText location_tf = (EditText) findViewById(R.id.address);
         String location = location_tf.getText().toString();
-
 
         if (!location.equals("")) {
 

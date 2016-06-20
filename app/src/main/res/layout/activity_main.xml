@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3271D3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -32,8 +33,7 @@
         android:layout_height="90dp"
         android:layout_marginRight="30dp"
         android:clickable="true"
-        android:onClick="onClick"
-        android:background="@drawable/temp_num" />
+        android:background="@drawable/phoneicon" />
 
 
     <Button
