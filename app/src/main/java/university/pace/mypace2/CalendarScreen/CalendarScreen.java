@@ -122,7 +122,6 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         monthName.setText(getMonthName(compactCalendarView.getFirstDayOfCurrentMonth().getMonth()));
 
-
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
 
@@ -137,8 +136,6 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        //mAdapter = new CalendarAdapter(events, this);
-        //mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(
                 new DividerItemDecoration(this, R.drawable.divider));
 
