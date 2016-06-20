@@ -202,8 +202,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     // Add a marker in NYC and move the camera
     private LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
     private LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
-    private LatLng PaceUniNYC_William = new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
-    private LatLng PaceUniNYC_WilliamII = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
+    private LatLng PaceUniNYC_William156= new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
+    private LatLng PaceUniNYC_William163 = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
     private LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
     private LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
     private LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
@@ -512,11 +512,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_TasteOfSeaPort).title("Taste Of The Seaport").snippet("we have food").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have foodk
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available to all students").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_WilliamII).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William156).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
@@ -555,14 +555,23 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         if (!location.equals("")) {
 
 
-            LatLng BuildingLatLng = testPosition(location);
+                if(Position==PaceUniPLV) {
+                    LatLng BuildingLatLng = testPositionPLV(location);
 
 
             /*User can Search any location  */
-            SetMarker(BuildingLatLng, location, "Here is " + location);
+                    SetMarker(BuildingLatLng, location, "Here is " + location);
+                }
+            else
+                {
+                    LatLng BuildingLatLng = testPositionNYC(location);
+            /*User can Search any location  */
+                    SetMarker(BuildingLatLng, location, "Here is " + location);
+                }
+
 
         } else
-            Toast.makeText(this, "Value must be entered to Search", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You must type something to Search", Toast.LENGTH_LONG).show();
 
     }
 
@@ -570,64 +579,113 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
 
-
-    /*Reads in chose of Seacrhable PLV Buildings
-    private int SearchPLV(String building)
-    {
-boolean found=false;
-        int p=0;
-
-        Buildings=new String [100];
-
-        InputStreamReader PLV = new InputStreamReader(getResources().openRawResource(R.raw.plv_buildings));
-
-        BufferedReader br = new BufferedReader(PLV);
-
-        String line=" ";
-while(line!=null)
-{
-    try {
-        line=br.readLine();
-         count=Integer.parseInt(line);
-        for(int i=0;i<count;i++) {
-        Buildings[i]=br.readLine();
-
-        }
-        if(line==null)
-            break;
-
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-}
-
-        while(!found&&p<count)
-        {
-            if(Buildings[p].equalsIgnoreCase(building))
-            {
-                found=true;
-                Log.d("found a match building","found true");
-            }
-            else
-                p++;
-        }
-        if(found)
-            return p;
-
-        else return -1;
-    }
-    */
-
-    private LatLng testPosition(String location) {
+    private LatLng testPositionPLV(String location) {
         LatLng latLngSpot = null;
-        if (location.equalsIgnoreCase("Miller Hall") || location.equalsIgnoreCase("Miller"))
-            latLngSpot = PaceUniPLV_Miller;
-        if (location.equalsIgnoreCase("Kessel Center") || location.equalsIgnoreCase("Kessel") || location.equalsIgnoreCase("food"))
-            latLngSpot = PaceUniPLV_Kessel;
+        try {
+            if (location.equalsIgnoreCase("Miller Hall") || location.equalsIgnoreCase("Miller")||
+                    location.equalsIgnoreCase("Class")|| location.equalsIgnoreCase("food"))
+                latLngSpot = PaceUniPLV_Miller;
+            if (location.equalsIgnoreCase("Kessel Center") ||
+                    location.equalsIgnoreCase("Kessel") || location.equalsIgnoreCase("food"))
+                latLngSpot = PaceUniPLV_Kessel;
+            if (location.equalsIgnoreCase("Lienhard Hall") || location.equalsIgnoreCase("Lienhard")
+                    || location.equalsIgnoreCase("Nursing School")|| location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniPLV_Lienhard;
+            if (location.equalsIgnoreCase("Marks Hall") || location.equalsIgnoreCase("Math Department")
+                    || location.equalsIgnoreCase("Welcome Center") || location.equalsIgnoreCase("Marks"))
+                latLngSpot = PaceUniPLV_Marks;
+            if (location.equalsIgnoreCase("Dyson Hall") || location.equalsIgnoreCase("Dyson")
+                    || location.equalsIgnoreCase("Science Department")|| location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniPLV_Dyson;
+            if (location.equalsIgnoreCase("Wilcox") || location.equalsIgnoreCase("Wilcox hall")
+                    || location.equalsIgnoreCase("Bus Stop") ||
+                    location.equalsIgnoreCase("Media Center")|| location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniPLV_Wilcox;
+            if (location.equalsIgnoreCase("Goldstien Academic Center") || location.equalsIgnoreCase("Seidenberg School")
+                    || location.equalsIgnoreCase("Lubin School")
+                    || location.equalsIgnoreCase("Computer Science") || location.equalsIgnoreCase("Mary Courtney")
+                    || location.equalsIgnoreCase("Jean Coppola")|| location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniPLV_Goldstien;
+            if (location.equalsIgnoreCase("Goldstien Fitness Center") || location.equalsIgnoreCase("Gym")
+                    || location.equalsIgnoreCase("Dog Pound") || location.equalsIgnoreCase("Work Out"))
+                latLngSpot = PaceUniPLV_GoldstienGym;
+            if (location.equalsIgnoreCase("North Hall") || location.equalsIgnoreCase("North")
+                    || location.equalsIgnoreCase("North Dorm")|| location.equalsIgnoreCase("Dorms"))
+                latLngSpot = PaceUniPLV_North;
+            if (location.equalsIgnoreCase("Martin Hall") || location.equalsIgnoreCase("Martin")
+                    || location.equalsIgnoreCase("Martin Dorm")
+                    || location.equalsIgnoreCase("Dorms")|| location.equalsIgnoreCase("food"))
+                latLngSpot = PaceUniPLV_Martin;
+            if (location.equalsIgnoreCase("Elm Hall") || location.equalsIgnoreCase("Elm")
+                    || location.equalsIgnoreCase("Elm Dorm")|| location.equalsIgnoreCase("Dorms"))
+                latLngSpot = PaceUniPLV_Elm;
+            if (location.equalsIgnoreCase("Alumni Hall") || location.equalsIgnoreCase("Alumni")
+                    || location.equalsIgnoreCase("Alumni Dorm")|| location.equalsIgnoreCase("Dorms"))
+                latLngSpot = PaceUniPLV_Alumni;
+            if (location.equalsIgnoreCase("Mortola Library") || location.equalsIgnoreCase("Library")
+                    || location.equalsIgnoreCase("Tutoring Center"))
+                latLngSpot = PaceUniPLV_Library;
+            if (location.equalsIgnoreCase("Choate House")
+                    || location.equalsIgnoreCase("Choate") || location.equalsIgnoreCase("Pink House"))
+                latLngSpot = PaceUniPLV_Choate;
+            if (location.equalsIgnoreCase("Choate Pond") || location.equalsIgnoreCase("Pond"))
+                latLngSpot = PaceUniPLV_Pond;
+            if (location.equalsIgnoreCase("OSA") || location.equalsIgnoreCase("Office of Student Assistance"))
+                latLngSpot = PaceUniPLV_OSA;
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,"Location is not on Pleasantville map",Toast.LENGTH_LONG).show();
 
-
+        }
+        return latLngSpot;
+    }
+    private LatLng testPositionNYC(String location) {
+        LatLng latLngSpot = null;
+        try {
+            if (location.equalsIgnoreCase("Lubin School of Business")
+                    || location.equalsIgnoreCase("Lubin") || location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniNYC_Lubin;
+            if (location.equalsIgnoreCase("The Confucius Institute") || location.equalsIgnoreCase("Confucius"))
+                latLngSpot = PaceUniNYC_Confucius;
+            if (location.equalsIgnoreCase("163 William Street") || location.equalsIgnoreCase("Housing")
+                    || location.equalsIgnoreCase("William St"))
+                latLngSpot = PaceUniNYC_William163;
+            if (location.equalsIgnoreCase("156 William Street") || location.equalsIgnoreCase("Administration Office")
+                    || location.equalsIgnoreCase("156 William Street") || location.equalsIgnoreCase("William St"))
+                latLngSpot = PaceUniNYC_William156;
+            if (location.equalsIgnoreCase("182 Broadway") || location.equalsIgnoreCase("Housing")
+                    || location.equalsIgnoreCase("Broadway"))
+                latLngSpot = PaceUniNYC_Broadway;
+            if (location.equalsIgnoreCase("55 John Street") || location.equalsIgnoreCase("Housing")
+                    || location.equalsIgnoreCase("John St") || location.equalsIgnoreCase("John Street"))
+                latLngSpot = PaceUniNYC_JohnStreet;
+            if (location.equalsIgnoreCase("106 Fulton Street") || location.equalsIgnoreCase("Housing")
+                    || location.equalsIgnoreCase("Fulton St") || location.equalsIgnoreCase("Fulton Street"))
+                latLngSpot = PaceUniNYC_Fulton;
+            if (location.equalsIgnoreCase("Henry Birnbaum Library") || location.equalsIgnoreCase("Library")
+                    || location.equalsIgnoreCase("Books") || location.equalsIgnoreCase("Study area"))
+                latLngSpot = PaceUniNYC_Library;
+            if (location.equalsIgnoreCase("41 Parks Row") || location.equalsIgnoreCase("Dyson")
+                    || location.equalsIgnoreCase("Class") || location.equalsIgnoreCase("Parks Row"))
+                latLngSpot = PaceUniNYC_ParksRow;
+            if (location.equalsIgnoreCase("One Pace Plaza") || location.equalsIgnoreCase("Main Building")
+                    || location.equalsIgnoreCase("One Pace") || location.equalsIgnoreCase("Class"))
+                latLngSpot = PaceUniNYC_OnePacePlaza;
+            if (location.equalsIgnoreCase("Barn & Noble Store") || location.equalsIgnoreCase("Pace Bookstore")
+                    || location.equalsIgnoreCase("Bookstore") || location.equalsIgnoreCase("Books"))
+                latLngSpot = PaceUniNYC_Bookstore;
+            if (location.equalsIgnoreCase("Schimmel Center") || location.equalsIgnoreCase("Theatre")
+                    || location.equalsIgnoreCase("Show"))
+                latLngSpot = PaceUniNYC_Schimmel;
+            if (location.equalsIgnoreCase("Maria's Tower") || location.equalsIgnoreCase("gym")
+                    || location.equalsIgnoreCase("Lounge"))
+                latLngSpot = PaceUniNYC_Maria;
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,"Location is not on NYC map",Toast.LENGTH_LONG).show();
+        }
         return latLngSpot;
     }
 
