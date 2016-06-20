@@ -75,9 +75,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<CalendarInfo> events = new ArrayList<>();
-    ArrayList<Event> eventsFromGoogle = new ArrayList<>();
 
-    HashMap<String, CalendarInfo> dateEvent = new HashMap<>();
+    com.google.api.services.calendar.Calendar mServices;
 
     TextView monthName;
 
@@ -418,6 +417,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     transport, jsonFactory, credential)
                     .setApplicationName("Google Calendar API Android Quickstart")
                     .build();
+            mServices = mService;
         }
 
         /**
@@ -446,7 +446,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             // List the next 10 events from the primary calendar.
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
-            Events events = mService.events().list("primary")
+            Events events = mService.events().list("1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com")
                     .setMaxResults(20)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
@@ -460,14 +460,15 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     // All-day events don't have start times, so just use
                     // the start date.
                     start = event.getStart().getDate();
+                    //event.setStart(start.);
                 }
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), start));
-                eventsFromGoogle.add(event);
+                CalendarScreen.this.events.add(new CalendarInfo(event));
+                //eventsFromGoogle.add(event);
             }
             return eventStrings;
         }
-
 
         @Override
         protected void onPreExecute() {
@@ -480,20 +481,23 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             if (output == null || output.size() == 0) {
                 Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
             } else {
+
+                ArrayList<com.github.sundeepk.compactcalendarview.domain.Event> newEvents = new ArrayList<com.github.sundeepk.compactcalendarview.domain.Event>();
                 //output.add(0, "Data retrieved using the Google Calendar API:");
-                for (int i = 0; i < eventsFromGoogle.size(); i++) {
+                /*for (int i = 0; i < eventsFromGoogle.size(); i++) {
                     //events.add(new CalendarInfo(output.get(i)));
-                    events.add(new CalendarInfo(eventsFromGoogle.get(i)));
+                    //events.add(new CalendarInfo(eventsFromGoogle.get(i)));
+                    //newEvents.add(new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE,eventsFromGoogle.get(i).getStart().getDate().getValue(),eventsFromGoogle.get(i).getSummary()));
                     Log.e("Line 402", eventsFromGoogle.get(i).getSummary());
-                }
+                }*/
 
                 for (CalendarInfo e : events) {
                     System.out.println(e);
                 }
 
 
-                //mAdapter = new CalendarAdapter(events, CalendarScreen.this);
-                mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
+                mAdapter = new CalendarAdapter(events, CalendarScreen.this);
+                //mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
                 mRecyclerView.setAdapter(mAdapter);
 
             }
