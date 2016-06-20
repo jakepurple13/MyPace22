@@ -36,4 +36,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.0.0'
     compile 'com.google.android.gms:play-services:9.0.0'
     compile 'joda-time:joda-time:+'
+    compile 'com.p_v:flexiblecalendar:1.2.1'
 }
