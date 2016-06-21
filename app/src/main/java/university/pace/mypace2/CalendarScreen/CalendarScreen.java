@@ -48,6 +48,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -57,8 +59,6 @@ import university.pace.mypace2.R;
 
 public class CalendarScreen extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
-    private TextView mOutputText;
-    private Button mCallApiButton;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -66,7 +66,6 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
-    private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
 
@@ -75,6 +74,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<CalendarInfo> events = new ArrayList<>();
+    ArrayList<String> colorOfEvent = new ArrayList<>();
 
     com.google.api.services.calendar.Calendar mServices;
 
@@ -112,7 +112,6 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 Log.d("Line 110", "Month was scrolled to: " + firstDayOfNewMonth);
                 String month = getMonthName(firstDayOfNewMonth.getMonth());
-
 
                 monthName.setText(month);
             }
@@ -454,6 +453,17 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     .execute();
             List<Event> items = events.getItems();
 
+            // Retrieve color definitions for calendars and events
+            Colors colors = mService.colors().get().execute();
+            String c = "";
+            for (Map.Entry<String, ColorDefinition> color : colors.getEvent().entrySet()) {
+                System.out.println("ColorId : " + color.getKey());
+                System.out.println("  Background: " + color.getValue().getBackground());
+                System.out.println("  Foreground: " + color.getValue().getForeground());
+                c = color.getValue().getBackground();
+                colorOfEvent.add(c);
+            }
+            Log.e("Line 470", c);
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
                 if (start == null) {
@@ -464,7 +474,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 }
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), start));
-                CalendarScreen.this.events.add(new CalendarInfo(event));
+                CalendarScreen.this.events.add(new CalendarInfo(event));//, colorOfEvent.get(i));
                 //eventsFromGoogle.add(event);
             }
             return eventStrings;
@@ -495,10 +505,13 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     System.out.println(e);
                 }
 
+                Random gen = new Random();
 
                 for (int i = 0; i < events.size(); i++) {
-                    Log.e("Line 502", events.get(i).getEvent().getStart().getDate().getValue() + "");
-                    com.github.sundeepk.compactcalendarview.domain.Event e = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, events.get(i).getEvent().getStart().getDate().getValue(), events.get(i));
+                    Log.e("Line 502", colorOfEvent.get(i));
+
+                    com.github.sundeepk.compactcalendarview.domain.Event e =
+                            new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), events.get(i).getEvent().getStart().getDate().getValue(), events.get(i));
                     compactCalendarView.addEvent(e);
                 }
 
@@ -535,6 +548,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     public class CalendarInfo {
         String name;
         Event event;
+        String c;
 
         public CalendarInfo(String name) {
             this.name = name;
@@ -542,6 +556,11 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         public CalendarInfo(Event event) {
             this.event = event;
+        }
+
+        public CalendarInfo(Event event, String c) {
+            this.event = event;
+            this.c = c;
         }
 
         public Event getEvent() {
