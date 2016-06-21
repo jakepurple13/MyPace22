@@ -96,18 +96,16 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.view);
 
-        com.github.sundeepk.compactcalendarview.domain.Event ge = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, new Date().getTime(), "akdslfh");
-        compactCalendarView.addEvent(ge);
-        com.github.sundeepk.compactcalendarview.domain.Event ge1 = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, System.currentTimeMillis());
-        compactCalendarView.addEvent(ge1, true);
-        com.github.sundeepk.compactcalendarview.domain.Event ge2 = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, System.currentTimeMillis());
-        compactCalendarView.addEvent(ge2, false);
+
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
                 List<com.github.sundeepk.compactcalendarview.domain.Event> events = compactCalendarView.getEvents(dateClicked);
                 Log.d("Line 105", "Day was clicked: " + dateClicked + " with events " + events);
+                mAdapter = new CalendarAdapter(compactCalendarView.getEvents(dateClicked), CalendarScreen.this);
+                //mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
+                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override
@@ -498,9 +496,15 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 }
 
 
-                mAdapter = new CalendarAdapter(events, CalendarScreen.this);
+                for (int i = 0; i < events.size(); i++) {
+                    Log.e("Line 502", events.get(i).getEvent().getStart().getDate().getValue() + "");
+                    com.github.sundeepk.compactcalendarview.domain.Event e = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, events.get(i).getEvent().getStart().getDate().getValue(), events.get(i));
+                    compactCalendarView.addEvent(e);
+                }
+
+                //mAdapter = new CalendarAdapter(events, CalendarScreen.this);
                 //mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
-                mRecyclerView.setAdapter(mAdapter);
+                //mRecyclerView.setAdapter(mAdapter);
 
             }
         }

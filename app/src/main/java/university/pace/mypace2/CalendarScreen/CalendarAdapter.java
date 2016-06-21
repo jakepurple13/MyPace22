@@ -29,8 +29,8 @@ import university.pace.mypace2.R;
  * Created by Jacob on 6/8/16.
  */
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
-    private ArrayList<CalendarScreen.CalendarInfo> mDataset;
-    //private List<com.github.sundeepk.compactcalendarview.domain.Event> mDataset;
+    //private ArrayList<CalendarScreen.CalendarInfo> mDataset;
+    private List<com.github.sundeepk.compactcalendarview.domain.Event> mDataset;
 
     CalendarScreen in;
 
@@ -50,17 +50,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
+    /*// Provide a suitable constructor (depends on the kind of dataset)
     public CalendarAdapter(ArrayList<CalendarScreen.CalendarInfo> myDataset, CalendarScreen in) {
         mDataset = myDataset;
         this.in = in;
-    }
+    }*/
 
-    /*// Provide a suitable constructor (depends on the kind of dataset)
+    // Provide a suitable constructor (depends on the kind of dataset)
     public CalendarAdapter(List<com.github.sundeepk.compactcalendarview.domain.Event> myDataset, CalendarScreen in) {
         mDataset = myDataset;
         this.in = in;
-    }*/
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -82,7 +82,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         // - replace the contents of the view with that element
 
         String info = "";
-        final Event event = mDataset.get(position).getEvent();
+        final Event event = ((CalendarScreen.CalendarInfo) mDataset.get(position).getData()).getEvent();//.getEvent();
 
         info += event.getSummary() + "\n" +
                 "Description: " + event.getDescription() + "\n" +
