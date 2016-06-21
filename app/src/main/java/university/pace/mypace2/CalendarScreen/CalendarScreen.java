@@ -446,7 +446,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com")
-                    .setMaxResults(20)
+                    .setMaxResults(50)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)

@@ -58,33 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onLongClick(View v) {
 
-
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-
-                }
-
-                String number = "3107350099";
-
                 Date dec = new Date();
                 dec.setMonth(11);
 
                 if (new Date().getMonth() == dec.getMonth()) {
-                    number = "7814522080";
+
                 }
-
-
-               /* try {
-                    Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" + number));
-                    startActivity(intent);
-                } catch (SecurityException e) {*/
 
                 final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
@@ -109,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
-
-                //               }
 
                 return false;
             }
