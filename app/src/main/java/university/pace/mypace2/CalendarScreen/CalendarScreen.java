@@ -133,8 +133,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mRecyclerView.addItemDecoration(
-                new DividerItemDecoration(this, R.drawable.divider));
+        //mRecyclerView.addItemDecoration(
+        //      new DividerItemDecoration(this, R.drawable.divider));
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +41,14 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public Button addToCalendar;
+        //public Button addToCalendar;
+        public CardView cv;
 
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.calendarTexted);
-            addToCalendar = (Button) v.findViewById(R.id.addCal);
+            //addToCalendar = (Button) v.findViewById(R.id.addCal);
+            cv = (CardView) v.findViewById(R.id.card_view1);
 
         }
     }
@@ -92,7 +95,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         //holder.mTextView.setText(mDataset.get(position).toString());
         holder.mTextView.setText(info);
-        holder.addToCalendar.setOnClickListener(new View.OnClickListener() {
+
+        //holder.addToCalendar.setOnClickListener(new View.OnClickListener() {
+        holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

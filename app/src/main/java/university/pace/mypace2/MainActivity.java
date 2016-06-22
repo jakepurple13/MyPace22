@@ -31,6 +31,7 @@ import java.util.Date;
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceMaps.PaceMaps;
+import university.pace.mypace2.TestingPackage.CardTest;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -109,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.calBut:
 
                 changeScreen(CalendarScreen.class);
+
+                break;
+
+            case R.id.next:
+
+                changeScreen(CardTest.class);
 
                 break;
 
