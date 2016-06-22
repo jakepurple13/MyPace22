@@ -30,6 +30,7 @@ import java.util.Date;
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
+import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
 
@@ -116,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.next:
 
                 changeScreen(CardTest.class);
+
+                break;
+
+            case R.id.nextbutton2:
+
+//                changeScreen(Buildings.class);
 
                 break;
 

@@ -15,5 +15,6 @@
     <string name="enable_gps_question">Turn your Location on?</string>
     <string name="PacePLV">Pace University - Pleasantville Campus  </string>
     <string name="PacePLVdescription">861 Bedford Rd, Pleasantville, NY 10570 </string>
+    <string name="dyson">dyson</string>
 
 </resources>

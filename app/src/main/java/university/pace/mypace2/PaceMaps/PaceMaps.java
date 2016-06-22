@@ -1,11 +1,9 @@
 package university.pace.mypace2.PaceMaps;
 
-import android.*;
+
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentSender;
+
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -41,20 +39,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import university.pace.mypace2.*;
+import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.R;
 
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;
     private double latitude;
-    private String[] Buildings;
-    private int count;
+    private Buildings pace;
+    private Buildings.Building pacemap;
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -281,7 +274,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                     ShowCampusNearMe(latitude);
                 } else {
                     Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
+                    PleasantvilleCampusOnMapView();
 
+                    Log.d("lat not granted", "PLV Default");
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -318,7 +313,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         // Show an expanation to the user *asynchronously* -- don't block
                         // this thread waiting for the user's response! After the user
                         // sees the explanation, try again to request the permission.
-                        Toast.makeText(this, "Location permission is need to show the Campus closet to you", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Location permission is need to show the campus closet to you", Toast.LENGTH_SHORT).show();
                     } else {
 
                         // No explanation needed, we can request the permission.
@@ -358,7 +353,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             if (mMap != null) {
 
                 ShowCampusNearMe(latitude);
-
+                pace = new Buildings(PaceMaps.this);
+                Log.d("List", "here");
                 /** Max zoom on School**/
                 mMap.getMaxZoomLevel();
             }
@@ -367,9 +363,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         } catch (Exception e) {
 
 /*If latitude not there or something- default */
-            PleasantvilleCampusOnMapView();
 
-            Log.d("error no lat", "Location PLV Default");
+            Log.d("error", e.toString());
         }
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -550,24 +545,242 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public void onSearch(View view) {
 
         EditText location_tf = (EditText) findViewById(R.id.address);
-        String location = location_tf.getText().toString();
+        String location_search = location_tf.getText().toString();
+  /*User can Search any location on pace grounds */
+        if (!location_search.equals("")) {
 
-        if (!location.equals("")) {
-
+        /*The class 'Building'needs an enclosing instance to be instantiated*/
+            pacemap = new Buildings(this).new Building(location_search);
 
                 if(Position==PaceUniPLV) {
-                    LatLng BuildingLatLng = testPositionPLV(location);
+                    LatLng BuildingLatLng;
+
+                         /*returns LatLng Position*/
+                    switch (location_search.toLowerCase()) {
+
+                        case "miller":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Miller, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "miller hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Miller, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+
+                            break;
+                        case "lienhard hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "lienhard":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "nursing":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "marks hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "marks":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "math department":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "dyson hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "dyson":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "science department":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "wilcox hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Wilcox, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "class":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Wilcox, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(PaceUniPLV_Miller, location_search, "Here is ");
+                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
+                                    "Here is ", "found at the " + "", "found at " + "Miller Hall");
+                            break;
+                        case "goldstien academic center":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is ");
+                            break;
+                        case "goldstien academic":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is ");
+                            break;
+                        case "goldstien":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
+                                    "Here is ", "is a " + "Academic Center", "is a " + "Gym");
+                            break;
+                        case "lubin":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is ");
+                            break;
+                        case "seidenberg":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "goldstien fitness center":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_GoldstienGym, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(PaceUniPLV_Goldstien, location_search, "Here is ");
+                            break;
+
+                        case "food":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
+                                    "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
+                            break;
+                        case "kessel":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "kessel center":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "mortola library":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "mortola":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "library":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+
+                        case "north hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_North, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
 
 
-            /*User can Search any location  */
-                    SetMarker(BuildingLatLng, location, "Here is " + location);
+                        case "north":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_North, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+
+                        case "martin hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Martin, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+
+                        case "elm hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Elm, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+
+                        case "elm":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Elm, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+
+                        case "alumni hall":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Alumni, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "alumni":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Alumni, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "choate house":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "choate":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "pink house":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "OSA":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_OSA, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "office of student assistance":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_OSA, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "choate pond":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Pond, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                        case "pond":
+                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Pond, location_search, this);
+                            Log.d("Buildinglatlng", BuildingLatLng.toString());
+                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
+                            break;
+                    }
+
+
+
+
+
+
                 }
-            else
+
+          /*    else
                 {
-                    LatLng BuildingLatLng = testPositionNYC(location);
-            /*User can Search any location  */
-                    SetMarker(BuildingLatLng, location, "Here is " + location);
-                }
+
+          User can Search any location
+                 //   SetMarker(BuildingLatLng, location, "Here is " + location);
+                }*/
 
 
         } else
@@ -575,119 +788,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-
-
-
-
-    private LatLng testPositionPLV(String location) {
-        LatLng latLngSpot = null;
-        try {
-            if (location.equalsIgnoreCase("Miller Hall") || location.equalsIgnoreCase("Miller")||
-                    location.equalsIgnoreCase("Class")|| location.equalsIgnoreCase("food"))
-                latLngSpot = PaceUniPLV_Miller;
-            if (location.equalsIgnoreCase("Kessel Center") ||
-                    location.equalsIgnoreCase("Kessel") || location.equalsIgnoreCase("food"))
-                latLngSpot = PaceUniPLV_Kessel;
-            if (location.equalsIgnoreCase("Lienhard Hall") || location.equalsIgnoreCase("Lienhard")
-                    || location.equalsIgnoreCase("Nursing School")|| location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniPLV_Lienhard;
-            if (location.equalsIgnoreCase("Marks Hall") || location.equalsIgnoreCase("Math Department")
-                    || location.equalsIgnoreCase("Welcome Center") || location.equalsIgnoreCase("Marks"))
-                latLngSpot = PaceUniPLV_Marks;
-            if (location.equalsIgnoreCase("Dyson Hall") || location.equalsIgnoreCase("Dyson")
-                    || location.equalsIgnoreCase("Science Department")|| location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniPLV_Dyson;
-            if (location.equalsIgnoreCase("Wilcox") || location.equalsIgnoreCase("Wilcox hall")
-                    || location.equalsIgnoreCase("Bus Stop") ||
-                    location.equalsIgnoreCase("Media Center")|| location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniPLV_Wilcox;
-            if (location.equalsIgnoreCase("Goldstien Academic Center") || location.equalsIgnoreCase("Seidenberg School")
-                    || location.equalsIgnoreCase("Lubin School")
-                    || location.equalsIgnoreCase("Computer Science") || location.equalsIgnoreCase("Mary Courtney")
-                    || location.equalsIgnoreCase("Jean Coppola")|| location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniPLV_Goldstien;
-            if (location.equalsIgnoreCase("Goldstien Fitness Center") || location.equalsIgnoreCase("Gym")
-                    || location.equalsIgnoreCase("Dog Pound") || location.equalsIgnoreCase("Work Out"))
-                latLngSpot = PaceUniPLV_GoldstienGym;
-            if (location.equalsIgnoreCase("North Hall") || location.equalsIgnoreCase("North")
-                    || location.equalsIgnoreCase("North Dorm")|| location.equalsIgnoreCase("Dorms"))
-                latLngSpot = PaceUniPLV_North;
-            if (location.equalsIgnoreCase("Martin Hall") || location.equalsIgnoreCase("Martin")
-                    || location.equalsIgnoreCase("Martin Dorm")
-                    || location.equalsIgnoreCase("Dorms")|| location.equalsIgnoreCase("food"))
-                latLngSpot = PaceUniPLV_Martin;
-            if (location.equalsIgnoreCase("Elm Hall") || location.equalsIgnoreCase("Elm")
-                    || location.equalsIgnoreCase("Elm Dorm")|| location.equalsIgnoreCase("Dorms"))
-                latLngSpot = PaceUniPLV_Elm;
-            if (location.equalsIgnoreCase("Alumni Hall") || location.equalsIgnoreCase("Alumni")
-                    || location.equalsIgnoreCase("Alumni Dorm")|| location.equalsIgnoreCase("Dorms"))
-                latLngSpot = PaceUniPLV_Alumni;
-            if (location.equalsIgnoreCase("Mortola Library") || location.equalsIgnoreCase("Library")
-                    || location.equalsIgnoreCase("Tutoring Center"))
-                latLngSpot = PaceUniPLV_Library;
-            if (location.equalsIgnoreCase("Choate House")
-                    || location.equalsIgnoreCase("Choate") || location.equalsIgnoreCase("Pink House"))
-                latLngSpot = PaceUniPLV_Choate;
-            if (location.equalsIgnoreCase("Choate Pond") || location.equalsIgnoreCase("Pond"))
-                latLngSpot = PaceUniPLV_Pond;
-            if (location.equalsIgnoreCase("OSA") || location.equalsIgnoreCase("Office of Student Assistance"))
-                latLngSpot = PaceUniPLV_OSA;
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(this,"Location is not on Pleasantville map",Toast.LENGTH_LONG).show();
-
-        }
-        return latLngSpot;
-    }
-    private LatLng testPositionNYC(String location) {
-        LatLng latLngSpot = null;
-        try {
-            if (location.equalsIgnoreCase("Lubin School of Business")
-                    || location.equalsIgnoreCase("Lubin") || location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniNYC_Lubin;
-            if (location.equalsIgnoreCase("The Confucius Institute") || location.equalsIgnoreCase("Confucius"))
-                latLngSpot = PaceUniNYC_Confucius;
-            if (location.equalsIgnoreCase("163 William Street") || location.equalsIgnoreCase("Housing")
-                    || location.equalsIgnoreCase("William St"))
-                latLngSpot = PaceUniNYC_William163;
-            if (location.equalsIgnoreCase("156 William Street") || location.equalsIgnoreCase("Administration Office")
-                    || location.equalsIgnoreCase("156 William Street") || location.equalsIgnoreCase("William St"))
-                latLngSpot = PaceUniNYC_William156;
-            if (location.equalsIgnoreCase("182 Broadway") || location.equalsIgnoreCase("Housing")
-                    || location.equalsIgnoreCase("Broadway"))
-                latLngSpot = PaceUniNYC_Broadway;
-            if (location.equalsIgnoreCase("55 John Street") || location.equalsIgnoreCase("Housing")
-                    || location.equalsIgnoreCase("John St") || location.equalsIgnoreCase("John Street"))
-                latLngSpot = PaceUniNYC_JohnStreet;
-            if (location.equalsIgnoreCase("106 Fulton Street") || location.equalsIgnoreCase("Housing")
-                    || location.equalsIgnoreCase("Fulton St") || location.equalsIgnoreCase("Fulton Street"))
-                latLngSpot = PaceUniNYC_Fulton;
-            if (location.equalsIgnoreCase("Henry Birnbaum Library") || location.equalsIgnoreCase("Library")
-                    || location.equalsIgnoreCase("Books") || location.equalsIgnoreCase("Study area"))
-                latLngSpot = PaceUniNYC_Library;
-            if (location.equalsIgnoreCase("41 Parks Row") || location.equalsIgnoreCase("Dyson")
-                    || location.equalsIgnoreCase("Class") || location.equalsIgnoreCase("Parks Row"))
-                latLngSpot = PaceUniNYC_ParksRow;
-            if (location.equalsIgnoreCase("One Pace Plaza") || location.equalsIgnoreCase("Main Building")
-                    || location.equalsIgnoreCase("One Pace") || location.equalsIgnoreCase("Class"))
-                latLngSpot = PaceUniNYC_OnePacePlaza;
-            if (location.equalsIgnoreCase("Barn & Noble Store") || location.equalsIgnoreCase("Pace Bookstore")
-                    || location.equalsIgnoreCase("Bookstore") || location.equalsIgnoreCase("Books"))
-                latLngSpot = PaceUniNYC_Bookstore;
-            if (location.equalsIgnoreCase("Schimmel Center") || location.equalsIgnoreCase("Theatre")
-                    || location.equalsIgnoreCase("Show"))
-                latLngSpot = PaceUniNYC_Schimmel;
-            if (location.equalsIgnoreCase("Maria's Tower") || location.equalsIgnoreCase("gym")
-                    || location.equalsIgnoreCase("Lounge"))
-                latLngSpot = PaceUniNYC_Maria;
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(this,"Location is not on NYC map",Toast.LENGTH_LONG).show();
-        }
-        return latLngSpot;
-    }
 
     private void SetMarker(LatLng setposition, String title, String des) {
         MarkerOptions marker = new MarkerOptions()
@@ -698,6 +798,35 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         mMap.clear();
         mMap.addMarker(marker);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
+
+    }
+
+    private void SetMultiMarker(LatLng setposition, LatLng secondPosition, LatLng ThirdPosition, String title,
+                                String des, String desII, String desIII) {
+        MarkerOptions marker = new MarkerOptions()
+                .title(title)
+                .snippet(des)
+                .position(setposition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        MarkerOptions markertwo = new MarkerOptions()
+                .title(title)
+                .snippet(desII)
+                .position(secondPosition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        MarkerOptions markerthree = new MarkerOptions()
+                .title(title)
+                .snippet(desIII)
+                .position(ThirdPosition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+
+        mMap.clear();
+        mMap.addMarker(marker);
+        mMap.addMarker(markertwo);
+        mMap.addMarker(markerthree);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
 
     }
