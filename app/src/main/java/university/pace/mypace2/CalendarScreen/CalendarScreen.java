@@ -78,6 +78,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
     com.google.api.services.calendar.Calendar mServices;
 
+    DatabaseHelper dh;
+
     TextView monthName;
 
     CompactCalendarView compactCalendarView;
@@ -96,7 +98,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.view);
 
-
+        dh = new DatabaseHelper(getApplicationContext());
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -457,13 +459,12 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             Colors colors = mService.colors().get().execute();
             String c = "";
             for (Map.Entry<String, ColorDefinition> color : colors.getEvent().entrySet()) {
-                System.out.println("ColorId : " + color.getKey());
-                System.out.println("  Background: " + color.getValue().getBackground());
-                System.out.println("  Foreground: " + color.getValue().getForeground());
+                //System.out.println("ColorId : " + color.getKey());
+                //System.out.println("  Background: " + color.getValue().getBackground());
+                //System.out.println("  Foreground: " + color.getValue().getForeground());
                 c = color.getValue().getBackground();
                 colorOfEvent.add(c);
             }
-            Log.e("Line 470", c);
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
                 if (start == null) {
@@ -493,22 +494,13 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             } else {
 
                 ArrayList<com.github.sundeepk.compactcalendarview.domain.Event> newEvents = new ArrayList<com.github.sundeepk.compactcalendarview.domain.Event>();
-                //output.add(0, "Data retrieved using the Google Calendar API:");
-                /*for (int i = 0; i < eventsFromGoogle.size(); i++) {
-                    //events.add(new CalendarInfo(output.get(i)));
-                    //events.add(new CalendarInfo(eventsFromGoogle.get(i)));
-                    //newEvents.add(new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE,eventsFromGoogle.get(i).getStart().getDate().getValue(),eventsFromGoogle.get(i).getSummary()));
-                    Log.e("Line 402", eventsFromGoogle.get(i).getSummary());
-                }*/
 
                 for (CalendarInfo e : events) {
                     System.out.println(e);
                 }
 
-                Random gen = new Random();
-
                 for (int i = 0; i < events.size(); i++) {
-                    Log.e("Line 502", colorOfEvent.get(i));
+                    //Log.e("Line 502", colorOfEvent.get(i));
 
                     com.github.sundeepk.compactcalendarview.domain.Event e =
                             new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), events.get(i).getEvent().getStart().getDate().getValue(), events.get(i));

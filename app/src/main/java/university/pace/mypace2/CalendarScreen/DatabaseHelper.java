@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Mrgds on 2/6/2016.
@@ -34,12 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     SQLiteDatabase db;
 
-    private static final String TABLE_CREATE = "create table contacts (id integer primary key not null," +
+    private static final String TABLE_CREATE = "create table events (id integer primary key not null," +
             "eventid text not null,eventname text not null,time text not null, day text not null);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
 
@@ -72,20 +72,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /***
      * Call this to put data in the database 'db'
      ***/
-    public void insertContact(Contact contact) {
+    public void insertEventData(EventData events) {
 
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        String query = " Select * from contacts";   //* means all
+        String query = " Select * from events";   //* means all
         Cursor cursor = db.rawQuery(query, null);
         int count = cursor.getCount();
 
         values.put(COLUMN_ID, count);
-        values.put(COLUMN_EVENT_ID, contact.getEventid());
-        values.put(COLUMN_NAME, contact.getName());
-        values.put(COLUMN_TIME, contact.getEventTime());
-        values.put(COLUMN_DAY, contact.getDay());
+        values.put(COLUMN_EVENT_ID, events.getEventid());
+        values.put(COLUMN_NAME, events.getName());
+        values.put(COLUMN_TIME, events.getEventTime());
+        values.put(COLUMN_DAY, events.getDay());
 
         db.insert(TABLE_NAME, null, values);      //inserts contacts into database
     }
@@ -93,8 +93,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(TABLE_CREATE);
         this.db = db;
+        //this.db.execSQL(TABLE_CREATE);
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+
+
     }
 
     @Override

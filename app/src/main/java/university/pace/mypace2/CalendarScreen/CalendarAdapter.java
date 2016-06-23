@@ -45,12 +45,15 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         public TextView mTextView;
         //public Button addToCalendar;
         public CardView cv;
+        public int colored;
 
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.calendarTexted);
             //addToCalendar = (Button) v.findViewById(R.id.addCal);
             cv = (CardView) v.findViewById(R.id.card_view1);
+            colored = Color.WHITE;
+            cv.setCardBackgroundColor(colored);
 
         }
     }
@@ -95,59 +98,57 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         //TODO: Work here on getting this looking nicer
 
-        //holder.mTextView.setText(mDataset.get(position).toString());
         holder.mTextView.setText(info);
-
-        //holder.addToCalendar.setOnClickListener(new View.OnClickListener() {
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //holder.colored==Color.WHITE ||
+                if ((in.dh.searchPass(event.getId()).equals("not Found"))) {
 
-                final ContentValues events = new ContentValues();
-                events.put(CalendarContract.Events.CALENDAR_ID, 1);
+                    final ContentValues events = new ContentValues();
+                    events.put(CalendarContract.Events.CALENDAR_ID, 1);
 
-                events.put(CalendarContract.Events.TITLE, event.getSummary());
-                events.put(CalendarContract.Events.DESCRIPTION, event.getDescription());
-                event.setStart(event.getStart());
-                events.put(CalendarContract.Events.DTSTART, event.getStart().getDate().getValue() + (1000 * 60 * 60 * 24));
-                events.put(CalendarContract.Events.DTEND, event.getEnd().getDate().getValue());
-                String timeZone = TimeZone.getDefault().getID();
-                events.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone);
+                    events.put(CalendarContract.Events.TITLE, event.getSummary());
+                    events.put(CalendarContract.Events.DESCRIPTION, event.getDescription());
+                    event.setStart(event.getStart());
+                    events.put(CalendarContract.Events.DTSTART, event.getStart().getDate().getValue() + (1000 * 60 * 60 * 24));
+                    events.put(CalendarContract.Events.DTEND, event.getEnd().getDate().getValue());
+                    String timeZone = TimeZone.getDefault().getID();
+                    events.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone);
 
-                Uri baseUri;
-                if (Build.VERSION.SDK_INT >= 8) {
-                    baseUri = Uri.parse("content://com.android.calendar/events");
+                    Uri baseUri;
+                    if (Build.VERSION.SDK_INT >= 8) {
+                        baseUri = Uri.parse("content://com.android.calendar/events");
+                    } else {
+                        baseUri = Uri.parse("content://calendar/events");
+                    }
+
+                    in.getContentResolver().insert(baseUri, events);
+
+                    Toast.makeText(in, "Event Added", Toast.LENGTH_SHORT).show();
+
+                    float[] hsv = new float[3];
+                    int color = holder.colored;
+                    Color.colorToHSV(color, hsv);
+                    hsv[2] *= 0.8f; // value component
+                    color = Color.HSVToColor(hsv);
+                    holder.colored = color;
+                    holder.cv.setCardBackgroundColor(color);
+
+                    in.dh.insertEventData(new EventData(event.getSummary(), event.getStart().getDate().toString(), event.getEnd().getDate().toString(), event.getId()));
+
+
                 } else {
-                    baseUri = Uri.parse("content://calendar/events");
+                    Toast.makeText(in, "You already have it", Toast.LENGTH_SHORT).show();
                 }
 
-                in.getContentResolver().insert(baseUri, events);
 
-                Toast.makeText(in, "Event Added", Toast.LENGTH_SHORT).show();
-
-                Log.e("Line 128", holder.cv.getDrawingCacheBackgroundColor() + "");
-                //Log.e("Line 129", darken(holder.cv.getSolidColor(), 0.5) + "");
-                //holder.cv.setBackgroundColor(darken(holder.cv.getSolidColor(), 0.5));
-
-                holder.cv.setBackgroundColor(darker(Color.WHITE, 5));
 
             }
         });
 
     }
 
-
-    public static int darker(int color, float factor) {
-        int a = Color.alpha(color);
-        int r = Color.red(color);
-        int g = Color.green(color);
-        int b = Color.blue(color);
-
-        return Color.argb(a,
-                Math.max((int) (r * factor), 0),
-                Math.max((int) (g * factor), 0),
-                Math.max((int) (b * factor), 0));
-    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

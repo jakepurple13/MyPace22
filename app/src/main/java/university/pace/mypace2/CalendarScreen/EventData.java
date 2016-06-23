@@ -4,11 +4,21 @@ package university.pace.mypace2.CalendarScreen;
  * Created by Mrgds on 6/23/2016.
  */
 
-public class Contact {
+public class EventData {
 
     int id;
 
     String eventname, eventtime, eventday, eventid;
+
+
+    public EventData(String name, String time, String day, String eid) {
+
+        eventname = name;
+        eventtime = time;
+        eventday = day;
+        eventid = eid;
+
+    }
 
 
     public void setId(int id) {
