@@ -761,12 +761,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
         Toast.makeText(this, "Achievement Unlocked: Meet the Developers", Toast.LENGTH_LONG).show();
         Log.d("Easter Egg", "Found");
-        /**   ───▄▄▄
-         ─▄▀░▄░▀▄
-         ─█░█▄▀░█
-         ─█░▀▄▄▀█▄█▄▀
-         ▄▄█▄▄▄▄███▀
-         **/
+
     }
 
 
