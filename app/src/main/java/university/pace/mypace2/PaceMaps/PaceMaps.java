@@ -115,6 +115,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_PLV_Martin_LAT = 41.129335;
 
 
+
     /** PACE Weschester Longitude/Latitude  **/
 
 
@@ -549,6 +550,12 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         EditText location_tf = (EditText) findViewById(R.id.address);
         String location_search = location_tf.getText().toString();
+
+
+        if (location_search.equalsIgnoreCase("George Samuels") && Position == PaceUniPLV)
+            GS();
+
+
   /*User can Search any location on pace grounds */
         if (!location_search.equals("")) {
 
@@ -556,12 +563,17 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
                 if(Position==PaceUniPLV) {
                     LatLng BuildingLatLng;
+
+
                             /*reads from text list*/
                     pacemap = new Buildings(this).new Building(location_search);
                    /*if nothing is on the list show output*/
                     if (pacemap.PaceLocation(location_search) == null) {
+
+
                         Toast.makeText(this, "No matches found on the Westchester Campus", Toast.LENGTH_LONG).show();
                         Log.d("not on list ", "show toast");
+
                     }                                                                                                    /*check list
                                                                                                                             for matches*/ else {
                         /*returns LatLng Position*/
@@ -656,7 +668,106 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     }
 
 
+    private void GS() {
+/**Gs    **/
+        final double Pace_PLV_GTOP_LNG = -73.808604;
+        final double Pace_PLV_GTOP_LAT = 41.129585;
 
+        final double Pace_PLV_GLEFTONE_LNG = -73.809494;
+        final double Pace_PLV_GLEFTONE_LAT = 41.129116;
+
+        final double Pace_PLV_GLEFTONEHALF_LNG = -73.809189;
+        final double Pace_PLV_GLEFTONEHALF_LAT = 41.129358;
+
+        final double Pace_PLV_GLEFTTWO_LNG = -73.809473;
+        final double Pace_PLV_GLEFTTWO_LAT = 41.128655;
+
+        final double Pace_PLV_GLEFTTHREE_LNG = -73.809237;
+        final double Pace_PLV_GLEFTTHREE_LAT = 41.128429;
+
+        final double Pace_PLV_GLEFTFOUR_LNG = -73.808540;
+        final double Pace_PLV_GLEFTFOUR_LAT = 41.128082;
+
+        final double Pace_PLV_GLEFTFIVE_LNG = -73.807890;
+        final double Pace_PLV_GLEFTFIVE_LAT = 41.128114;
+
+        final double Pace_PLV_GLEFTSIX_LNG = -73.807590;
+        final double Pace_PLV_GLEFTSIX_LAT = 41.128251;
+
+        final double Pace_PLV_GLEFTSEVEN_LNG = -73.807461;
+        final double Pace_PLV_GLEFTSEVEN_LAT = 41.128647;
+
+        final double Pace_PLV_GLEFTEIGHT_LNG = -73.807687;
+        final double Pace_PLV_GLEFTEIGHT_LAT = 41.128624;
+
+
+        final double Pace_PLV_GLEFTNINE_LNG = -73.808132;
+        final double Pace_PLV_GLEFTNINE_LAT = 41.128608;
+
+        /**Gs    **/
+
+
+        mMap.clear();
+    /*
+     *
+      *
+░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄
+░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█
+░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█
+░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█
+█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█
+█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█
+░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█
+░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█
+░░░█░░██░░▀█▄▄▄█▄▄█▄████░█
+░░░░█░░░▀▀▄░█░░░█░███████░█
+░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀
+
+
+
+*/
+        LatLng Cool = new LatLng(Pace_PLV_GTOP_LAT, Pace_PLV_GTOP_LNG);
+        mMap.addMarker(new MarkerOptions().title("YOU").snippet("YES YOU")
+                .position(Cool).icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolg = new LatLng(Pace_PLV_GLEFTONE_LAT, Pace_PLV_GLEFTONE_LNG);
+        mMap.addMarker(new MarkerOptions().title("YOU").snippet("REALLY").position(Coolg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng CoolgG = new LatLng(Pace_PLV_GLEFTONEHALF_LAT, Pace_PLV_GLEFTONEHALF_LNG);
+        mMap.addMarker(new MarkerOptions().title("I MEAN").snippet("REALLY").position(CoolgG)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolggg = new LatLng(Pace_PLV_GLEFTTWO_LAT, Pace_PLV_GLEFTTWO_LNG);
+        mMap.addMarker(new MarkerOptions().title("REALLY").snippet("REALLY").position(Coolggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolgggg = new LatLng(Pace_PLV_GLEFTTHREE_LAT, Pace_PLV_GLEFTTHREE_LNG);
+        mMap.addMarker(new MarkerOptions().title("TYPED").snippet("IN").position(Coolgggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolggggg = new LatLng(Pace_PLV_GLEFTFOUR_LAT, Pace_PLV_GLEFTFOUR_LNG);
+        mMap.addMarker(new MarkerOptions().title("MY").snippet("NAME?!").position(Coolggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolgggggg = new LatLng(Pace_PLV_GLEFTFIVE_LAT, Pace_PLV_GLEFTFIVE_LNG);
+        mMap.addMarker(new MarkerOptions().title("MY").snippet("NAME?!").position(Coolgggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolggggggg = new LatLng(Pace_PLV_GLEFTSIX_LAT, Pace_PLV_GLEFTSIX_LNG);
+        mMap.addMarker(new MarkerOptions().title("REALLY").snippet(" MY NAME?!").position(Coolggggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolgggggggg = new LatLng(Pace_PLV_GLEFTSEVEN_LAT, Pace_PLV_GLEFTSEVEN_LNG);
+        mMap.addMarker(new MarkerOptions().title("WELL HERE").snippet("IS YOUR").position(Coolgggggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolggggggggg = new LatLng(Pace_PLV_GLEFTEIGHT_LAT, Pace_PLV_GLEFTEIGHT_LNG);
+        mMap.addMarker(new MarkerOptions().title("REWARD").snippet("REWARD").position(Coolggggggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        LatLng Coolgggggggggg = new LatLng(Pace_PLV_GLEFTNINE_LAT, Pace_PLV_GLEFTNINE_LNG);
+        mMap.addMarker(new MarkerOptions().title("REWARD").snippet("REWARD").position(Coolgggggggggg)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        Toast.makeText(this, "Achievement Unlocked: Meet the Developers", Toast.LENGTH_LONG).show();
+        Log.d("Easter Egg", "Found");
+        /**   ───▄▄▄
+         ─▄▀░▄░▀▄
+         ─█░█▄▀░█
+         ─█░▀▄▄▀█▄█▄▀
+         ▄▄█▄▄▄▄███▀
+         **/
+    }
 
 
 }
