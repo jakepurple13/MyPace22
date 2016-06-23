@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +82,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
@@ -123,11 +125,29 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
                 Toast.makeText(in, "Event Added", Toast.LENGTH_SHORT).show();
 
+                Log.e("Line 128", holder.cv.getDrawingCacheBackgroundColor() + "");
+                //Log.e("Line 129", darken(holder.cv.getSolidColor(), 0.5) + "");
+                //holder.cv.setBackgroundColor(darken(holder.cv.getSolidColor(), 0.5));
+
+                holder.cv.setBackgroundColor(darker(Color.WHITE, 5));
+
             }
         });
 
     }
 
+
+    public static int darker(int color, float factor) {
+        int a = Color.alpha(color);
+        int r = Color.red(color);
+        int g = Color.green(color);
+        int b = Color.blue(color);
+
+        return Color.argb(a,
+                Math.max((int) (r * factor), 0),
+                Math.max((int) (g * factor), 0),
+                Math.max((int) (b * factor), 0));
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

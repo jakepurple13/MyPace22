@@ -20,10 +20,9 @@
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         android:id="@+id/view"
-
         android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        app:compactCalendarTextSize="12sp"
+        android:layout_height="280dp"
+        app:compactCalendarTextSize="14sp"
         app:compactCalendarMultiEventIndicatorColor="#3271D3"
         app:compactCalendarBackgroundColor="#00e95451"
         android:layout_below="@+id/textView2"
