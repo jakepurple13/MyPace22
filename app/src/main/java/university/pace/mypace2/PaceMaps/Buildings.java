@@ -19,8 +19,8 @@ import university.pace.mypace2.R;
  * Created by Mrgds on 6/21/2016.
  */
 public class Buildings {
-
-    ArrayList<Building> i = new ArrayList<>();
+    PaceMaps PaceBuilding;
+    ArrayList<Building> plv = new ArrayList<>();
 
     public Buildings(Context context) {
   /*Pass context of current Activity*/
@@ -41,7 +41,7 @@ public class Buildings {
                 line = br.readLine();
 
                 Building pace = new Building(line);
-                i.add(pace);
+                plv.add(pace);
                 if (line == null)
                     break;
 
@@ -50,10 +50,11 @@ public class Buildings {
                 e.printStackTrace();
             }
             Log.d("read in", line + "\t");
-            Log.d("read in", i + "\t");
+            Log.d("read in", plv + "\t");
 
         }
     }
+
 
     public class Building {
         String name;
@@ -71,9 +72,9 @@ public class Buildings {
 
         }
 
-        public boolean isBuilding(String find) {
+        public boolean isPLVBuilding(String find) {
                 /*For-eachLOOP!     */
-            for (Building item : i) {
+            for (Building item : plv) {
                 if (name.equalsIgnoreCase(find)) {
                     return true;
                 }
@@ -81,25 +82,149 @@ public class Buildings {
             return false;
         }
 
-        //  i.equalsIgnoreCase(find);
 
+        public LatLng PaceLocation(String buildingName) {
 
-        public LatLng PaceLocation(LatLng findme, String buildingName, Context context) {
-
-
+            PaceBuilding = new PaceMaps();
             LatLng latlngSpot = null;
             Log.d("user read in", buildingName + "\t");
 
-            if (isBuilding(buildingName)) {
-                latlngSpot = findme;
-                return latlngSpot;
+            if (isPLVBuilding(buildingName)) {
 
-            } else {
-                Toast.makeText(context, "No Matches Found", Toast.LENGTH_LONG).show();
-                return null;
+                switch (buildingName.toLowerCase()) {
+
+                    case "miller":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Miller;
+
+                        break;
+                    case "miller hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Miller;
+                        break;
+                    case "lienhard hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Lienhard;
+                        break;
+                    case "lienhard":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Lienhard;
+                        break;
+                    case "nursing":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Lienhard;
+                        break;
+                    case "marks hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Marks;
+                        break;
+                    case "marks":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Marks;
+                        break;
+                    case "math department":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Marks;
+                        break;
+                    case "dyson hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Dyson;
+                        break;
+                    case "dyson":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Dyson;
+                        Log.d("latlngSpot", PaceBuilding.PaceUniPLV_Dyson.toString() + "2");
+                        break;
+                    case "science department":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Dyson;
+                        break;
+                    case "wilcox hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
+                        break;
+                    case "goldstien academic center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                        break;
+                    case "goldstien academic":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                        break;
+
+                    case "lubin":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+                    case "seidenberg":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+                    case "goldstien fitness center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+
+                    case "kessel":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
+                        break;
+                    case "kessel center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
+                        break;
+                    case "mortola library":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Library;
+                        break;
+                    case "mortola":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Library;
+                        break;
+                    case "library":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Library;
+                        break;
+                    case "north hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_North;
+                        break;
+                    case "north":
+                        latlngSpot = PaceBuilding.PaceUniPLV_North;
+                        break;
+
+                    case "martin hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Martin;
+                        break;
+                    case "martin":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Martin;
+                        break;
+
+                    case "elm hall":
+
+                        latlngSpot = PaceBuilding.PaceUniPLV_Elm;
+                        break;
+
+                    case "elm":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Elm;
+                        break;
+
+                    case "alumni hall":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Alumni;
+                        break;
+                    case "alumni":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Alumni;
+                        break;
+                    case "choate house":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Choate;
+                        break;
+                    case "choate":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Choate;
+                        break;
+                    case "pink house":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Choate;
+                        break;
+                    case "OSA":
+                        latlngSpot = PaceBuilding.PaceUniPLV_OSA;
+                        break;
+                    case "office of student assistance":
+                        latlngSpot = PaceBuilding.PaceUniPLV_OSA;
+                        break;
+                    case "choate pond":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Pond;
+                        break;
+                    case "pond":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Pond;
+                        break;
+
+
+                }
+
+
             }
+
+            Log.d("return a spot ", "PLV");
+            return latlngSpot;
+
         }
 
-    }
 
+    }
 }

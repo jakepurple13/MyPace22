@@ -46,72 +46,73 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;
     private double latitude;
-    private Buildings pace;
+    private NycBuildings.Building Nycmap;
     private Buildings.Building pacemap;
+    private Buildings pace;
     /**
      * PACE Weschester Longitude/Latitude
      **/
-    private final double Pace_PLV_LNG = -73.808344;
-    private final double Pace_PLV_LAT = 41.128393;
+    public final double Pace_PLV_LNG = -73.808344;
+    public final double Pace_PLV_LAT = 41.128393;
 
-    private final double Pace_PLV_Miller_LNG = -73.809095;
-    private final double Pace_PLV_Miller_LAT = 41.127081;
+    public final double Pace_PLV_Miller_LNG = -73.809095;
+    public final double Pace_PLV_Miller_LAT = 41.127081;
 
-    private final double Pace_PLV_LIENHARD_LNG = -73.809692;
-    private final double Pace_PLV_LIENHARD_LAT = 41.127413;
-
-
-    private final double Pace_PLV_GOLDSTIEN_LNG = -73.805302;
-    private final double Pace_PLV_GOLDSTIEN_LAT = 41.126664;
-
-    private final double Pace_PLV_GOLDSTIENGYM_LNG = -73.809295;
-    private final double Pace_PLV_GOLDSTIENGYM_LAT = 41.129429;
-
-    private final double Pace_PLV_DYSON_LNG = -73.808012;
-    private final double Pace_PLV_DYSON_LAT = 41.125481;
+    public final double Pace_PLV_LIENHARD_LNG = -73.809692;
+    public final double Pace_PLV_LIENHARD_LAT = 41.127413;
 
 
-    private final double Pace_PLV_WILOCX_LNG = -73.807670;
-    private final double Pace_PLV_WILCOX_LAT = 41.125986;
+    public final double Pace_PLV_GOLDSTIEN_LNG = -73.805302;
+    public final double Pace_PLV_GOLDSTIEN_LAT = 41.126664;
+
+    public final double Pace_PLV_GOLDSTIENGYM_LNG = -73.809295;
+    public final double Pace_PLV_GOLDSTIENGYM_LAT = 41.129429;
+
+    public final double Pace_PLV_DYSON_LNG = -73.808012;
+    public final double Pace_PLV_DYSON_LAT = 41.125481;
 
 
-    private final double Pace_PLV_Library_LNG = -73.807441;
-    private final double Pace_PLV_Library_LAT = 41.127590;
+    public final double Pace_PLV_WILOCX_LNG = -73.807670;
+    public final double Pace_PLV_WILCOX_LAT = 41.125986;
 
 
-    private final double Pace_PLV_Choate_LNG = -73.809465;
-    private final double Pace_PLV_Choate_LAT = 41.128592;
+    public final double Pace_PLV_Library_LNG = -73.807441;
+    public final double Pace_PLV_Library_LAT = 41.127590;
 
-    private final double Pace_PLV_OSA_LNG = -73.808973;
-    private final double Pace_PLV_OSA_LAT = 41.131604;
 
-    private final double Pace_PLV_EnvironmentalCenter_LNG = -73.808475;
-    private final double Pace_PLV_EnvironmentalCenter_LAT = 41.130207;
+    public final double Pace_PLV_Choate_LNG = -73.809465;
+    public final double Pace_PLV_Choate_LAT = 41.128592;
 
-    private final double Pace_PLV_Kessel_LNG = -73.808743;
-    private final double Pace_PLV_Kessel_LAT = 41.128397;
+    public final double Pace_PLV_OSA_LNG = -73.808973;
+    public final double Pace_PLV_OSA_LAT = 41.131604;
+
+    public final double Pace_PLV_EnvironmentalCenter_LNG = -73.808475;
+    public final double Pace_PLV_EnvironmentalCenter_LAT = 41.130207;
+
+    public final double Pace_PLV_Kessel_LNG = -73.808743;
+    public final double Pace_PLV_Kessel_LAT = 41.128397;
 
     /*Dorms On Campus */
-    private final double Pace_PLV_Alumni_LNG = -73.808086;
-    private final double Pace_PLV_Alumni_LAT = 41.129610;
+    public final double Pace_PLV_Alumni_LNG = -73.808086;
+    public final double Pace_PLV_Alumni_LAT = 41.129610;
 
 
-    private final double Pace_PLV_Elm_LNG = -73.807263;
-    private final double Pace_PLV_Elm_LAT = 41.128575;
+    public final double Pace_PLV_Elm_LNG = -73.807263;
+    public final double Pace_PLV_Elm_LAT = 41.128575;
 
-    private final double Pace_PLV_North_LNG = -73.805270;
-    private final double Pace_PLV_North_LAT = 41.128309;
+    public final double Pace_PLV_North_LNG = -73.805270;
+    public final double Pace_PLV_North_LAT = 41.128309;
 
-    private final double Pace_PLV_Marks_LNG = -73.808189;
-    private final double Pace_PLV_Marks_LAT = 41.125831;
-
-
-    private final double Pace_PLV_Pond_LNG = -73.808238;
-    private final double Pace_PLV_Pond_LAT = 41.127508;
+    public final double Pace_PLV_Marks_LNG = -73.808189;
+    public final double Pace_PLV_Marks_LAT = 41.125831;
 
 
-    private final double Pace_PLV_Martin_LNG = -73.806595;
-    private final double Pace_PLV_Martin_LAT = 41.129335;
+    public final double Pace_PLV_Pond_LNG = -73.808238;
+    public final double Pace_PLV_Pond_LAT = 41.127508;
+
+
+    public final double Pace_PLV_Martin_LNG = -73.806595;
+    public final double Pace_PLV_Martin_LAT = 41.129335;
 
 
     /** PACE Weschester Longitude/Latitude  **/
@@ -121,93 +122,93 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
      * PACE New York Longitude/Latitude
      **/
 /*If User is at this point(Yonkers) they are consider in the city*/
-    private final double Pace_NYC_ACCESSPOINT_LNG = -73.898747;
-    private final double Pace_NYC_ACCESSPOINT_LAT = 40.931210;
+    public final double Pace_NYC_ACCESSPOINT_LNG = -73.898747;
+    public final double Pace_NYC_ACCESSPOINT_LAT = 40.931210;
 
 
-    private final double Pace_NYC_LNG = -74.005452;
-    private final double Pace_NYC_LAT = 40.711590;
+    public final double Pace_NYC_LNG = -74.005452;
+    public final double Pace_NYC_LAT = 40.711590;
 
-    private final double Pace_NYC_Broadway_LNG = -74.009344;
-    private final double Pace_NYC_Broadway_LAT = 40.710031;
+    public final double Pace_NYC_Broadway_LNG = -74.009344;
+    public final double Pace_NYC_Broadway_LAT = 40.710031;
 
-    private final double Pace_NYC_JohnStreet_LNG = -74.007566;
-    private final double Pace_NYC_JohnStreet_LAT = 40.709136;
+    public final double Pace_NYC_JohnStreet_LNG = -74.007566;
+    public final double Pace_NYC_JohnStreet_LAT = 40.709136;
 
-    private final double Pace_NYC_fulton_LNG = -74.007007;
-    private final double Pace_NYC_fulton_LAT = 40.709703;
+    public final double Pace_NYC_fulton_LNG = -74.007007;
+    public final double Pace_NYC_fulton_LAT = 40.709703;
 
-    private final double Pace_NYC_William_LNG = -74.005368;
-    private final double Pace_NYC_William_LAT = 40.709811;
+    public final double Pace_NYC_William_LNG = -74.005368;
+    public final double Pace_NYC_William_LAT = 40.709811;
 
-    private final double Pace_NYC_WilliamII_LNG = -74.006147;
-    private final double Pace_NYC_WilliamII_LAT = 40.710184;
+    public final double Pace_NYC_WilliamII_LNG = -74.006147;
+    public final double Pace_NYC_WilliamII_LAT = 40.710184;
 
-    private final double Pace_NYC_Maria_LNG = -74.004736;
-    private final double Pace_NYC_Maria_LAT = 40.710840;
+    public final double Pace_NYC_Maria_LNG = -74.004736;
+    public final double Pace_NYC_Maria_LAT = 40.710840;
 
-    private final double Pace_NYC_OnePace_LNG = -74.004740;
-    private final double Pace_NYC_OnePace_LAT = 40.710968;
+    public final double Pace_NYC_OnePace_LNG = -74.004740;
+    public final double Pace_NYC_OnePace_LAT = 40.710968;
 
-    private final double Pace_NYC_ParksRow_LNG = -74.006211;
-    private final double Pace_NYC_ParksRow_LAT = 40.711674;
+    public final double Pace_NYC_ParksRow_LNG = -74.006211;
+    public final double Pace_NYC_ParksRow_LAT = 40.711674;
 
-    private final double Pace_NYC_ParksRow_Bookstore_LNG = -74.006244;
-    private final double Pace_NYC_ParksRow_Bookstore_LAT = 40.711616;
+    public final double Pace_NYC_ParksRow_Bookstore_LNG = -74.006244;
+    public final double Pace_NYC_ParksRow_Bookstore_LAT = 40.711616;
 
-    private final double Pace_NYC_Library_LNG = -74.004317;
-    private final double Pace_NYC_Library_LAT = 40.710556;
-
-
-    private final double Pace_NYC_Lubin_LNG = -74.005084;
-    private final double Pace_NYC_Lubin_LAT = 40.711196;
-
-    private final double Pace_NYC_TasteOfSeaPort_LNG = -74.005324;
-    private final double Pace_NYC_TasteOfSeaPort_LAT = 40.711033;
+    public final double Pace_NYC_Library_LNG = -74.004317;
+    public final double Pace_NYC_Library_LAT = 40.710556;
 
 
-    private final double Pace_NYC_Confucius_LNG = -74.006387;
-    private final double Pace_NYC_Confucius_LAT = 40.711704;
+    public final double Pace_NYC_Lubin_LNG = -74.005084;
+    public final double Pace_NYC_Lubin_LAT = 40.711196;
 
-    private final double Pace_NYC_Schimmel_LNG = -74.004687;
-    private final double Pace_NYC_Schimmel_LAT = 40.710839;
+    public final double Pace_NYC_TasteOfSeaPort_LNG = -74.005324;
+    public final double Pace_NYC_TasteOfSeaPort_LAT = 40.711033;
+
+
+    public final double Pace_NYC_Confucius_LNG = -74.006387;
+    public final double Pace_NYC_Confucius_LAT = 40.711704;
+
+    public final double Pace_NYC_Schimmel_LNG = -74.004687;
+    public final double Pace_NYC_Schimmel_LAT = 40.710839;
 
 
     // Add a marker in Pleasantville and move the camera
-    private LatLng PaceUniPLV = new LatLng(Pace_PLV_LAT, Pace_PLV_LNG);
-    private LatLng PaceUniPLV_OSA = new LatLng(Pace_PLV_OSA_LAT, Pace_PLV_OSA_LNG);
-    private LatLng PaceUniPLV_Environmental = new LatLng(Pace_PLV_EnvironmentalCenter_LAT, Pace_PLV_EnvironmentalCenter_LNG);
-    private LatLng PaceUniPLV_Miller = new LatLng(Pace_PLV_Miller_LAT, Pace_PLV_Miller_LNG);
-    private LatLng PaceUniPLV_Lienhard = new LatLng(Pace_PLV_LIENHARD_LAT, Pace_PLV_LIENHARD_LNG);
-    private LatLng PaceUniPLV_Goldstien = new LatLng(Pace_PLV_GOLDSTIEN_LAT, Pace_PLV_GOLDSTIEN_LNG);
-    private LatLng PaceUniPLV_GoldstienGym = new LatLng(Pace_PLV_GOLDSTIENGYM_LAT, Pace_PLV_GOLDSTIENGYM_LNG);
-    private LatLng PaceUniPLV_Dyson = new LatLng(Pace_PLV_DYSON_LAT, Pace_PLV_DYSON_LNG);
-    private LatLng PaceUniPLV_Marks = new LatLng(Pace_PLV_Marks_LAT, Pace_PLV_Marks_LNG);
-    private LatLng PaceUniPLV_Wilcox = new LatLng(Pace_PLV_WILCOX_LAT, Pace_PLV_WILOCX_LNG);
-    private LatLng PaceUniPLV_Library = new LatLng(Pace_PLV_Library_LAT, Pace_PLV_Library_LNG);
-    private LatLng PaceUniPLV_Kessel = new LatLng(Pace_PLV_Kessel_LAT, Pace_PLV_Kessel_LNG);
-    private LatLng PaceUniPLV_Pond = new LatLng(Pace_PLV_Pond_LAT, Pace_PLV_Pond_LNG);
-    private LatLng PaceUniPLV_Choate = new LatLng(Pace_PLV_Choate_LAT, Pace_PLV_Choate_LNG);
-    private LatLng PaceUniPLV_Alumni = new LatLng(Pace_PLV_Alumni_LAT, Pace_PLV_Alumni_LNG);
-    private LatLng PaceUniPLV_Elm = new LatLng(Pace_PLV_Elm_LAT, Pace_PLV_Elm_LNG);
-    private LatLng PaceUniPLV_North = new LatLng(Pace_PLV_North_LAT, Pace_PLV_North_LNG);
-    private LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
+    public LatLng PaceUniPLV = new LatLng(Pace_PLV_LAT, Pace_PLV_LNG);
+    public LatLng PaceUniPLV_OSA = new LatLng(Pace_PLV_OSA_LAT, Pace_PLV_OSA_LNG);
+    public LatLng PaceUniPLV_Environmental = new LatLng(Pace_PLV_EnvironmentalCenter_LAT, Pace_PLV_EnvironmentalCenter_LNG);
+    public LatLng PaceUniPLV_Miller = new LatLng(Pace_PLV_Miller_LAT, Pace_PLV_Miller_LNG);
+    public LatLng PaceUniPLV_Lienhard = new LatLng(Pace_PLV_LIENHARD_LAT, Pace_PLV_LIENHARD_LNG);
+    public LatLng PaceUniPLV_Goldstien = new LatLng(Pace_PLV_GOLDSTIEN_LAT, Pace_PLV_GOLDSTIEN_LNG);
+    public LatLng PaceUniPLV_GoldstienGym = new LatLng(Pace_PLV_GOLDSTIENGYM_LAT, Pace_PLV_GOLDSTIENGYM_LNG);
+    public LatLng PaceUniPLV_Dyson = new LatLng(Pace_PLV_DYSON_LAT, Pace_PLV_DYSON_LNG);
+    public LatLng PaceUniPLV_Marks = new LatLng(Pace_PLV_Marks_LAT, Pace_PLV_Marks_LNG);
+    public LatLng PaceUniPLV_Wilcox = new LatLng(Pace_PLV_WILCOX_LAT, Pace_PLV_WILOCX_LNG);
+    public LatLng PaceUniPLV_Library = new LatLng(Pace_PLV_Library_LAT, Pace_PLV_Library_LNG);
+    public LatLng PaceUniPLV_Kessel = new LatLng(Pace_PLV_Kessel_LAT, Pace_PLV_Kessel_LNG);
+    public LatLng PaceUniPLV_Pond = new LatLng(Pace_PLV_Pond_LAT, Pace_PLV_Pond_LNG);
+    public LatLng PaceUniPLV_Choate = new LatLng(Pace_PLV_Choate_LAT, Pace_PLV_Choate_LNG);
+    public LatLng PaceUniPLV_Alumni = new LatLng(Pace_PLV_Alumni_LAT, Pace_PLV_Alumni_LNG);
+    public LatLng PaceUniPLV_Elm = new LatLng(Pace_PLV_Elm_LAT, Pace_PLV_Elm_LNG);
+    public LatLng PaceUniPLV_North = new LatLng(Pace_PLV_North_LAT, Pace_PLV_North_LNG);
+    public LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
     // Add a marker in NYC and move the camera
-    private LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
-    private LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
-    private LatLng PaceUniNYC_William156= new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
-    private LatLng PaceUniNYC_William163 = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
-    private LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
-    private LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
-    private LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
-    private LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
-    private LatLng PaceUniNYC_TasteOfSeaPort = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
-    private LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
-    private LatLng PaceUniNYC_Library = new LatLng(Pace_NYC_Library_LAT, Pace_NYC_Library_LNG);
-    private LatLng PaceUniNYC_Confucius = new LatLng(Pace_NYC_Confucius_LAT, Pace_NYC_Confucius_LNG);
-    private LatLng PaceUniNYC_ParksRow = new LatLng(Pace_NYC_ParksRow_LAT, Pace_NYC_ParksRow_LNG);
-    private LatLng PaceUniNYC_Maria = new LatLng(Pace_NYC_Maria_LAT, Pace_NYC_Maria_LNG);
-    private LatLng PaceUniNYC_Schimmel = new LatLng(Pace_NYC_Schimmel_LAT, Pace_NYC_Schimmel_LNG);
+    public LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
+    public LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
+    public LatLng PaceUniNYC_William156 = new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
+    public LatLng PaceUniNYC_William163 = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
+    public LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
+    public LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
+    public LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
+    public LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
+    public LatLng PaceUniNYC_TasteOfSeaPort = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
+    public LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
+    public LatLng PaceUniNYC_Library = new LatLng(Pace_NYC_Library_LAT, Pace_NYC_Library_LNG);
+    public LatLng PaceUniNYC_Confucius = new LatLng(Pace_NYC_Confucius_LAT, Pace_NYC_Confucius_LNG);
+    public LatLng PaceUniNYC_ParksRow = new LatLng(Pace_NYC_ParksRow_LAT, Pace_NYC_ParksRow_LNG);
+    public LatLng PaceUniNYC_Maria = new LatLng(Pace_NYC_Maria_LAT, Pace_NYC_Maria_LNG);
+    public LatLng PaceUniNYC_Schimmel = new LatLng(Pace_NYC_Schimmel_LAT, Pace_NYC_Schimmel_LNG);
 
 
     /*Default Map view*/
@@ -291,6 +292,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        pace = new Buildings(this);
 
 
         try {
@@ -550,237 +553,58 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         if (!location_search.equals("")) {
 
         /*The class 'Building'needs an enclosing instance to be instantiated*/
-            pacemap = new Buildings(this).new Building(location_search);
 
                 if(Position==PaceUniPLV) {
                     LatLng BuildingLatLng;
-
-                         /*returns LatLng Position*/
-                    switch (location_search.toLowerCase()) {
-
-                        case "miller":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Miller, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "miller hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Miller, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-
-                            break;
-                        case "lienhard hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "lienhard":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "nursing":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Lienhard, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "marks hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "marks":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "math department":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Marks, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "dyson hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "dyson":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "science department":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Dyson, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "wilcox hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Wilcox, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "class":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Wilcox, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(PaceUniPLV_Miller, location_search, "Here is ");
-                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
-                                    "Here is ", "found at the " + "", "found at " + "Miller Hall");
-                            break;
-                        case "goldstien academic center":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is ");
-                            break;
-                        case "goldstien academic":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is ");
-                            break;
-                        case "goldstien":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
-                                    "Here is ", "is a " + "Academic Center", "is a " + "Gym");
-                            break;
-                        case "lubin":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is ");
-                            break;
-                        case "seidenberg":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Goldstien, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "goldstien fitness center":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_GoldstienGym, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(PaceUniPLV_Goldstien, location_search, "Here is ");
-                            break;
-
-                        case "food":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMultiMarker(BuildingLatLng, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
-                                    "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
-                            break;
-                        case "kessel":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "kessel center":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Kessel, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "mortola library":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "mortola":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "library":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Library, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-                        case "north hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_North, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-
-                        case "north":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_North, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-                        case "martin hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Martin, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-                        case "elm hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Elm, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-                        case "elm":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Elm, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-
-                        case "alumni hall":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Alumni, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "alumni":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Alumni, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "choate house":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "choate":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "pink house":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Choate, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "OSA":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_OSA, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "office of student assistance":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_OSA, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "choate pond":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Pond, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
-                        case "pond":
-                            BuildingLatLng = pacemap.PaceLocation(PaceUniPLV_Pond, location_search, this);
-                            Log.d("Buildinglatlng", BuildingLatLng.toString());
-                            SetMarker(BuildingLatLng, location_search, "Here is " + location_search);
-                            break;
+                            /*reads from text list*/
+                    pacemap = new Buildings(this).new Building(location_search);
+                   /*if nothing is on the list show output*/
+                    if (pacemap.PaceLocation(location_search) == null) {
+                        Toast.makeText(this, "No matches found on the Westchester Campus", Toast.LENGTH_LONG).show();
+                        Log.d("not on list ", "show toast");
+                    }                                                                                                    /*check list
+                                                                                                                            for matches*/ else {
+                        /*returns LatLng Position*/
+                        BuildingLatLng = pacemap.PaceLocation(location_search);
+                        SetMarker(BuildingLatLng, location_search, "Here is ");
+                        Log.d("spot found ", "show on map");
                     }
 
 
+                    /**     if(location_search.equalsIgnoreCase("food"))
+                     SetMultiMarker(PaceUniPLV_Kessel, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
+                     "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");    if(location_search.equalsIgnoreCase("class")||location_search.equalsIgnoreCase("classes")) {
+                     SetMultiMarker(PaceUniPLV_Miller, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
+                     "Here is ", "found at the " + "", "found at " + "Miller Hall");
+                     SetMarker(PaceUniPLV_Dyson,location_search,location_search +" at Dyson Hall");
 
-
-
+                    }
+                     if(location_search.equalsIgnoreCase("goldstien")) {
+                     SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
+                     "Here is ", "found at the " + "", "found at " + "Miller Hall");
+                     } did'nt feel like changeing the method here    **/
 
                 }
 
-          /*    else
+            if (Position == PaceUniNYC)
                 {
+                             /*reads from text list*/
+                    Nycmap = new NycBuildings(this).new Building(location_search);
+                    LatLng BuildingLatLng;
+                   /*if nothing is on the list show output*/
+                    if (Nycmap.NYClocation(location_search) == null) {
+                        Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();
+                        Log.d("not on list ", "show toast");
+                    }                                                                                                    /*check list
+                                                                                                                            for matches*/ else {
+                        /*returns LatLng Position*/
+                        BuildingLatLng = Nycmap.NYClocation(location_search);
+                        SetMarker(BuildingLatLng, location_search, "Here is ");
+                        Log.d("spot found ", "show on map");
+                    }
 
-          User can Search any location
-                 //   SetMarker(BuildingLatLng, location, "Here is " + location);
-                }*/
+
+                }
 
 
         } else
