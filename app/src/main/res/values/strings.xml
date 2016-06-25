@@ -16,5 +16,6 @@
     <string name="PacePLV">Pace University - Pleasantville Campus  </string>
     <string name="PacePLVdescription">861 Bedford Rd, Pleasantville, NY 10570 </string>
     <string name="dyson">dyson</string>
+    <string name="title_activity_tutoring">Tutoring</string>
 
 </resources>

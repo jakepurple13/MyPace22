@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /****
      * AUTOINCREMENT INCREMNETS TABLE BYITSELF IT BENFITS THE PROGRAMMER 'LESS' CODING
      ****/
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
