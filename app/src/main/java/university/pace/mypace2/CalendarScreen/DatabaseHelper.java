@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "event";
     private static final String COLUMN_ID = "id";
     /***
-     * This is for the data base
+     * This is for the data base create columns for each piece of data
      ***/
     private static final String COLUMN_EVENT_ID = "eventid";
     /***
@@ -35,19 +35,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     SQLiteDatabase db;
 
-    private static final String TABLE_CREATE = "create table events (id integer primary key not null," +
-            "eventid text not null,eventname text not null,time text not null, day text not null);";
+    private final String query = "CREATE TABLE" + TABLE_NAME + "(" +
+            COLUMN_EVENT_ID + "INTEGER PRIMARY KEY AUTOINCREMENT" + COLUMN_NAME + "STRING" + COLUMN_DAY
+            + "STIRING" + ");";
 
-    public DatabaseHelper(Context context) {
+    /****
+     * AUTOINCREMENT INCREMNETS TABLE BYITSELF IT BENFITS THE PROGRAMMER 'LESS' CODING
+     ****/
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
     public String searchPass(String eventid) {
-        String idCheck, nameCheck = "not Found";
+        String idCheck, nameCheck = "NOT FOUND";
         db = this.getReadableDatabase();
 
-        String query = "Select * from " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME; //* means all
         Cursor cursor = db.rawQuery(query, null);
 
 
@@ -74,10 +78,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      ***/
     public void insertEventData(EventData events) {
 
-        db = this.getWritableDatabase();
+        db = this.getWritableDatabase();  //initialize db
         ContentValues values = new ContentValues();
 
-        String query = " Select * from events";   //* means all
+        String query = " SELECT * FROM EVENT";   //* means all
         Cursor cursor = db.rawQuery(query, null);
         int count = cursor.getCount();
 
@@ -90,21 +94,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);      //inserts contacts into database
     }
 
+    /***
+     * Call this to delete data in the database 'db'
+     ***/
+
+
+    public void deleteEventData(String name) {
+        db = this.getWritableDatabase();  //initialize db
+        db.execSQL("DELETE FROM" + TABLE_NAME + "WHERE"
+                + COLUMN_NAME + " =\"" + name + "\";");
+
+    }
+
+    /***
+     * Call this to print data in the database 'db'
+     ***/
+
+
+    public String printEventData(String name) {
+
+        String dbString = "";
+        db = this.getWritableDatabase();  //initialize db
+        String query = " SELECT * FROM " + TABLE_NAME + "WHERE 1"; //SELECT EVERY  '*'
+        //points to location                                      // COLUMN AND '1' EVERY ROW
+        Cursor cursor = db.rawQuery(query, null);
+        //move to first row
+        cursor.moveToFirst();
+
+        //not at the last row
+        while (!cursor.isAfterLast()) {
+            /* if something is in db
+                  Loop through and extract the event name and return each
+                          * */
+            if (cursor.getString(cursor.getColumnIndex("event")) != null) {
+                dbString += cursor.getString(cursor.getColumnIndex("event"));
+                dbString += "\n";
+            }
+
+
+        }
+        db.close();
+        return dbString;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(TABLE_CREATE);
-        this.db = db;
-        //this.db.execSQL(TABLE_CREATE);
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
-        Log.e("CREATION", "Created");
+        db.execSQL(query);
 
+
+        /**  Log.e("CREATION", "Created");
+         Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+        Log.e("CREATION", "Created");
+         this.db = db;
+         this.db.execSQL(TABLE_CREATE);
+         **/
 
     }
 
