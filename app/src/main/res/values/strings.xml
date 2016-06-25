@@ -14,8 +14,16 @@
     <string name="ChangeMapType">Change Map Type</string>
     <string name="enable_gps_question">Turn your Location on?</string>
     <string name="PacePLV">Pace University - Pleasantville Campus  </string>
-    <string name="PacePLVdescription">861 Bedford Rd, Pleasantville, NY 10570 </string>
+    <string name="PacePLVdescription">Monday: 10:00 AM - 9:00 PM \n
+Tuesday: 10:00 AM - 9:00 PM \n
+Wednesday: 10:00 AM - 9:00 PM\n
+Thursday: 10:00 AM - 9:00 PM\n
+Friday: CLOSED\n
+Saturday: CLOSED\n
+Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="dyson">dyson</string>
     <string name="title_activity_tutoring">Tutoring</string>
+    <string name="getTutoring">Get Tutoring</string>
+    <string name="Math">Math</string>
 
 </resources>

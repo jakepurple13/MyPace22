@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.nextbutton2:
 
-//                changeScreen(Buildings.class);
+//                changeScreen(Tutoring.class);
 
                 break;
 
