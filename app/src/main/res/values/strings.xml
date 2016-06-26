@@ -26,4 +26,70 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="getTutoring">Get Tutoring</string>
     <string name="Math">Math</string>
 
+    <string-array name="Buildings">
+        <!--PLV -->
+        <item> Miller Hall</item>
+        <item> Lienhard Hall</item>
+        <item>Marks Hall</item>
+        <item>Dyson Hall</item>
+        <item>Wilcox Hall</item>
+        <item>Goldstien Academic Center</item>
+        <item>Goldstien Fitness Center</item>
+        <item>North Hall</item>
+        <item> Martin Hall</item>
+        <item> Elm Hall</item>
+        <item> Alumni Hall</item>
+        <item> Mortola Library</item>
+        <item>Choate House</item>
+        <item>Choate Pond</item>
+        <item>OSA</item>
+        <item>office of student assistance</item>
+        <item> Environmental Center</item>
+        <item>  Kessel Center</item>
+        <item>  miller</item>
+        <item> lienhard</item>
+        <item> marks </item>
+        <item> dyson</item>
+        <item> seidenberg  </item>
+        <item>lubin </item>
+        <item>goldstien class </item>
+        <item>  goldstien gym   </item>
+        <item>  gym </item>
+        <item> library </item>
+        <item> mortola</item>
+        <item>kessel</item>
+        <item>pink house</item>
+        <item> pond</item>
+        <item> alumni</item>
+        <item> elm</item>
+        <item> north</item>
+        <item>martin</item>
+        <item>nursing</item>
+        <item>math department</item>
+        <item>science department</item>
+        <!--NYC     -->
+        <item>156 william street</item>
+        <item>182 Broadway</item>
+        <item>55 john street</item>
+        <item>106 fulton street</item>
+        <item>163 william street</item>
+        <item>Maria tower</item>
+        <item>the confucius institute</item>
+        <item>Barns and Nobles Bookstore</item>
+        <item>41 parks row</item>
+        <item>schimmel center</item>
+        <item>henry birnbaum</item>
+        <item>henry birnbaum library</item>
+        <item>library</item>
+        <item>one pace plaza</item>
+        <item>Broadway</item>
+        <item>john street</item>
+        <item>william street</item>
+        <item>fulton street</item>
+        <item>Maria</item>
+        <item>one pace</item>
+        <item>confucius institute</item>
+    </string-array>
+
+
 </resources>

@@ -49,14 +49,22 @@
         <activity
             android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
         <activity android:name=".CalendarScreen.CalendarScreen" />
-        <activity android:name=".TestingPackage.CardTest" />
+
+        <activity android:name=".TestingPackage.CardTest"
+
+            />
+
         <activity
             android:name=".TutoringCenter.Tutoring"
             android:label="@string/title_activity_tutoring"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

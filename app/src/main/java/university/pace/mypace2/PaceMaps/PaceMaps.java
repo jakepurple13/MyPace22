@@ -24,6 +24,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +52,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private NycBuildings.Building Nycmap;
     private Buildings.Building pacemap;
     private Buildings pace;
+    private AutoCompleteTextView location_tf;
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -230,14 +234,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //If a user is currently authenticated, display a logout menu
+        menu.clear();
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-
+        return super.onCreateOptionsMenu(menu);
     }
 
 
@@ -257,6 +258,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
     /**
@@ -361,7 +363,16 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 Log.d("List", "here");
                 /** Max zoom on School**/
                 mMap.getMaxZoomLevel();
-            }
+                /** Auto correct initialize onMap ready for user**/
+                location_tf = (AutoCompleteTextView) findViewById(R.id.address);
+                // Get the string array
+                String[] Buildings = getResources().getStringArray(R.array.Buildings);
+// Create the adapter and set it to the AutoCompleteTextView
+                ArrayAdapter<String> adapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Buildings);
+                location_tf.setAdapter(adapter);
+
+            }                                                          /** Auto correct initialize onMap ready for user**/
 
 
         } catch (Exception e) {
@@ -412,11 +423,13 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         if (mMap != null) {
 
             if (Position == PaceUniPLV) {
+                mMap.clear();  //clears anything on the map that should not be there 'gs' jr' 'jl'
                 NYVCampusOnMapView();
                 Position = PaceUniNYC;
                 Log.d("User toggled", "Showing NYC");
 
             } else {
+                mMap.clear(); //clears anything on the map that should not be there 'gs' jr' 'jl'
                 PleasantvilleCampusOnMapView();
                 Position = PaceUniPLV;
                 Log.d("User toggled", "Showing PLV");
@@ -494,6 +507,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("Student dormitory located near Entrance 3"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
+
+        Toast.makeText(this, "Now viewing the Westchester Campus", Toast.LENGTH_LONG).show();
+
     }
 
     private void NYVCampusOnMapView() {
@@ -519,6 +535,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
+        Toast.makeText(this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
     }
 
     private void ShowCampusNearMe(double lat) {
@@ -548,79 +565,108 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
      **/
     public void onSearch(View view) {
 
-        EditText location_tf = (EditText) findViewById(R.id.address);
-        String location_search = location_tf.getText().toString();
+// Get a reference to the AutoCompleteTextView in the layout
 
+        final String location_search = location_tf.getText().toString();
+
+        /**search with enter button**/
+        Log.d("debug", location_tf.toString());
+
+        location_tf.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch(location_search);
+                    Log.d("Entered Search", "pressed Enter");
+                    return true;
+
+                }
+                return false;
+            }
+        });
+        performSearch(location_search); //search button on screen
+
+    }
+
+    private void performSearch(String location_search) {
 
         if (location_search.equalsIgnoreCase("George Samuels") && Position == PaceUniPLV)
             GS();
+        if (location_search.equalsIgnoreCase("food") && Position == PaceUniPLV)
+            SetMultiMarker(PaceUniPLV_Kessel, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
+                    "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
+        if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
+            SetMultiMarker(PaceUniPLV_Miller, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
+                    "Here is ", "found at the " + "", "found at " + "Miller Hall");
 
+
+        }
+        if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
+            SetClassMarker(PaceUniPLV_Dyson, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, PaceUniPLV_Miller, location_search,
+                    "Here is ", "Here is ", "found at the " + "", "found at " + "Miller Hall");
+
+        }
+        if (location_search.equalsIgnoreCase("goldstien") && Position == PaceUniPLV) {
+            SetTwoMarker(PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
+                    "Here is ", "found at the " + "Gym");
+        }  /** got lazy   **/
 
   /*User can Search any location on pace grounds */
         if (!location_search.equals("")) {
 
         /*The class 'Building'needs an enclosing instance to be instantiated*/
 
-                if(Position==PaceUniPLV) {
-                    LatLng BuildingLatLng;
+            if (Position == PaceUniPLV) {
+                LatLng BuildingLatLng;
 
 
                             /*reads from text list*/
-                    pacemap = new Buildings(this).new Building(location_search);
+                pacemap = new Buildings(this).new Building(location_search);
                    /*if nothing is on the list show output*/
-                    if (pacemap.PaceLocation(location_search) == null) {
+                if (pacemap.PaceLocation(location_search) == null) {
 
 
-                        Toast.makeText(this, "No matches found on the Westchester Campus", Toast.LENGTH_LONG).show();
-                        Log.d("not on list ", "show toast");
+                    Toast.makeText(this, "No matches found on the Westchester Campus", Toast.LENGTH_LONG).show();
+                    Log.d("not on list ", "show toast");
 
-                    }                                                                                                    /*check list
+                }                                                                                                    /*check list
                                                                                                                             for matches*/ else {
+
+
+
                         /*returns LatLng Position*/
-                        BuildingLatLng = pacemap.PaceLocation(location_search);
-                        SetMarker(BuildingLatLng, location_search, "Here is ");
-                        Log.d("spot found ", "show on map");
-                    }
-
-
-                    /**     if(location_search.equalsIgnoreCase("food"))
-                     SetMultiMarker(PaceUniPLV_Kessel, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
-                     "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");    if(location_search.equalsIgnoreCase("class")||location_search.equalsIgnoreCase("classes")) {
-                     SetMultiMarker(PaceUniPLV_Miller, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
-                     "Here is ", "found at the " + "", "found at " + "Miller Hall");
-                     SetMarker(PaceUniPLV_Dyson,location_search,location_search +" at Dyson Hall");
-
-                    }
-                     if(location_search.equalsIgnoreCase("goldstien")) {
-                     SetMultiMarker(BuildingLatLng, PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
-                     "Here is ", "found at the " + "", "found at " + "Miller Hall");
-                     } did'nt feel like changeing the method here    **/
-
+                    BuildingLatLng = pacemap.PaceLocation(location_search);
+                    SetMarker(BuildingLatLng, location_search, "Here is ");
+                    Log.d("spot found ", "show on map");
                 }
 
-            if (Position == PaceUniNYC)
-                {
-                             /*reads from text list*/
-                    Nycmap = new NycBuildings(this).new Building(location_search);
-                    LatLng BuildingLatLng;
+
+            }
+
+            if (Position == PaceUniNYC) {
+          /*reads from text list*/
+                Nycmap = new NycBuildings(this).new Building(location_search);
+                LatLng BuildingLatLng;
                    /*if nothing is on the list show output*/
-                    if (Nycmap.NYClocation(location_search) == null) {
-                        Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();
-                        Log.d("not on list ", "show toast");
-                    }                                                                                                    /*check list
+                if (Nycmap.NYClocation(location_search) == null) {
+                    Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();
+                    Log.d("not on list ", "show toast");
+                }                                                                                                    /*check list
                                                                                                                             for matches*/ else {
+
                         /*returns LatLng Position*/
-                        BuildingLatLng = Nycmap.NYClocation(location_search);
-                        SetMarker(BuildingLatLng, location_search, "Here is ");
-                        Log.d("spot found ", "show on map");
-                    }
-
-
+                    BuildingLatLng = Nycmap.NYClocation(location_search);
+                    SetMarker(BuildingLatLng, location_search, "Here is ");
+                    Log.d("spot found ", "show on map");
                 }
+
+
+            }
 
 
         } else
             Toast.makeText(this, "You must type something to Search", Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -667,6 +713,56 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
+    private void SetClassMarker(LatLng setposition, LatLng secondPosition, LatLng ThirdPosition, LatLng FourPosition, String title,
+                                String des, String desII, String desIII, String desIV) {
+        MarkerOptions marker = new MarkerOptions()
+                .title(title)
+                .snippet(des)
+                .position(setposition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        MarkerOptions markertwo = new MarkerOptions()
+                .title(title)
+                .snippet(desII)
+                .position(secondPosition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        MarkerOptions markerthree = new MarkerOptions()
+                .title(title)
+                .snippet(desIII)
+                .position(ThirdPosition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+
+        mMap.clear();
+        mMap.addMarker(marker);
+        mMap.addMarker(markertwo);
+        mMap.addMarker(markerthree);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
+
+    }
+
+    private void SetTwoMarker(LatLng setposition, LatLng secondPosition, String title,
+                              String des, String desII) {
+        MarkerOptions marker = new MarkerOptions()
+                .title(title)
+                .snippet(des)
+                .position(setposition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+        MarkerOptions markertwo = new MarkerOptions()
+                .title(title)
+                .snippet(desII)
+                .position(secondPosition)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp));
+
+
+        mMap.clear();
+        mMap.addMarker(marker);
+        mMap.addMarker(markertwo);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
+
+    }
 
     private void GS() {
 /**Gs    **/
