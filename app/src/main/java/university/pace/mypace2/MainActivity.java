@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
@@ -46,6 +47,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        String[] perms = {"android.permission.READ_CALENDAR", "android.permission.Write_CALENDAR",
+                "android.permission.GET_ACCOUNTS", "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
+
+        int permsRequestCode = 200;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(perms, permsRequestCode);
+        }
+
+
 
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -99,6 +111,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
+
+        switch (permsRequestCode) {
+
+            case 200:
+
+                boolean writeAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                break;
+
+        }
+
+    }
+
+    private boolean canMakeSmores() {
+
+        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+
+    }
+
+
+
+
+    /*private boolean shouldWeAsk(String permission){
+
+        return (sharedPreferences.getBoolean(permission, true));
+
+    }
+
+
+
+    private void markAsAsked(String permission){
+
+        sharedPreferences.edit().putBoolean(permission, false).apply;
+
+    }
+
+    private ArrayList findUnAskedPermissions(ArrayList wanted){
+
+        ArrayList result = new ArrayList<~>();
+
+        for(String perm : wanted){
+
+            if(!hasPermission(perm) && shouldWeAsk(perm)){
+
+                result.add(perm);
+
+            }
+
+        }
+
+        return result;
+
+    }*/
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

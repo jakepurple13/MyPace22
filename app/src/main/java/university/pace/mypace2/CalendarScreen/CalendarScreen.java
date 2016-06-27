@@ -78,7 +78,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
     com.google.api.services.calendar.Calendar mServices;
 
-    DatabaseHelper dh;
+    //DatabaseHelper dh;
 
     TextView monthName;
 
@@ -98,7 +98,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.view);
 
-        dh = new DatabaseHelper(getApplicationContext());
+        //dh = new DatabaseHelper(getApplicationContext());
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override

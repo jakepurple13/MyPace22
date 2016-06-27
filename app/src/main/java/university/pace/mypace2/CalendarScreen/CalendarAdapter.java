@@ -3,7 +3,9 @@ package university.pace.mypace2.CalendarScreen;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -21,7 +23,9 @@ import android.widget.Toast;
 
 import com.google.api.services.calendar.model.Event;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -98,12 +102,19 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         //TODO: Work here on getting this looking nicer
 
+
         holder.mTextView.setText(info);
+
+
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //holder.colored==Color.WHITE ||
-                if ((in.dh.searchPass(event.getId()).equals("not Found"))) {
+
+                readCalendarEvent(in);
+
+                if (eventCheck(event)) {
+
+                    //if (holder.colored==Color.WHITE) {
 
                     final ContentValues events = new ContentValues();
                     events.put(CalendarContract.Events.CALENDAR_ID, 1);
@@ -115,6 +126,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                     events.put(CalendarContract.Events.DTEND, event.getEnd().getDate().getValue());
                     String timeZone = TimeZone.getDefault().getID();
                     events.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone);
+
 
                     Uri baseUri;
                     if (Build.VERSION.SDK_INT >= 8) {
@@ -135,8 +147,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                     holder.colored = color;
                     holder.cv.setCardBackgroundColor(color);
 
-                    in.dh.insertEventData(new EventData(event.getSummary(), event.getStart().getDate().toString(), event.getEnd().getDate().toString(), event.getId()));
-
 
                 } else {
                     Toast.makeText(in, "You already have it", Toast.LENGTH_SHORT).show();
@@ -147,6 +157,78 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             }
         });
 
+    }
+
+
+    public boolean eventCheck(Event e) {
+
+
+        for (int i = 0; i < nameOfEvent.size(); i++) {
+
+            Log.e("Line 172", nameOfEvent.get(i) + "");
+            Log.e("Line 173", descriptions.get(i) + "");
+            Log.e("Line 174", startDates.get(i) + "");
+
+            if (e.getSummary().equals(nameOfEvent.get(i)) && e.getDescription().equals(descriptions.get(i))) {
+                return false;
+            }
+
+            if (getDate(e.getStart().getDate().getValue() + (1000 * 60 * 60 * 24)) == startDates.get(i)) {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    public static ArrayList<String> nameOfEvent = new ArrayList<String>();
+    public static ArrayList<String> startDates = new ArrayList<String>();
+    public static ArrayList<String> endDates = new ArrayList<String>();
+    public static ArrayList<String> descriptions = new ArrayList<String>();
+
+    public static ArrayList<String> readCalendarEvent(Context context) {
+        Cursor cursor = context.getContentResolver()
+                .query(
+                        Uri.parse("content://com.android.calendar/events"),
+                        new String[]{"calendar_id", "title", "description",
+                                "dtstart", "dtend", "eventLocation"}, null,
+                        null, null);
+        cursor.moveToFirst();
+        // fetching calendars name
+        String CNames[] = new String[cursor.getCount()];
+
+        // fetching calendars id
+        nameOfEvent.clear();
+        startDates.clear();
+        endDates.clear();
+        descriptions.clear();
+        for (int i = 0; i < CNames.length; i++) {
+
+            nameOfEvent.add(cursor.getString(1));
+            startDates.add(getDate(Long.parseLong(cursor.getString(3))));
+            try {
+                endDates.add(getDate(Long.parseLong(cursor.getString(4))));
+            } catch (NumberFormatException e) {
+                endDates.add(-1 + "");
+            }
+            descriptions.add(cursor.getString(2));
+            CNames[i] = cursor.getString(1);
+
+            Log.e("Line 210", CNames[i]);
+
+            cursor.moveToNext();
+
+        }
+        return nameOfEvent;
+    }
+
+    public static String getDate(long milliSeconds) {
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "dd/MM/yyyy hh:mm:ss a");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 
 

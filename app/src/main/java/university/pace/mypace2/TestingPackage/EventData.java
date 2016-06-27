@@ -1,4 +1,4 @@
-package university.pace.mypace2.CalendarScreen;
+package university.pace.mypace2.TestingPackage;
 
 /**
  * Created by Mrgds on 6/23/2016.

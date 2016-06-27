@@ -1,4 +1,4 @@
-package university.pace.mypace2.CalendarScreen;
+package university.pace.mypace2.TestingPackage;
 
 /**
  * Created by Mrgds on 6/23/2016.
@@ -9,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by Mrgds on 2/6/2016.
