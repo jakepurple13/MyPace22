@@ -168,9 +168,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_Lubin_LNG = -74.005084;
     public final double Pace_NYC_Lubin_LAT = 40.711196;
 
-    public final double Pace_NYC_TasteOfSeaPort_LNG = -74.005324;
-    public final double Pace_NYC_TasteOfSeaPort_LAT = 40.711033;
+    public final double Pace_NYC_TasteOfSeaPort_LNG = -74.005800;
+    public final double Pace_NYC_TasteOfSeaPort_LAT = 40.710577;
 
+    public final double Pace_NYC_BEEKMAN_LNG = -74.005800;
+    public final double Pace_NYC_BEEKMAN_LAT = 40.710577;
 
     public final double Pace_NYC_Confucius_LNG = -74.006387;
     public final double Pace_NYC_Confucius_LAT = 40.711704;
@@ -207,14 +209,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
     public LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
     public LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
-    public LatLng PaceUniNYC_TasteOfSeaPort = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
+    public LatLng PaceUniNYC_Cafe101 = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
     public LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
     public LatLng PaceUniNYC_Library = new LatLng(Pace_NYC_Library_LAT, Pace_NYC_Library_LNG);
     public LatLng PaceUniNYC_Confucius = new LatLng(Pace_NYC_Confucius_LAT, Pace_NYC_Confucius_LNG);
     public LatLng PaceUniNYC_ParksRow = new LatLng(Pace_NYC_ParksRow_LAT, Pace_NYC_ParksRow_LNG);
     public LatLng PaceUniNYC_Maria = new LatLng(Pace_NYC_Maria_LAT, Pace_NYC_Maria_LNG);
     public LatLng PaceUniNYC_Schimmel = new LatLng(Pace_NYC_Schimmel_LAT, Pace_NYC_Schimmel_LNG);
-
+    public LatLng PaceUniNYC_BEEKMAN = new LatLng(Pace_NYC_BEEKMAN_LAT, Pace_NYC_BEEKMAN_LNG);
 
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
@@ -524,14 +526,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin).title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").snippet("Main building for the University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_TasteOfSeaPort).title("Taste Of The Seaport").snippet("we have food").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have foodk
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101).title("Cafe 101").snippet("we have food").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available to all students").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William156).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_BEEKMAN).title("33 Beekman st").snippet("Student housing").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
         Toast.makeText(this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
