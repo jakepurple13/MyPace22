@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.nextbutton2:
+            case R.id.pacemail:
 
 //                changeScreen(Tutoring.class);
 

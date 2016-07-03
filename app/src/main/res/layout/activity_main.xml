@@ -21,17 +21,20 @@
 
     <Button
         android:id="@+id/campusmap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginRight="35dp"
-        android:text="maps"
-        android:onClick="onClick" />
+
+        android:onClick="onClick"
+        android:clickable="true"
+        android:background="@drawable/mapicon" />
 
     <Button
         android:id="@+id/numbers"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginRight="30dp"
+
         android:clickable="true"
         android:background="@drawable/phoneicon" />
 
@@ -57,12 +60,12 @@
                 android:onClick="onClick" />
 
             <Button
-                android:id="@+id/nextbutton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/pacemail"
+                android:layout_width="98dp"
+                android:layout_height="90dp"
                 android:layout_marginRight="35dp"
-                android:text="next2"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:background="@drawable/emailicon" />
 
             <Button
                 android:id="@+id/nextbutton3"

@@ -452,33 +452,33 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         "Services of Financial Aid, Student Accounts"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Environmental
-        ).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_environ)).snippet("Charming place open to" +
+        ).title("Environmental Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.environmentmkr)).snippet("Charming place open to" +
                 " all and is especially a favorite destination of families with young children. "));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Miller
-        ).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("College Academic Building, " +
+        ).title("Miller Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("College Academic Building, " +
                 "College Classroom "));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Lienhard)
-                .title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("College Academic Building" +
+                .title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("College Academic Building" +
                         " and College Nursing Building"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien)
-                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet(
+                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet(
                         "Home of Lubin and Computer Science students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
-                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet(
+                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.gymmkr)).snippet(
                         "Gym,Pool & Basketball courts available"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
-                .title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)).snippet("Welcome Center & Mathematics department"));
+                .title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Welcome Center & Mathematics department"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Dyson)
-                .title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("Home to all Science students & Science Professors"));
+                .title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("Home to all Science students & Science Professors"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox)
-                .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)).snippet("Academic Building & " +
+                .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("Academic Building & " +
                         "home of Performing Art students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel)
@@ -490,22 +490,22 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         " studying and group work"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Pond)
-                .title("Choate Pond").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_pond)).snippet("Pace's iconic land mark"));
+                .title("Choate Pond").icon(BitmapDescriptorFactory.fromResource(R.drawable.pondmkr)).snippet("Pace's iconic land mark"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Choate
-        ).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)).snippet(""));
+        ).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.choatemkr)).snippet(""));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_North
-        ).title("North Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("Student dormitory located near Entrance 3"));
+        ).title("North Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Student dormitory located near Entrance 3"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Elm)
-                .title("Elm Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("NEW Student dormitory part of the master plan"));
+                .title("Elm Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("NEW Student dormitory part of the master plan"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Alumni)
-                .title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("NEW Student dormitory part of the master plan"));
+                .title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("NEW Student dormitory part of the master plan"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Martin)
-                .title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("Student dormitory located near Entrance 3"));
+                .title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Student dormitory located near Entrance 3"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
 
@@ -518,22 +518,22 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC).title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel).title("Schimmel Center").snippet("provides performance to the" +
-                " university and the general public").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_schimmel)));
+                " university and the general public").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius).title("The Confucius Institute").snippet("Center for language instruction & cultural immersion").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius).title("The Confucius Institute").snippet("Center for language instruction & cultural immersion").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore).title("Barns & Noble BookStore").snippet("Purchase books,apparel and more").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow).title("41 Parks Row").snippet("Classrooms and offices located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin).title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_class)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").snippet("Main building for the University").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101).title("Cafe 101").snippet("we have food").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow).title("41 Parks Row").snippet("Classrooms and offices located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin).title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").snippet("Main building for the University").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101).title("Cafe 101").snippet("Wide variety of food and drinks including starbucks").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available to all students").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William156).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_BEEKMAN).title("33 Beekman st").snippet("Student housing").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_maker_50dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet).title("55 John Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway).title("182 Broadway").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William156).title("156 William Street").snippet("Classrooms and Administration located in this building").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_BEEKMAN).title("33 Beekman st").snippet("Student housing").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
         Toast.makeText(this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
