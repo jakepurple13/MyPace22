@@ -41,10 +41,10 @@
 
     <Button
         android:id="@+id/calBut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:onClick="onClick"
-        android:text="Calendar" />
+        android:background="@drawable/calender"/>
         </TableRow>
 
 
@@ -65,21 +65,47 @@
                 android:layout_height="90dp"
                 android:layout_marginRight="35dp"
                 android:onClick="onClick"
-                android:background="@drawable/emailicon" />
-
+                android:background="@drawable/pacemail"/>
             <Button
-                android:id="@+id/nextbutton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/bb"
+                android:layout_width="98dp"
+                android:layout_height="90dp"
                 android:layout_marginRight="35dp"
-                android:text="next3"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:background="@drawable/bb_icon"/>
+
 
             <!---   Any buttons Put here Keep my rows Like this Jacob -->
         </TableRow>
 
 
-        <TableRow>
+        <TableRow android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/IM"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/pacemessage"
+                android:onClick="onClick"/>
+
+
+            <Button
+                android:id="@+id/nextbutton3"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginRight="35dp"
+                android:text="next3"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/feedback"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginRight="35dp"
+                android:text="Feed-back"
+                android:onClick="onClick"/>
+
             <!---   Any buttons Put here Keep my rows Like this Jacob -->
         </TableRow>
 
