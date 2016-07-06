@@ -564,7 +564,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     /**
      * Search any Building
      **/
-    public void onSearch(View view) {
+    public void onSearch(final View view) {
 
 // Get a reference to the AutoCompleteTextView in the layout
 
@@ -577,7 +577,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    performSearch(location_search);
+                    onSearch(view);
                     Log.d("Entered Search", "pressed Enter");
                     return true;
 

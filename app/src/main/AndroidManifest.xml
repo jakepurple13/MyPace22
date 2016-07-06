@@ -65,6 +65,14 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
+
+        <activity
+            android:name=".PaceEmail.PMail"
+            android:label="@string/title_activity_pacemail"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

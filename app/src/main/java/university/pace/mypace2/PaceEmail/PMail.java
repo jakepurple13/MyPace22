@@ -82,7 +82,7 @@ public class PMail extends AppCompatActivity {
     }
 
     public SettableFuture<Boolean> logon() {
-
+/**
         final SettableFuture<Boolean> result = SettableFuture.create();
 
         try {
@@ -94,8 +94,7 @@ public class PMail extends AppCompatActivity {
         }
 
         if (_authContext != null) {
-            _authContext.acquireToken(
-                    this,
+ _authContext.acquireToken(this,
                     scopes,
                     null,
                     getResources().getString(R.string.AADClientId),
@@ -129,8 +128,10 @@ public class PMail extends AppCompatActivity {
         }
 
         return result;
-    }
 
+    }
+ **/return null;
+    }
     public void getMessages() {
         logger.info("Getting messages...");
         Futures.addCallback(_client.getMe().getMessages().top(10).read(), new FutureCallback<List<Message>>() {
@@ -189,7 +190,7 @@ public class PMail extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.settings) {
             return true;
         }
 
@@ -197,4 +198,5 @@ public class PMail extends AppCompatActivity {
     }
 }
 
-}
+
+

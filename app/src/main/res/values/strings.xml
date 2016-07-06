@@ -94,5 +94,6 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="AADResourceId">https://outlook.office.com</string>
     <string name="AADClientId">Paste your Client ID HERE</string>
     <string name="AADRedirectUrl">Paste your Redirect URI HERE</string>
+    <string name="title_activity_pacemail">Email</string>
     <!--   -->
 </resources>

@@ -33,6 +33,7 @@ import java.util.Date;
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
+import university.pace.mypace2.PaceEmail.PMail;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
@@ -222,8 +223,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.pacemail:
 
-//                changeScreen(Tutoring.class);
-
+                changeScreen(PMail.class);
+//can not logon    TODO:here
                 break;
 
             default:
