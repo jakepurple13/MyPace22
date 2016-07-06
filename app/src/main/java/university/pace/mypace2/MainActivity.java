@@ -1,11 +1,15 @@
 package university.pace.mypace2;
 
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,6 +30,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import java.util.ArrayList;
@@ -59,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         phoneButton = (Button) findViewById(R.id.numbers);
@@ -84,16 +88,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                    am.setStreamVolume(
-                            AudioManager.STREAM_MUSIC,
-                            am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                            15);
+                am.setStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                        15);
 
-                    MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.rejectionhotline);
+                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.rejectionhotline);
 
-                    mediaPlayer.start();
-                    int duration = mediaPlayer.getDuration();
-                    int current_position = mediaPlayer.getCurrentPosition();
+                mediaPlayer.start();
+                int duration = mediaPlayer.getDuration();
+                int current_position = mediaPlayer.getCurrentPosition();
 
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -122,14 +126,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case 200:
 
-                boolean writeAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                break;
+                    break;
 
+                } else
+                    Toast.makeText(this, "For full app functions these premission are needed", Toast.LENGTH_LONG).show();
         }
 
     }
-
     private boolean canMakeSmores() {
 
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
