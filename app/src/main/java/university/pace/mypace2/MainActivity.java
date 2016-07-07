@@ -36,7 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.Date;
 
-import university.pace.mypace2.Blackboard.blackboardapp;
+
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceEmail.PMail;
