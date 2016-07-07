@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /***
      * Call this to put data in the database 'db'
      ***/
-    public void insertEventData(EventData events) {
+    public void insertData(EventData events) {
 
         db = this.getWritableDatabase();  //initialize db
         ContentValues values = new ContentValues();

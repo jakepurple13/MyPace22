@@ -27,10 +27,12 @@ import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,6 +55,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private Buildings.Building pacemap;
     private Buildings pace;
     private AutoCompleteTextView location_tf;
+    private ToggleButton toggle;
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -234,30 +237,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        /*** Toggle For map PLV /NYC      *******************************************************/
+        toggle = (ToggleButton) findViewById(R.id.Toggle);
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.ToggleMap) {
-            //     changeMap();
-
-            return true;
-        }
-        if (id == R.id.MapTypeChange) {
-            /**   changeType();    Change to satellite  **/
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
+        /*** Toggle For map PLV /NYC      *******************************************************/
     }
 
 
@@ -417,23 +400,30 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
+
     /**
-     * Show different map manual Pace/NYC
+     * Show different map manual Pace/NYC also controls toggle button graphic
      **/
     public void changeMap(View view) {
         if (mMap != null) {
 
             if (Position == PaceUniPLV) {
                 mMap.clear();  //clears anything on the map that should not be there 'gs' jr' 'jl'
+                toggle.setText(R.string.toggleNYC);
+                findViewById(R.id.Toggle).setBackgroundResource(R.drawable.toggle_off);
                 NYVCampusOnMapView();
                 Position = PaceUniNYC;
                 Log.d("User toggled", "Showing NYC");
+                Log.d(" Grey", "Map");
 
             } else {
                 mMap.clear(); //clears anything on the map that should not be there 'gs' jr' 'jl'
+                toggle.setText(R.string.togglePLV);
+                toggle.setBackgroundResource(R.drawable.toggle_on);
                 PleasantvilleCampusOnMapView();
                 Position = PaceUniPLV;
                 Log.d("User toggled", "Showing PLV");
+                Log.d(" Blue", "Map");
 
             }
 

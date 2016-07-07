@@ -132,10 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    break;
+
 
                 } else
                     Toast.makeText(this, "For full app functions these premission are needed", Toast.LENGTH_LONG).show();
+                break;
         }
 
     }
@@ -232,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.pacemail:
 
-                changeScreen(PMail.class);
-//can not logon    TODO:here
+                startNewActivity(this, "com.microsoft.exchange.mowa");
+//   TODO:here
                 break;
             case R.id.blackboard:
                 startNewActivity(this, "com.blackboard.android");
@@ -253,9 +254,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void startNewActivity(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
-            // Bring user to the market or let them choose an app?
+            // Bring user to the market
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + packageName));
+            //download the app
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
