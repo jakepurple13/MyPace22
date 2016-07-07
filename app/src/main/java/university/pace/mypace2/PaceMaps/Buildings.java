@@ -147,7 +147,9 @@ public class Buildings {
                     case "goldstien fitness center":
                         latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
                         break;
-
+                    case "gym":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
                     case "kessel":
                         latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
                         break;
@@ -213,6 +215,17 @@ public class Buildings {
                     case "pond":
                         latlngSpot = PaceBuilding.PaceUniPLV_Pond;
                         break;
+                    case "food":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Martin;
+                        break;
+                    case "class":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Miller;
+
+                        break;
+                    case "goldstien":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+
 
 
                 }

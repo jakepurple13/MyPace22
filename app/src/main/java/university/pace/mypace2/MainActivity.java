@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,7 +40,7 @@ import java.util.Date;
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
-import university.pace.mypace2.PaceEmail.PMail;
+;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
@@ -47,7 +48,7 @@ import university.pace.mypace2.TestingPackage.CardTest;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button phoneButton;
+    ImageButton phoneButton;
     AudioManager am;
 
     @Override
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         /***Important Numbers****/////////////
-        phoneButton = (Button) findViewById(R.id.numbers);
+        phoneButton = (ImageButton) findViewById(R.id.numbers);
 
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.blackboard:
                 startNewActivity(this, "com.blackboard.android");
 
-                // changeScreen(blackboardapp.class);
 //can not logon    TODO:here
                 break;
 

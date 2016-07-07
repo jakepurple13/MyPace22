@@ -40,7 +40,6 @@
             android:layout_height="50dp"
             android:id="@+id/Toggle"
             android:layout_gravity="right"
-            android:nestedScrollingEnabled="false"
             android:background="@drawable/toggle_off"
             android:clickable="true"
             android:onClick="changeMap"

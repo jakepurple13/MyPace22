@@ -19,7 +19,7 @@
 
         <TableRow>
 
-    <Button
+            <ImageButton
         android:id="@+id/campusmap"
         android:layout_width="90dp"
         android:layout_height="90dp"
@@ -29,7 +29,7 @@
         android:clickable="true"
         android:background="@drawable/mapicon" />
 
-    <Button
+            <ImageButton
         android:id="@+id/numbers"
         android:layout_width="90dp"
         android:layout_height="90dp"
@@ -39,7 +39,7 @@
         android:background="@drawable/phoneicon" />
 
 
-    <Button
+            <ImageButton
         android:id="@+id/calBut"
         android:layout_width="90dp"
         android:layout_height="89dp"
@@ -54,20 +54,21 @@
 
             <Button
                 android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_marginRight="35dp"
                 android:text="Test"
                 android:onClick="onClick" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/pacemail"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="35dp"
                 android:onClick="onClick"
                 android:background="@drawable/pacemail"/>
-            <Button
+
+            <ImageButton
                 android:id="@+id/blackboard"
                 android:layout_width="70dp"
                 android:layout_height="90dp"
@@ -82,7 +83,7 @@
 
         <TableRow android:layout_marginTop="16dp">
 
-            <Button
+            <ImageButton
                 android:id="@+id/IM"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
@@ -91,7 +92,7 @@
                 android:onClick="onClick"/>
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/nextbutton3"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
@@ -99,7 +100,7 @@
                 android:text="next3"
                 android:onClick="onClick"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/feed"
                 android:layout_width="90dp"
                 android:layout_height="90dp"

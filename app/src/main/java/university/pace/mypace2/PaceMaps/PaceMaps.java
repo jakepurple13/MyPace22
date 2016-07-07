@@ -584,24 +584,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         if (location_search.equalsIgnoreCase("George Samuels") && Position == PaceUniPLV)
             GS();
-        if (location_search.equalsIgnoreCase("food") && Position == PaceUniPLV)
-            SetMultiMarker(PaceUniPLV_Kessel, PaceUniPLV_Martin, PaceUniPLV_Miller, location_search,
-                    "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
-        if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
-            SetMultiMarker(PaceUniPLV_Miller, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, location_search,
-                    "Here is ", "found at the " + "", "found at " + "Miller Hall");
 
 
-        }
-        if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
-            SetClassMarker(PaceUniPLV_Dyson, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, PaceUniPLV_Miller, location_search,
-                    "Here is ", "Here is ", "found at the " + "", "found at " + "Miller Hall");
-
-        }
-        if (location_search.equalsIgnoreCase("goldstien") && Position == PaceUniPLV) {
-            SetTwoMarker(PaceUniPLV_Goldstien, PaceUniPLV_GoldstienGym, location_search,
-                    "Here is ", "found at the " + "Gym");
-        }  /** got lazy   **/
 
   /*User can Search any location on pace grounds */
         if (!location_search.equals("")) {
@@ -628,8 +612,25 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
                         /*returns LatLng Position*/
                     BuildingLatLng = pacemap.PaceLocation(location_search);
-                    SetMarker(BuildingLatLng, location_search, "Here is ");
-                    Log.d("spot found ", "show on map");
+
+                          /*returns LatLng Positions for keyword class*/
+                    if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
+                        //TODO:won't show miller?
+                        SetClassMarker(PaceUniPLV_Dyson, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, BuildingLatLng, location_search,
+                                "Here is at Dyson Hall ", "Here is at Goldstien ", "found at Lienhard Hall " + "", "found at " + "Miller Hall");
+
+                    } else if (location_search.equalsIgnoreCase("food") && Position == PaceUniPLV) {
+                        SetMultiMarker(PaceUniPLV_Kessel, BuildingLatLng, PaceUniPLV_Miller, location_search,
+                                "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
+                    } else if (location_search.equalsIgnoreCase("goldstien") && Position == PaceUniPLV) {
+                        SetTwoMarker(PaceUniPLV_Goldstien, BuildingLatLng, location_search,
+                                "Here is ", "found at the " + "Gym");
+                    }  /** got lazy   **/
+
+                    else {
+                        SetMarker(BuildingLatLng, location_search, "Here is ");
+                        Log.d("spot found ", "show on map");
+                    }
                 }
 
 
