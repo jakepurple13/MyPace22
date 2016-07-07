@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.Date;
 
+import university.pace.mypace2.Blackboard.blackboardapp;
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceEmail.PMail;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
+        /***Important Numbers****/////////////
         phoneButton = (Button) findViewById(R.id.numbers);
 
         phoneButton.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+        /***Important Numbers****/////////////
 
 
     }
@@ -233,6 +235,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 changeScreen(PMail.class);
 //can not logon    TODO:here
                 break;
+            case R.id.blackboard:
+                startNewActivity(this, "com.blackboard.android");
+
+                // changeScreen(blackboardapp.class);
+//can not logon    TODO:here
+                break;
+
 
             default:
                 break;
@@ -241,6 +250,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void startNewActivity(Context context, String packageName) {
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null) {
+            // Bring user to the market or let them choose an app?
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + packageName));
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
     public void changeScreen(Class cl) {
         Intent intent = new Intent(this, cl);
