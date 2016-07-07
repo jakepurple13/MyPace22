@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.R;
 
+//TODO:ADD MORE PLACES tutoring center for both campuses and get enter search working
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;

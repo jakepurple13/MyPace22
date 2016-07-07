@@ -14,7 +14,7 @@ android {
     sourceSets {
         main {
             java {
-                // exclude '**/PMail.java'
+                exclude '**/PMail.java'
             }
         }
 
