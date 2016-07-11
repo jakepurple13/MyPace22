@@ -66,7 +66,17 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>martin</item>
         <item>nursing</item>
         <item>math department</item>
-        <item>science department</item>
+        <item>class</item>
+        <item>food</item>
+        <item>goldstien</item>
+        <item>IT</item>
+        <item>Tech Support</item>
+        <item>English department</item>
+        <item>computer science department</item>
+        <item>health center</item>
+        <item>bookstore</item>
+
+
         <!--NYC     -->
         <item>156 william street</item>
         <item>182 Broadway</item>
@@ -89,6 +99,16 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>Maria</item>
         <item>one pace</item>
         <item>confucius institute</item>
+        <item>math department</item>
+        <item>class</item>
+        <item>food</item>
+        <item>goldstien</item>
+        <item>IT</item>
+        <item>Tech Support</item>
+        <item>English department</item>
+        <item>computer science department</item>
+        <item>health center</item>
+        <item>bookstore</item>
     </string-array>
     <string name="AADAuthority">https://login.microsoftonline.com/common</string>
     <string name="AADResourceId">https://outlook.office.com</string>

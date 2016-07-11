@@ -178,12 +178,10 @@ public class Buildings {
                     case "martin":
                         latlngSpot = PaceBuilding.PaceUniPLV_Martin;
                         break;
-
                     case "elm hall":
 
                         latlngSpot = PaceBuilding.PaceUniPLV_Elm;
                         break;
-
                     case "elm":
                         latlngSpot = PaceBuilding.PaceUniPLV_Elm;
                         break;
@@ -220,13 +218,40 @@ public class Buildings {
                         break;
                     case "class":
                         latlngSpot = PaceBuilding.PaceUniPLV_Miller;
-
                         break;
                     case "goldstien":
                         latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
                         break;
+                    case "bookstore":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
+                        break;
+                    case "health center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+                    case "Tech Support":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
+                        break;
+                    case "IT":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
+                        break;
+                    case "computer science department":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                        break;
+                    case "english department":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Choate;
+                        break;
 
+                    case "basketball courts":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
 
+                    case "baseball field":
+                        // latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
+
+                    case "football field":
+                        // latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        break;
 
                 }
 

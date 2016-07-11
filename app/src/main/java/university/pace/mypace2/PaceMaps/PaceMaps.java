@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import university.pace.mypace2.MainActivity;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.R;
 
@@ -57,6 +58,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private Buildings pace;
     private AutoCompleteTextView location_tf;
     private ToggleButton toggle;
+    private ToggleButton tType;
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -122,7 +124,12 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_PLV_Martin_LNG = -73.806595;
     public final double Pace_PLV_Martin_LAT = 41.129335;
 
+    public final double Pace_PLV_BASEBALL_LNG = -73.811428;
+    public final double Pace_PLV_BASEBALL_LAT = 41.129816;
 
+
+    public final double Pace_PLV_FOOTBALL_LNG = -73.810629;
+    public final double Pace_PLV_FOOTBALL_LAT = 41.128487;
 
     /** PACE Weschester Longitude/Latitude  **/
 
@@ -204,6 +211,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniPLV_Elm = new LatLng(Pace_PLV_Elm_LAT, Pace_PLV_Elm_LNG);
     public LatLng PaceUniPLV_North = new LatLng(Pace_PLV_North_LAT, Pace_PLV_North_LNG);
     public LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
+    public LatLng PaceUniPLV_Baseball = new LatLng(Pace_PLV_BASEBALL_LAT, Pace_PLV_BASEBALL_LNG);
+    public LatLng PaceUniPLV_Football = new LatLng(Pace_PLV_FOOTBALL_LAT, Pace_PLV_FOOTBALL_LNG);
+
     // Add a marker in NYC and move the camera
     public LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
     public LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
@@ -241,9 +251,72 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         /*** Toggle For map PLV /NYC      *******************************************************/
         toggle = (ToggleButton) findViewById(R.id.Toggle);
 
+        tType = (ToggleButton) findViewById(R.id.satellite);
+
+        /**toogle functions************/
+
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    if (Position == PaceUniPLV) {
+
+
+                        changeMap(buttonView);
+                        toggle.setText(R.string.togglePLV);
+                        toggle.setBackgroundResource(R.drawable.nyc_toggle);
+                        Log.d("toggle pressed Blue", "NYC Map");
+
+                        // The toggle on PLV
+                    }
+
+                } else {
+
+                    if (Position == PaceUniNYC) {
+                        changeMap(buttonView);
+                        toggle.setText(R.string.toggleNYC);
+                        findViewById(R.id.Toggle).setBackgroundResource(R.drawable.plv_toggle);
+
+                        Log.d("toggle pressed Yellow", "PLV Map");
+                        // The toggle on NYC
+                    }
+
+
+                }
+            }
+        });
+
+
+        /**toggle map type******/
+
+
+        tType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    changeType(buttonView);
+                    tType.setBackgroundResource(R.drawable.map_pace);
+                    Log.d("change map type", "toggle pressed map");
+
+                    // The toggle satellite
+
+                } else {
+                    changeType(buttonView);
+                    findViewById(R.id.satellite).setBackgroundResource(R.drawable.earth);
+                    Log.d("change map type", "toggle pressed satellite");
+                    // The toggle on Map
+
+                }
+            }
+        });
+
+
+        /**toggle map type******/
+
+
+        /**toogle functions***********/
+
         /*** Toggle For map PLV /NYC      *******************************************************/
     }
-
 
 
     /**
@@ -272,7 +345,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 return;
             }
 
-            // other 'case' lines to check for other
+            // other 'case' lines to check_campus for other
             // permissions this app might request
         }
     }
@@ -285,46 +358,20 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
         try {
+
+
             /** Premission request to Find current location**/
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-
-                    // Should we show an explanation?
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                        // Show an expanation to the user *asynchronously* -- don't block
-                        // this thread waiting for the user's response! After the user
-                        // sees the explanation, try again to request the permission.
-                        Toast.makeText(this, "Location permission is need to show the campus closet to you", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        // No explanation needed, we can request the permission.
-
-                        ActivityCompat.requestPermissions(this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION
-                        );
-
-                        // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                        // app-defined int constant. The callback method gets the
-                        // result of the request.
-                    }
-
-
-                    return;
-                }
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
             }
-
-            /** Find current location**/
-            mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);  //this does not work without permission check_campus
  /*   Gets user Location */
             LocationManager locationManager = (LocationManager)
                     getSystemService(Context.LOCATION_SERVICE);
@@ -356,8 +403,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 ArrayAdapter<String> adapter =
                         new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Buildings);
                 location_tf.setAdapter(adapter);
+/** Auto correct initialize onMap ready for user**/
 
-            }                                                          /** Auto correct initialize onMap ready for user**/
+
+            }
 
 
         } catch (Exception e) {
@@ -410,8 +459,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             if (Position == PaceUniPLV) {
                 mMap.clear();  //clears anything on the map that should not be there 'gs' jr' 'jl'
-                toggle.setText(R.string.toggleNYC);
-                findViewById(R.id.Toggle).setBackgroundResource(R.drawable.toggle_off);
                 NYVCampusOnMapView();
                 Position = PaceUniNYC;
                 Log.d("User toggled", "Showing NYC");
@@ -419,8 +466,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             } else {
                 mMap.clear(); //clears anything on the map that should not be there 'gs' jr' 'jl'
-                toggle.setText(R.string.togglePLV);
-                toggle.setBackgroundResource(R.drawable.toggle_on);
                 PleasantvilleCampusOnMapView();
                 Position = PaceUniPLV;
                 Log.d("User toggled", "Showing PLV");
@@ -434,9 +479,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private void PleasantvilleCampusOnMapView() {
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("Pace University - Pleasantville Campus").snippet("861 Bedford Rd, Pleasantville, NY 10570")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks))
-        );
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_OSA)
                 .title("Office of Student Assistance").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)).snippet(
@@ -459,32 +501,32 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         "Home of Lubin and Computer Science students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
-                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.gymmkr)).snippet(
-                        "Gym,Pool & Basketball courts available"));
+                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet(
+                        "Gym,Pool & Basketball courts & Health Center"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
-                .title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Welcome Center & Mathematics department"));
+                .title("Marks Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_dorms)).snippet("Welcome Center & Mathematics department"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Dyson)
                 .title("Dyson Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("Home to all Science students & Science Professors"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Wilcox)
                 .title("Wilcox Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("Academic Building & " +
-                        "home of Performing Art students"));
+                        "Technical Support- first floor"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Kessel)
                 .title("Kessel Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel)).snippet("Campus Food & Dinning Hall," +
-                        " PaceOne card accepted"));
+                        "Lounges,Bookstore"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Library)
                 .title("Mortola Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)).snippet("Open 24 Hours for" +
-                        " studying and group work"));
+                        "studying and group work"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Pond)
                 .title("Choate Pond").icon(BitmapDescriptorFactory.fromResource(R.drawable.pondmkr)).snippet("Pace's iconic land mark"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Choate
-        ).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.choatemkr)).snippet(""));
+        ).title("Choate House").icon(BitmapDescriptorFactory.fromResource(R.drawable.choatemkr)).snippet("English Department and Art show"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_North
         ).title("North Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Student dormitory located near Entrance 3"));
@@ -493,10 +535,17 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .title("Elm Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("NEW Student dormitory part of the master plan"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Alumni)
-                .title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("NEW Student dormitory part of the master plan"));
+                .title("Alumni Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("NEW Student dormitory part of the master plan & Security Office"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Martin)
                 .title("Martin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)).snippet("Student dormitory located near Entrance 3"));
+
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Baseball)
+                .title("Baseball Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.baseballmker)).snippet("NEW Baseball field near Goldstien Gym"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Football)
+                .title("Football Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.football_mker)).snippet("Rebuilt Football field behind Choate house"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
 
@@ -517,7 +566,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin).title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza).title("One Pace Plaza").snippet("Main building for the University").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria).title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101).title("Cafe 101").snippet("Wide variety of food and drinks including starbucks").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101).title("Cafe 101").snippet("Wide variety of food and drinks including Starbucks").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library).title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available to all students").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163).title("163 William Street").snippet("Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Fulton).title("106 Fulton Street").snippet("Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
@@ -605,7 +654,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                     Toast.makeText(this, "No matches found on the Westchester Campus", Toast.LENGTH_LONG).show();
                     Log.d("not on list ", "show toast");
 
-                }                                                                                                    /*check list
+                }                                                                                                    /*check_campus list
                                                                                                                             for matches*/ else {
 
 
@@ -644,7 +693,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 if (Nycmap.NYClocation(location_search) == null) {
                     Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();
                     Log.d("not on list ", "show toast");
-                }                                                                                                    /*check list
+                }                                                                                                    /*check_campus list
                                                                                                                             for matches*/ else {
 
                         /*returns LatLng Position*/

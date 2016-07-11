@@ -55,16 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        String[] perms = {"android.permission.READ_CALENDAR", "android.permission.Write_CALENDAR",
-                "android.permission.GET_ACCOUNTS", "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
-
-        int permsRequestCode = 200;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(perms, permsRequestCode);
-        }
-
+        /**Ask User for Location Premisson and Accounts**/
+        AskPremission();
 
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         /***Important Numbers****/////////////
@@ -250,6 +242,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    public void AskPremission() {
+
+        String[] perms = {"android.permission.READ_CALENDAR", "android.permission.Write_CALENDAR",
+                "android.permission.GET_ACCOUNTS", "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
+
+        int permsRequestCode = 200;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.GET_ACCOUNTS
+            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_CALENDAR
+            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_CALENDAR
+            ) != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                    Toast.makeText(this, "Location permission is need to show the campus closet to you", Toast.LENGTH_SHORT).show();
+                } else {
+/**If the app does have their Permission  dont ask again**/
+                    requestPermissions(perms, permsRequestCode);
+                }
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
 
     public void startNewActivity(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);

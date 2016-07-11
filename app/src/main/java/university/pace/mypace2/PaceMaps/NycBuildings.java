@@ -163,8 +163,17 @@ public class NycBuildings {
                     case "confucius institute":
                         latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
                         break;
+                    /**  case "food":
+                     //  latlngSpot = PaceBuilding.PaceUniPLV_Martin;
+                     break;
+                     case "class":
+                     // latlngSpot = PaceBuilding.PaceUniPLV_Miller;
 
-
+                     break;
+                     case "Tech Support":
+                     //  latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
+                     break;
+                     **/
                 }
 
 
