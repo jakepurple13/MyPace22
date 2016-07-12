@@ -82,8 +82,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_PLV_DYSON_LAT = 41.125481;
 
 
-    public final double Pace_PLV_WILOCX_LNG = -73.807670;
-    public final double Pace_PLV_WILCOX_LAT = 41.125986;
+    public final double Pace_PLV_WILOCX_LNG = -73.807506;
+    public final double Pace_PLV_WILCOX_LAT = 41.126033;
 
 
     public final double Pace_PLV_Library_LNG = -73.807441;
@@ -101,6 +101,69 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     public final double Pace_PLV_Kessel_LNG = -73.808743;
     public final double Pace_PLV_Kessel_LAT = 41.128397;
+
+    public final double Pace_PLV_A_LNG = -73.807309;
+    public final double Pace_PLV_A_LAT = 41.125529;
+
+    public final double Pace_PLV_B_LNG = -73.807561;
+    public final double Pace_PLV_B_LAT = 41.125008;
+
+    public final double Pace_PLV_C_LNG = -73.809089;
+    public final double Pace_PLV_C_LAT = 41.125372;
+
+
+    public final double Pace_PLV_D_LNG = -73.809075;
+    public final double Pace_PLV_D_LAT = 41.126038;
+
+
+    public final double Pace_PLV_E_LNG = -73.809072;
+    public final double Pace_PLV_E_LAT = 41.126806;
+
+
+    public final double Pace_PLV_F_LNG = -73.810249;
+    public final double Pace_PLV_F_LAT = 41.126912;
+
+    public final double Pace_PLV_H_LNG = -73.809759;
+    public final double Pace_PLV_H_LAT = 41.129091;
+
+    public final double Pace_PLV_I_LNG = -73.808624;
+    public final double Pace_PLV_I_LAT = 41.129500;
+
+    public final double Pace_PLV_ATHELTICS_LNG = -73.810408;
+    public final double Pace_PLV_ATHELTICS_LAT = 41.127869;
+
+
+    public final double Pace_PLV_O_LNG = -73.803973;
+    public final double Pace_PLV_O_LAT = 41.127906;
+
+    public final double Pace_PLV_P_LNG = -73.808337;
+    public final double Pace_PLV_P_LAT = 41.131209;
+
+    public final double Pace_PLV_T_LNG = -73.806636;
+    public final double Pace_PLV_T_LAT = 41.127156;
+
+    public final double Pace_PLV_U_LNG = -73.804735;
+    public final double Pace_PLV_U_LAT = 41.127120;
+
+    public final double Pace_PLV_X_LNG = -73.805277;
+    public final double Pace_PLV_X_LAT = 41.127439;
+
+    public final double Pace_PLV_Z_LNG = -73.807524;
+    public final double Pace_PLV_Z_LAT = 41.126950;
+
+    public final double Pace_PLV_FITTRAIL_LNG = -73.810249;
+    public final double Pace_PLV_FITTRAIL_LAT = 41.131481;
+
+
+    public final double Pace_PLV_BUSSTOP_NORTH_LNG = -73.804574;
+    public final double Pace_PLV_BUSSTOP_NORTH_LAT = 41.127794;
+
+    public final double Pace_PLV_BUSSTOP_MILLER_LNG = -73.808884;
+    public final double Pace_PLV_BUSSTOP_MILLER_LAT = 41.127006;
+
+    public final double Pace_PLV_BUSSTOP_WILCOX_LNG = -73.807798;
+    public final double Pace_PLV_BUSSTOP_WILCOX_LAT = 41.125930;
+
 
     /*Dorms On Campus */
     public final double Pace_PLV_Alumni_LNG = -73.808086;
@@ -213,6 +276,28 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniPLV_Martin = new LatLng(Pace_PLV_Martin_LAT, Pace_PLV_Martin_LNG);
     public LatLng PaceUniPLV_Baseball = new LatLng(Pace_PLV_BASEBALL_LAT, Pace_PLV_BASEBALL_LNG);
     public LatLng PaceUniPLV_Football = new LatLng(Pace_PLV_FOOTBALL_LAT, Pace_PLV_FOOTBALL_LNG);
+
+    /**
+     * public LatLng PaceUniPLV_PARKING_A = new LatLng(Pace_PLV_A_LAT, Pace_PLV_A_LNG);
+     * public LatLng PaceUniPLV_PARKING_B = new LatLng(Pace_PLV_B_LAT, Pace_PLV_B_LNG);
+     * public LatLng PaceUniPLV_PARKING_C = new LatLng(Pace_PLV_C_LAT, Pace_PLV_C_LNG);
+     * public LatLng PaceUniPLV_PARKING_D = new LatLng(Pace_PLV_D_LAT, Pace_PLV_D_LNG);
+     * public LatLng PaceUniPLV_PARKING_E = new LatLng(Pace_PLV_E_LAT, Pace_PLV_E_LNG);
+     * public LatLng PaceUniPLV_PARKING_F = new LatLng(Pace_PLV_F_LAT, Pace_PLV_F_LNG);
+     * public LatLng PaceUniPLV_PARKING_H = new LatLng(Pace_PLV_H_LAT, Pace_PLV_H_LNG);
+     * public LatLng PaceUniPLV_PARKING_I = new LatLng(Pace_PLV_I_LAT, Pace_PLV_I_LNG);
+     * public LatLng PaceUniPLV_PARKING_O = new LatLng(Pace_PLV_O_LAT, Pace_PLV_O_LNG);
+     * public LatLng PaceUniPLV_PARKING_P = new LatLng(Pace_PLV_P_LAT, Pace_PLV_P_LNG);
+     * public LatLng PaceUniPLV_PARKING_T = new LatLng(Pace_PLV_T_LAT, Pace_PLV_T_LNG);
+     * public LatLng PaceUniPLV_PARKING_U = new LatLng(Pace_PLV_U_LAT, Pace_PLV_U_LNG);
+     * public LatLng PaceUniPLV_PARKING_X = new LatLng(Pace_PLV_X_LAT, Pace_PLV_X_LNG);
+     * public LatLng PaceUniPLV_PARKING_Z = new LatLng(Pace_PLV_Z_LAT, Pace_PLV_Z_LNG);
+     **/
+
+    public LatLng PaceUniPLV_BUS_NORTH = new LatLng(Pace_PLV_BUSSTOP_NORTH_LAT, Pace_PLV_BUSSTOP_NORTH_LNG);
+    public LatLng PaceUniPLV_BUS_MILLER = new LatLng(Pace_PLV_BUSSTOP_MILLER_LAT, Pace_PLV_BUSSTOP_MILLER_LNG);
+    public LatLng PaceUniPLV_BUS_WILCOX = new LatLng(Pace_PLV_BUSSTOP_WILCOX_LAT, Pace_PLV_WILOCX_LNG);
+    public LatLng PaceUniPLV_FITNESSTRAIL = new LatLng(Pace_PLV_FITTRAIL_LAT, Pace_PLV_FITTRAIL_LNG);
 
     // Add a marker in NYC and move the camera
     public LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
@@ -546,6 +631,59 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Football)
                 .title("Football Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.football_mker)).snippet("Rebuilt Football field behind Choate house"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_FITNESSTRAIL)
+                .title("Fit trail").icon(BitmapDescriptorFactory.fromResource(R.drawable.fit)).snippet("On campus trail for walking"));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_BUS_NORTH)
+                .title("Bus Stop").icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_stop)).snippet("Campus shuttle stop-North Entrance 3"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_BUS_MILLER)
+                .title("Bus Stop").icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_stop)).snippet("Campus shuttle stop- Entrance 2"));
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_BUS_WILCOX)
+                .title("Bus Stop").icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_stop)).snippet("Campus shuttle stop- Entrance 1"));
+
+
+/**
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_A)
+ .title("Parking lot A").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_a)).snippet("Campus Parking- Front of Dyson"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_B)
+ .title("Parking lot B").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_b)).snippet("Campus Parking- Right of Dyson"));
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_C)
+ .title("Parking lot C").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_c)).snippet("Campus Parking-"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_D)
+ .title("Parking lot D").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_d)).snippet("Campus Parking- Behind Marks hall"));
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_E)
+ .title("Parking lot E").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_e)).snippet("Campus Parking- Side of Miller"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_F)
+ .title("Parking lot F").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_f)).snippet("Campus Parking- Behind  Miller"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_H)
+ .title("Parking lot H").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_h)).snippet("Campus Parking- By the Gym"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_I)
+ .title("Parking lot I").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_i)).snippet("Campus Parking- Between Miller and Alumni"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_O)
+ .title("Parking lot O").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_o)).snippet("Campus Parking- North hall"));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_P)
+ .title("Parking lot P").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_p)).snippet("Campus Parking- Near OSA "));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_T)
+ .title("Parking lot T").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_t)).snippet("Campus Parking- Above Library parking lot Z "));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_U)
+ .title("Parking lot U").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_u)).snippet("Campus Parking- Near Goldstien Academic Center "));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_X)
+ .title("Parking lot X").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_x)).snippet("Campus Parking- Lower Goldstien Academic Center "));
+
+ mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_Z)
+ .title("Parking lot Z").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_z)).snippet("Campus Parking- Library"));
+**/
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
 

@@ -6,7 +6,7 @@
 
     <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:background="@drawable/splashraw"
+        android:background="@drawable/ui2"
         android:layout_gravity="center"/>
 
     <TextView android:layout_width="fill_parent"

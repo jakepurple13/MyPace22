@@ -246,11 +246,18 @@ public class Buildings {
                         break;
 
                     case "baseball field":
-                        // latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_Baseball;
                         break;
 
                     case "football field":
-                        // latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_Football;
+                        break;
+                    case "fit trail":
+                        latlngSpot = PaceBuilding.PaceUniPLV_FITNESSTRAIL;
+                        break;
+
+                    case "bus stop":
+                        latlngSpot = PaceBuilding.PaceUniPLV_BUS_WILCOX;
                         break;
 
                 }

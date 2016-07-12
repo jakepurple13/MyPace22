@@ -27,7 +27,7 @@
 
         android:onClick="onClick"
         android:clickable="true"
-        android:background="@drawable/mapicon" />
+                android:background="@drawable/map_icon" />
 
             <ImageButton
         android:id="@+id/numbers"
@@ -57,7 +57,7 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="35dp"
-                android:text="Test"
+                android:text="tutor"
                 android:onClick="onClick" />
 
             <ImageButton
@@ -92,22 +92,21 @@
                 android:onClick="onClick"/>
 
 
-            <ImageButton
+            <Button
                 android:id="@+id/nextbutton3"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="35dp"
-                android:text="next3"
+                android:text="Courses"
                 android:onClick="onClick"/>
 
-            <ImageButton
+            <Button
                 android:id="@+id/feed"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="60dp"
                 android:onClick="onClick"
-                android:text="feedback"
-                android:background="@drawable/calender"/>
+                android:text="Web link help" />
 
             <!---   Any buttons Put here Keep my rows Like this Jacob -->
         </TableRow>
