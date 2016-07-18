@@ -52,12 +52,12 @@
         <TableRow android:layout_marginTop="16dp">
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/next"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="35dp"
-                android:text="tutor"
+                android:background="@drawable/tutor_icon"
                 android:onClick="onClick" />
 
             <ImageButton
@@ -74,7 +74,7 @@
                 android:layout_height="90dp"
                 android:layout_marginRight="60dp"
                 android:onClick="onClick"
-                android:background="@drawable/bb_icon"/>
+                android:background="@drawable/blackboard_icon_small"/>
 
 
             <!---   Any buttons Put here Keep my rows Like this Jacob -->
