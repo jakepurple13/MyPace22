@@ -20,14 +20,14 @@
         <TableRow>
 
             <ImageButton
-        android:id="@+id/campusmap"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginRight="35dp"
+                android:id="@+id/campusmap"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginRight="35dp"
 
-        android:onClick="onClick"
-        android:clickable="true"
-                android:background="@drawable/map_icon" />
+                android:onClick="onClick"
+                android:clickable="true"
+                android:background="@drawable/mapicon"/>
 
             <ImageButton
         android:id="@+id/numbers"
