@@ -4,20 +4,30 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/ToggleMap"
-        android:title="@string/ColorChange"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:icon="@drawable/settings_icon_menu" />
-
-
-    <item
-        android:id="@+id/MapTypeChange"
-        android:title="@string/ChangeMapType"
-        android:orderInCategory="100"
+        android:id="@+id/action_settings"
         android:icon="@drawable/settings_icon_menu"
-        app:showAsAction="ifRoom" />
-
+        android:showAsAction="always"
+        android:title="@string/action_settings"
+        tools:ignore="AppCompatResource">
+        <menu>
+            <item
+                android:id="@+id/bg1"
+                android:showAsAction="always"
+                android:title="@string/item1" />
+            <item
+                android:id="@+id/bg2"
+                android:showAsAction="always"
+                android:title="@string/item2" />
+            <item
+                android:id="@+id/bg3"
+                android:showAsAction="always"
+                android:title="@string/item3" />
+            <item
+                android:id="@+id/bg4"
+                android:showAsAction="always"
+                android:title="@string/item4" />
+        </menu>
+    </item>
     <!--  <item<item
         android:id="@+id/Share_menu"
         android:orderInCategory="100"

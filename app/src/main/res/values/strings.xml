@@ -120,6 +120,11 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="togglePLV">PLV</string>
     <string name="SelectCampus">Campus</string>
     <string name="ColorChange">Change Theme Color</string>
+    <string name="item1">Background 1</string>
+    <string name="action_settings">Settings</string>
+    <string name="item2">Background 2</string>
+    <string name="item3">Background 3</string>
+    <string name="item4">Background 4</string>
 
     <!--blackboard   -->
 
