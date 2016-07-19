@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MyPaceSplash extends AppCompatActivity {
-
+//hi
 
         /** Duration of wait **/
         private final int SPLASH_DISPLAY_LENGTH = 1000;
