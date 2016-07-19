@@ -15,6 +15,7 @@ android {
         main {
             java {
                 exclude '**/PMail.java'
+
             }
         }
 
