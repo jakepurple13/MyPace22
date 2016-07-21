@@ -4,7 +4,7 @@
     android:id="@+id/mainpage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/choosebg"
+    android:background="@drawable/main_bg2"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -24,20 +24,21 @@
                 android:id="@+id/campusmap"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="27dp"
 
                 android:onClick="onClick"
                 android:clickable="true"
-                android:background="@drawable/map_icon" />
+                android:background="@drawable/map_icon_words" />
+
 
             <ImageButton
         android:id="@+id/numbers"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginRight="30dp"
+                android:layout_marginRight="27dp"
 
         android:clickable="true"
-        android:background="@drawable/phoneicon" />
+                android:background="@drawable/phone_words" />
 
 
             <ImageButton
@@ -46,7 +47,7 @@
         android:layout_height="89dp"
         android:layout_marginRight="60dp"
         android:onClick="onClick"
-        android:background="@drawable/calender"/>
+                android:background="@drawable/calender_words_large" />
         </TableRow>
 
 
@@ -57,7 +58,7 @@
                 android:id="@+id/next"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="27dp"
                 android:background="@drawable/tutor_icon"
                 android:onClick="onClick" />
 
@@ -65,17 +66,17 @@
                 android:id="@+id/pacemail"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="27dp"
                 android:onClick="onClick"
-                android:background="@drawable/pacemail"/>
+                android:background="@drawable/pacemail_words" />
 
             <ImageButton
                 android:id="@+id/blackboard"
-                android:layout_width="70dp"
+                android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="60dp"
                 android:onClick="onClick"
-                android:background="@drawable/blackboard_icon_small"/>
+                android:background="@drawable/bb_words" />
 
 
             <!---   Any buttons Put here Keep my rows Like this Jacob -->
@@ -88,7 +89,7 @@
                 android:id="@+id/IM"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="27dp"
                 android:background="@drawable/pacemessage"
                 android:onClick="onClick"/>
 
@@ -97,7 +98,7 @@
                 android:id="@+id/nextbutton3"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="27dp"
                 android:text="Courses"
                 android:onClick="onClick"/>
 
@@ -109,7 +110,7 @@
                 android:onClick="onClick"
                 android:text="Web link help" />
 
-            <!---   Any buttons Put here Keep my rows Like this Jacob -->
+            <!---   text font Copper gothic bold size 40 -->
         </TableRow>
 
     </TableLayout>

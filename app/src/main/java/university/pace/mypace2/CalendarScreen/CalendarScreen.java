@@ -60,7 +60,7 @@ import university.pace.mypace2.R;
 public class CalendarScreen extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
     ProgressDialog mProgress;
-
+    String TAG = "CalendarScreen";
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -529,6 +529,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 } else {
                     Toast.makeText(CalendarScreen.this, "The following error occurred:\n"
                             + mLastError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, mLastError.getMessage());                                                   //TODO: FIX THIS ERROR
                 }
             } else {
                 Toast.makeText(CalendarScreen.this, "Request cancelled.", Toast.LENGTH_SHORT).show();

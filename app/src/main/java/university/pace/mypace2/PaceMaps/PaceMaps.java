@@ -364,7 +364,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 if (isChecked) {
 
                     if (Position == PaceUniPLV) {
-
+//TODO: FIX NYC TOGGLE BUTTON ON START
 
                         changeMap(buttonView);
                         toggle.setText(R.string.togglePLV);
@@ -386,7 +386,33 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                     }
 
 
+
                 }
+
+/**Starts on NYC Based on user's latitude and changes the toggle start graphi
+ if (latitude <= Pace_NYC_ACCESSPOINT_LAT &&Position == PaceUniNYC)
+ {
+ changeMap(buttonView);
+ toggle.setText(R.string.toggleNYC);
+ findViewById(R.id.Toggle).setBackgroundResource(R.drawable.nyc_toggle);
+
+ Log.d("toggle pressed Yellow", "PLV Map");
+ // The toggle on NYC
+ }
+ else
+ {
+ changeMap(buttonView);
+ toggle.setText(R.string.togglePLV);
+ toggle.setBackgroundResource(R.drawable.plv_toggle);
+ Log.d("toggle pressed Blue", "NYC Map");
+
+ }
+
+ c**/
+
+
+
+
             }
         });
 

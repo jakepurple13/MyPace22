@@ -139,6 +139,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
                     Toast.makeText(in, "Event Added", Toast.LENGTH_SHORT).show();
 
+
                     float[] hsv = new float[3];
                     int color = holder.colored;
                     Color.colorToHSV(color, hsv);

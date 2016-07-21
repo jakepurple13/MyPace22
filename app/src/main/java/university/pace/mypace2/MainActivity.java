@@ -26,6 +26,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -51,7 +52,7 @@ import university.pace.mypace2.TestingPackage.CardTest;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton phoneButton;
+    ImageButton phoneButton, MapButton;
     AudioManager am;
 
     @Override
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         /**Ask User for Location Premisson and Accounts**/
         AskPremission();
-
+        MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         /***Important Numbers****/////////////
         phoneButton = (ImageButton) findViewById(R.id.numbers);
@@ -112,6 +113,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         /***Important Numbers****/////////////
+
+
+        //TODO: button grey out on press testing
+
+
+        MapButton.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    MapButton.setBackgroundResource(R.drawable.map_onpress);
+                    changeScreen(PaceMaps.class);
+
+                    Log.d("on touch", "darken");
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    MapButton.setBackgroundResource(R.drawable.map_onpress);
+                }
+                return false;
+            }
+
+        });
+
+        MapButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Date dec = new Date();
+                dec.setMonth(11);
+
+                if (new Date().getMonth() == dec.getMonth()) {
+
+                }
+
+                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+                am.setStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                        15);
+
+                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
+
+                mediaPlayer.start();
+                int duration = mediaPlayer.getDuration();
+                int current_position = mediaPlayer.getCurrentPosition();
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        am.setStreamVolume(
+                                AudioManager.STREAM_MUSIC,
+                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                normalSound);
+                    }
+                });
+
+                Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
+
+                return false;
+            }
+        });
+
+
 
 
     }
@@ -204,16 +268,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.campusmap:
+            //    case R.id.campusmap:
 
-                changeScreen(PaceMaps.class);
+            //       changeScreen(PaceMaps.class);
 
-                break;
+            //      break;
 
             case R.id.calBut:
 
