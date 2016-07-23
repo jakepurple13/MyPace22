@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,9 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.StreetViewPanorama;
+import com.google.android.gms.maps.StreetViewPanoramaOptions;
+import com.google.android.gms.maps.StreetViewPanoramaView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -205,8 +209,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_ACCESSPOINT_LAT = 40.931210;
 
 
-    public final double Pace_NYC_LNG = -74.005452;
-    public final double Pace_NYC_LAT = 40.711590;
+    public final double Pace_NYC_OnePacePlaza_LNG = -74.005452;
+    public final double Pace_NYC_OnePacePlaza_LAT = 40.711590;
 
     public final double Pace_NYC_Broadway_LNG = -74.009344;
     public final double Pace_NYC_Broadway_LAT = 40.710031;
@@ -223,11 +227,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_WilliamII_LNG = -74.006147;
     public final double Pace_NYC_WilliamII_LAT = 40.710184;
 
-    public final double Pace_NYC_Maria_LNG = -74.004736;
-    public final double Pace_NYC_Maria_LAT = 40.710840;
+    public final double Pace_NYC_Maria_LNG = -74.004416;
+    public final double Pace_NYC_Maria_LAT = 40.710814;
 
-    public final double Pace_NYC_OnePace_LNG = -74.004740;
-    public final double Pace_NYC_OnePace_LAT = 40.710968;
+    public final double Pace_NYC__Court_Yard_LNG = -74.004845;
+    public final double Pace_NYC_Court_Yard_LAT = 40.711099;
 
     public final double Pace_NYC_OnePace_TUTORING_LNG = -74.006542;
     public final double Pace_NYC_OnePace_TUTORING_LAT = 40.711491;
@@ -235,8 +239,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_OnePace_IT_LNG = -74.005286;
     public final double Pace_NYC_OnePace_IT_LAT = 40.711224;
 
-    public final double Pace_NYC_OnePace_OSA_LNG = -74.005601;
-    public final double Pace_NYC_OnePace_OSA_LAT = 40.711352;
+    public final double Pace_NYC_OnePace_OSA_LNG = -74.004995;
+    public final double Pace_NYC_OnePace_OSA_LAT = 40.711473;
 
     public final double Pace_NYC_ParksRow_LNG = -74.006211;
     public final double Pace_NYC_ParksRow_LAT = 40.711674;
@@ -263,11 +267,28 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_Confucius_LNG = -74.006387;
     public final double Pace_NYC_Confucius_LAT = 40.711704;
 
-    public final double Pace_NYC_SSS_LNG = -74.005389;
-    public final double Pace_NYC_SSS_LAT = 40.711509;
+    public final double Pace_NYC_SSS_LNG = -74.006422;
+    public final double Pace_NYC_SSS_LAT = 40.711416;
 
-    public final double Pace_NYC_Schimmel_LNG = -74.004687;
-    public final double Pace_NYC_Schimmel_LAT = 40.710839;
+    public final double Pace_NYC_Schimmel_LNG = -74.004623;
+    public final double Pace_NYC_Schimmel_LAT = 40.710846;
+
+
+    /**
+     * around campus
+     **/
+    public final double Dennys_LNG = -74.005978;
+    public final double Dennys_LAT = 40.711534;
+
+    public final double BeekmanPub_LNG = -74.006360;
+    public final double BeekmanPub_LAT = 40.710862;
+
+    public final double DunknDonuts_LNG = -74.006360;
+    public final double DunknDonuts_LAT = 40.710862;
+
+    /**
+     * around campus
+     **/
 
 
     // Add a marker in Pleasantville and move the camera
@@ -315,13 +336,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniPLV_FITNESSTRAIL = new LatLng(Pace_PLV_FITTRAIL_LAT, Pace_PLV_FITTRAIL_LNG);
 
     // Add a marker in NYC and move the camera
-    public LatLng PaceUniNYC = new LatLng(Pace_NYC_LAT, Pace_NYC_LNG);
+    public LatLng PaceUniNYC = new LatLng(Pace_NYC_OnePacePlaza_LAT, Pace_NYC_OnePacePlaza_LNG);
+    public LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePacePlaza_LAT, Pace_NYC_OnePacePlaza_LNG);
     public LatLng PaceUniNYC_Broadway = new LatLng(Pace_NYC_Broadway_LAT, Pace_NYC_Broadway_LNG);
     public LatLng PaceUniNYC_William156 = new LatLng(Pace_NYC_William_LAT, Pace_NYC_William_LNG);
     public LatLng PaceUniNYC_William163 = new LatLng(Pace_NYC_WilliamII_LAT, Pace_NYC_WilliamII_LNG);
     public LatLng PaceUniNYC_Fulton = new LatLng(Pace_NYC_fulton_LAT, Pace_NYC_fulton_LNG);
     public LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
-    public LatLng PaceUniNYC_OnePacePlaza = new LatLng(Pace_NYC_OnePace_LAT, Pace_NYC_OnePace_LNG);
+    public LatLng PaceUniNYC_OnePace_Courtyard = new LatLng(Pace_NYC_Court_Yard_LAT, Pace_NYC__Court_Yard_LNG);
     public LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
     public LatLng PaceUniNYC_Cafe101 = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
     public LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
@@ -338,7 +360,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_OSA = new LatLng(Pace_NYC_OnePace_OSA_LAT, Pace_NYC_OnePace_OSA_LNG);
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
-
+    private StreetViewPanoramaView mStreetViewPanoramaView;
     //:TODO Get working on higer API Phones
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,75 +368,25 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(university.pace.mypace2.R.layout.activity_pace_maps);
+
+        setContentView(R.layout.activity_pace_maps);
+
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        tType = (ToggleButton) findViewById(R.id.satellite);
+
 
         /*** Toggle For map PLV /NYC      *******************************************************/
         toggle = (ToggleButton) findViewById(R.id.Toggle);
 
-        tType = (ToggleButton) findViewById(R.id.satellite);
+
 
         /**toogle functions************/
 
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-                    if (Position == PaceUniPLV) {
-//TODO: FIX NYC TOGGLE BUTTON ON START
-
-                        changeMap(buttonView);
-                        toggle.setText(R.string.togglePLV);
-                        toggle.setBackgroundResource(R.drawable.nyc_toggle);
-                        Log.d("toggle pressed Blue", "NYC Map");
-
-                        // The toggle on PLV
-                    }
-
-                } else {
-
-                    if (Position == PaceUniNYC) {
-                        changeMap(buttonView);
-                        toggle.setText(R.string.toggleNYC);
-                        findViewById(R.id.Toggle).setBackgroundResource(R.drawable.plv_toggle);
-
-                        Log.d("toggle pressed Yellow", "PLV Map");
-                        // The toggle on NYC
-                    }
-
-
-
-                }
-
-/**Starts on NYC Based on user's latitude and changes the toggle start graphi
- if (latitude <= Pace_NYC_ACCESSPOINT_LAT &&Position == PaceUniNYC)
- {
- changeMap(buttonView);
- toggle.setText(R.string.toggleNYC);
- findViewById(R.id.Toggle).setBackgroundResource(R.drawable.nyc_toggle);
-
- Log.d("toggle pressed Yellow", "PLV Map");
- // The toggle on NYC
- }
- else
- {
- changeMap(buttonView);
- toggle.setText(R.string.togglePLV);
- toggle.setBackgroundResource(R.drawable.plv_toggle);
- Log.d("toggle pressed Blue", "NYC Map");
-
- }
-
- c**/
-
-
-
-
-            }
-        });
 
 
         /**toggle map type******/
@@ -440,14 +412,13 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
-        /**toggle map type******/
+        /**Street view map type******/
 
 
-        /**toogle functions***********/
+        /**Street viewz functions***********/
 
         /*** Toggle For map PLV /NYC      *******************************************************/
     }
-
 
     /**
      * Premission request Result
@@ -631,7 +602,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         "Home of Lubin and Computer Science students"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
-                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym)).snippet(
+                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym_dogpound)).snippet(
                         "Gym,Pool & Basketball courts & Health Center"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
@@ -739,8 +710,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private void NYVCampusOnMapView() {
 
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC)
-                .title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
+        //   mMap.addMarker(new MarkerOptions().position(PaceUniNYC)
+        //    .title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel)
                 .title("Schimmel Center").snippet("provides performance to the" +
                 " university and the general public").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
@@ -754,9 +725,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin)
                 .title("Lubin School of Business").snippet("The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza)
-                .title("One Pace Plaza").snippet("Main Building,OSA-1st Fl,").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("One Pace Plaza").snippet("Main Building,OSA-1st Fl,").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_one_plaza)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria)
-                .title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.maria_tower)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101)
                 .title("Cafe 101").snippet("Wide variety of food and drinks including Starbucks-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library)
@@ -779,14 +750,17 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Health)
                 .title("Health Center").snippet("Professional Nurse available for health concerns- 3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_IT)
-                .title("Information Technology Center").snippet("Student and Professional Tech support available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("Information Technology Center").snippet("Tech support available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OSA)
                 .title("Office of Student Assistance").snippet(" Finnacial aid & Student support-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_SSS)
                 .title("Student Social Services")
                 .snippet(" First year student support- 4th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePace_Courtyard)
+                .title("Court Yard")
+                .snippet(" Relax in this outdoor area- 1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+//TODO: Add new locations to search engine
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
         Toast.makeText(this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
@@ -794,22 +768,88 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private void ShowCampusNearMe(double lat) {
 
-        if (lat > Pace_NYC_ACCESSPOINT_LAT)
-
+        if (lat > Pace_NYC_ACCESSPOINT_LAT)//TODO:CHANGE THE LAT
         {
  /*If latitude is greater than user latitude user is north */
             PleasantvilleCampusOnMapView();
 
             Position = PaceUniPLV;
+            toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+
+                        if (Position == PaceUniPLV) {
+//TODO: FIX NYC TOGGLE BUTTON ON START
+
+                            changeMap(buttonView);
+                            toggle.setText(R.string.togglePLV);
+                            toggle.setBackgroundResource(R.drawable.nyc_toggle);
+                            Log.d("toggle pressed Blue", "NYC Map");
+
+                            // The toggle on PLV
+                        }
+
+                    } else {
+
+                        if (Position == PaceUniNYC) {
+                            changeMap(buttonView);
+                            toggle.setText(R.string.toggleNYC);
+                            findViewById(R.id.Toggle).setBackgroundResource(R.drawable.plv_toggle);
+
+                            Log.d("toggle pressed Yellow", "PLV Map");
+                            // The toggle on NYC
+                        }
+
+
+                    }
+
+
+                }
+            });
             Log.d("User is North", "Showing PLV");
 
         }
            /*If latitude is less than user latitude user is south  */
         if (lat <= Pace_NYC_ACCESSPOINT_LAT)  //TODO:CHANGE THE LAT
-
         {
             NYVCampusOnMapView();
             Position = PaceUniNYC;
+            /**Starts on NYC Based on user's latitude and changes the toggle start graphic**/
+
+            toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+
+                        if (Position == PaceUniNYC) {
+                            //TODO: FIX NYC TOGGLE BUTTON ON START
+
+                            changeMap(buttonView);
+                            toggle.setText(R.string.togglePLV);
+                            toggle.setBackgroundResource(R.drawable.plv_toggle);
+                            Log.d("toggle pressed Blue", "NYC Map");
+
+                            // The toggle on PLV
+                        }
+
+                    } else {
+
+                        if (Position == PaceUniPLV) {
+                            changeMap(buttonView);
+                            toggle.setText(R.string.toggleNYC);
+                            findViewById(R.id.Toggle).setBackgroundResource(R.drawable.nyc_toggle);
+
+                            Log.d("toggle pressed Yellow", "PLV Map");
+                            // The toggle on NYC
+                        }
+
+
+                    }
+
+
+                }
+             });
+
+
             Log.d("User is South", "Showing NYC");
         }
     }
@@ -1016,6 +1056,24 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(marker);
         mMap.addMarker(markertwo);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(setposition));
+
+    }
+
+    public LatLng CheckLocation(double lat) {
+
+        if (lat > Pace_NYC_ACCESSPOINT_LAT) {
+
+            Position = PaceUniPLV;
+            return Position;
+        } else if (lat <= Pace_NYC_ACCESSPOINT_LAT) {
+            Position = PaceUniNYC;
+            return Position;
+        } else
+            Position = PaceUniPLV;
+
+
+        return Position;
+
 
     }
 
