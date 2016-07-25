@@ -48,6 +48,7 @@ import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
+import university.pace.mypace2.TestingPackage.ChatRoomActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -258,10 +259,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             return true;
         }
-        if (id == R.id.MapTypeChange) {
-            /**   changeType();    Change to satellite  **/
+       /* if (id == R.id.MapTypeChange) {
+            *//**   changeType();    Change to satellite  **//*
             return true;
-        }
+        }*/
 
 
         return super.onOptionsItemSelected(item);
@@ -292,7 +293,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.pacemail:
 
-                startNewActivity(this, "com.microsoft.exchange.mowa");
+                changeScreen(ChatRoomActivity.class);
+
+                //startNewActivity(this, "com.microsoft.exchange.mowa");
 //   TODO:here
                 break;
             case R.id.blackboard:

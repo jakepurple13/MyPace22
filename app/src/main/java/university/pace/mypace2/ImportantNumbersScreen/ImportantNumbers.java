@@ -6,10 +6,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.viethoa.RecyclerViewFastScroller;
+import com.viethoa.models.AlphabetItem;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import university.pace.mypace2.R;
 
@@ -53,6 +59,8 @@ public class ImportantNumbers extends AppCompatActivity {
         }
 
 
+        Collections.sort(al, new InfoCompare());
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -67,6 +75,29 @@ public class ImportantNumbers extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new MyNumberAdapter(al, this);
         mRecyclerView.setAdapter(mAdapter);
+
+        RecyclerViewFastScroller fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller);
+
+
+        fastScroller.setRecyclerView(mRecyclerView);
+
+        ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
+        List<String> strAlphabets = new ArrayList<>();
+        for (int i = 0; i < al.size(); i++) {
+            String name = al.get(i).name;
+            if (name == null || name.trim().isEmpty())
+                continue;
+
+            String word = name.substring(0, 1);
+            if (!strAlphabets.contains(word)) {
+                strAlphabets.add(word);
+                mAlphabetItems.add(new AlphabetItem(i, word, false));
+            }
+        }
+
+        fastScroller.setUpAlphabet(mAlphabetItems);
+
+
     }
 
 
@@ -89,5 +120,11 @@ public class ImportantNumbers extends AppCompatActivity {
             return name + "\nTelephone: " + number;
         }
 
+    }
+
+    public class InfoCompare implements Comparator<ImportantInfo> {
+        public int compare(ImportantInfo e1, ImportantInfo e2) {
+            return e1.name.compareTo(e2.name);
+        }
     }
 }

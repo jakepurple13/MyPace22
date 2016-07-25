@@ -73,6 +73,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    final String CALENDAR_ID = "pacesssprogram@gmail.com";//"1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com";
+
     ArrayList<CalendarInfo> events = new ArrayList<>();
     ArrayList<String> colorOfEvent = new ArrayList<>();
 
@@ -447,7 +449,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             // List the next 10 events from the primary calendar.
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
-            Events events = mService.events().list("1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com")
+            Events events = mService.events().list(CALENDAR_ID)
                     .setMaxResults(50)
                     .setTimeMin(now)
                     .setOrderBy("startTime")

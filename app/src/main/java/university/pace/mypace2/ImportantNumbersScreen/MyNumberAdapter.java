@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.viethoa.RecyclerViewFastScroller;
+
 import java.util.ArrayList;
 
 import university.pace.mypace2.R;
@@ -16,7 +18,7 @@ import university.pace.mypace2.R;
 /**
  * Created by Jacob on 6/8/16.
  */
-public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHolder> {
+public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHolder> implements RecyclerViewFastScroller.BubbleTextGetter {
     private ArrayList<ImportantNumbers.ImportantInfo> mDataset;
 
     ImportantNumbers in;
@@ -85,6 +87,20 @@ public class MyNumberAdapter extends RecyclerView.Adapter<MyNumberAdapter.ViewHo
     public int getItemCount() {
         return mDataset.size();
     }
+
+
+    @Override
+    public String getTextToShowInBubble(int pos) {
+        if (pos < 0 || pos >= mDataset.size())
+            return null;
+
+        String name = mDataset.get(pos).name;
+        if (name == null || name.length() < 1)
+            return null;
+
+        return mDataset.get(pos).name.substring(0, 1);
+    }
+
 }
 
 

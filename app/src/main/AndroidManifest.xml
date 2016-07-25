@@ -43,36 +43,31 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
         <meta-data
-            android:name="com.google.android.calendar.v2.API_KEY"
-            android:value="AIzaSyBKhxxmJBJ__f8MgYK_FiBhKk26gGeg4V8" />
+            android:name="com.google.android.calendar.v3.API_KEY"
+            android:value="AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ" />
+
+        <!--<meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />-->
+
 
         <activity
             android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
-            android:theme="@style/Theme.AppCompat"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat" />
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
         <activity android:name=".CalendarScreen.CalendarScreen" />
-
-        <activity android:name=".TestingPackage.CardTest"
-
-            />
-
+        <activity android:name=".TestingPackage.CardTest" />
         <activity
             android:name=".TutoringCenter.Tutoring"
             android:label="@string/title_activity_tutoring"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PaceEmail.PMail"
             android:label="@string/title_activity_pacemail"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".TestingPackage.ChatRoomActivity"></activity>
     </application>
 
 </manifest>
