@@ -755,7 +755,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OSA)
                 .title("Office of Student Assistance").snippet(" Finnacial aid & Student support-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_SSS)
-                .title("Student Social Services")
+                .title("Student Support Services")
                 .snippet(" First year student support- 4th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePace_Courtyard)
                 .title("Court Yard")
