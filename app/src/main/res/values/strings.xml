@@ -138,6 +138,10 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="defaultbg">Go back to default</string>
     <string name="rating_exit_message">Would you like to save this as your background</string>
     <string name="rating_exit_title">Select Background</string>
+    <string name="useful">Great</string>
+    <string name="UserExperience">How was using this app today?</string>
+    <string name="more">Select how you felt below</string>
+    <string name="bad">Poor</string>
 
     <!--blackboard   -->
 

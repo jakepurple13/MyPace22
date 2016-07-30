@@ -1,54 +1,40 @@
 package university.pace.mypace2;
 
 
-import android.*;
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 ;
-import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
 //import university.pace.mypace2.TestingPackage.ChatRoomActivity;
@@ -59,12 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton phoneButton, MapButton;
     AudioManager am;
     private RelativeLayout bg2;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         /**Ask User for Location Premisson and Accounts**/
         AskPremission();
+
+        // [START shared_app_measurement]
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        // [END shared_app_measurement]
+
         MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         /***Important Numbers****/////////////
@@ -121,63 +115,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //TODO: button grey out on press testing
 
+/**
+ MapButton.setOnTouchListener(new View.OnTouchListener() {
 
-        MapButton.setOnTouchListener(new View.OnTouchListener() {
+@Override public boolean onTouch(View view, MotionEvent event) {
+if (event.getAction() == MotionEvent.ACTION_UP) {
+MapButton.setBackgroundResource(R.drawable.map_onpress);
+changeScreen(PaceMaps.class);
 
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    MapButton.setBackgroundResource(R.drawable.map_onpress);
-                    changeScreen(PaceMaps.class);
+Log.d("on touch", "darken");
+} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+MapButton.setBackgroundResource(R.drawable.map_onpress);
+}
+return false;
+}
 
-                    Log.d("on touch", "darken");
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    MapButton.setBackgroundResource(R.drawable.map_onpress);
-                }
-                return false;
-            }
+});
 
-        });
+ MapButton.setOnLongClickListener(new View.OnLongClickListener() {
+@Override public boolean onLongClick(View v) {
 
-        MapButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
+Date dec = new Date();
+dec.setMonth(11);
 
-                Date dec = new Date();
-                dec.setMonth(11);
+if (new Date().getMonth() == dec.getMonth()) {
 
-                if (new Date().getMonth() == dec.getMonth()) {
+}
 
-                }
+final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+am.setStreamVolume(
+AudioManager.STREAM_MUSIC,
+am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+15);
 
-                am.setStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                        15);
+MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
 
-                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
+mediaPlayer.start();
+int duration = mediaPlayer.getDuration();
+int current_position = mediaPlayer.getCurrentPosition();
 
-                mediaPlayer.start();
-                int duration = mediaPlayer.getDuration();
-                int current_position = mediaPlayer.getCurrentPosition();
+mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+@Override public void onCompletion(MediaPlayer mp) {
+am.setStreamVolume(
+AudioManager.STREAM_MUSIC,
+am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+normalSound);
+}
+});
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        am.setStreamVolume(
-                                AudioManager.STREAM_MUSIC,
-                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                normalSound);
-                    }
-                });
+Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
 
-                Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
+return false;
+}
+});
+ **/
 
-                return false;
-            }
-        });
 
     }
 
@@ -194,13 +187,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
 
-
                 } else
                     Toast.makeText(this, "For full app functions these premission are needed", Toast.LENGTH_LONG).show();
                 break;
         }
 
     }
+
     private boolean canMakeSmores() {
 
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
@@ -313,11 +306,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
 
-            //    case R.id.campusmap:
+            case R.id.campusmap:
 
-            //       changeScreen(PaceMaps.class);
+                changeScreen(PaceMaps.class);
 
-            //      break;
+                break;
 
             case R.id.calBut:
 
@@ -326,8 +319,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.next:
-
-                changeScreen(CardTest.class);
+                askaboutapp();
+                //     changeScreen(CardTest.class);
 
                 break;
 
@@ -447,5 +440,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return false;
     }
-}
 
+    private void askaboutapp() {
+
+        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+                R.string.UserExperience).setTitle(
+                R.string.more).setCancelable(false)
+                .setPositiveButton(R.string.useful,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+
+                                // [START custom_event]
+                                Bundle params = new Bundle();
+                                params.putString("image_name", getResources().getString(R.string.useful));
+                                mFirebaseAnalytics.logEvent("Good experience", params);
+                                // [END custom_event]
+
+
+                            }
+                        }).setNeutralButton(R.string.bad,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                Toast.makeText(MainActivity.this, "We are sorry to hear that", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
+                            }
+                        }).show();
+
+
+    }
+}
