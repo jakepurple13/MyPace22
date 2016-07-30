@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="university.pace.mypace2">
 
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,7 +17,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/mypace2_icon"
+        android:icon="@drawable/sss_icon_idea"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -46,6 +47,14 @@
             android:name="com.google.android.calendar.v3.API_KEY"
             android:value="AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ" />
 
+
+        <!-- [START firebase_service] -->
+        <service android:name=".TestingPackage.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
         <!--<meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />-->
@@ -55,7 +64,8 @@
             android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat.Light" />
+
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
         <activity android:name=".CalendarScreen.CalendarScreen" />
         <activity android:name=".TestingPackage.CardTest" />

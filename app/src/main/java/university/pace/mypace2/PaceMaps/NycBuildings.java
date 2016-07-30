@@ -163,17 +163,42 @@ public class NycBuildings {
                     case "confucius institute":
                         latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
                         break;
-                    /**  case "food":
-                     //  latlngSpot = PaceBuilding.PaceUniPLV_Martin;
+                    case "food":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Cafe101;
                      break;
-                     case "class":
-                     // latlngSpot = PaceBuilding.PaceUniPLV_Miller;
-
-                     break;
+                    case "Cafe 101":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Cafe101;
+                        break;
+                    case "Cafe":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Cafe101;
+                        break;
+                    case "office of student assistance":
+                        latlngSpot = PaceBuilding.PaceUniPLV_OSA;
+                        break;
+                    case "OSA":
+                        latlngSpot = PaceBuilding.PaceUniPLV_OSA;
+                        break;
                      case "Tech Support":
-                     //  latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
+                         latlngSpot = PaceBuilding.PaceUniNYC_IT;
                      break;
-                     **/
+                    case "health center":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Health;
+                        break;
+                    case "nurse":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Health;
+                        break;
+                    case "SSS":
+                        latlngSpot = PaceBuilding.PaceUniNYC_SSS;
+                        break;
+                    case "Student Suport Services":
+                        latlngSpot = PaceBuilding.PaceUniNYC_SSS;
+                        break;
+                    case "court yard":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePace_Courtyard;
+                        break;
+                    case "one pace court yard":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePace_Courtyard;
+                        break;
                 }
 
 

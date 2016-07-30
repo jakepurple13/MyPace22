@@ -78,7 +78,7 @@ public class ImportantNumbers extends AppCompatActivity {
 
         RecyclerViewFastScroller fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller);
 
-
+        // adds in Alphabetical scroller
         fastScroller.setRecyclerView(mRecyclerView);
 
         ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
@@ -97,6 +97,7 @@ public class ImportantNumbers extends AppCompatActivity {
 
         fastScroller.setUpAlphabet(mAlphabetItems);
 
+        // adds in Alphabetical scroller end
 
     }
 

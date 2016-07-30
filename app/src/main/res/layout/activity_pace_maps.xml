@@ -26,10 +26,10 @@
 
 
         <Button
-            style="@android:style/Widget.Button"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:background="@drawable/search_campus_button"
             android:id="@+id/Bsearch"
             android:onClick="onSearch"
             android:clickable="true" />

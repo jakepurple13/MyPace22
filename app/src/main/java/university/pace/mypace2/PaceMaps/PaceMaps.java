@@ -63,6 +63,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private AutoCompleteTextView location_tf;
     private ToggleButton toggle;
     private ToggleButton tType;
+
     /**
      * PACE Weschester Longitude/Latitude
      **/
@@ -258,8 +259,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_Lubin_LNG = -74.005084;
     public final double Pace_NYC_Lubin_LAT = 40.711196;
 
-    public final double Pace_NYC_TasteOfSeaPort_LNG = -74.005800;
-    public final double Pace_NYC_TasteOfSeaPort_LAT = 40.710577;
+    public final double Pace_NYC_Cafe101_LNG = -74.004437;
+    public final double Pace_NYC_Cafe101_LAT = 40.710538;
 
     public final double Pace_NYC_BEEKMAN_LNG = -74.005800;
     public final double Pace_NYC_BEEKMAN_LAT = 40.710577;
@@ -345,7 +346,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_JohnStreet = new LatLng(Pace_NYC_JohnStreet_LAT, Pace_NYC_JohnStreet_LNG);
     public LatLng PaceUniNYC_OnePace_Courtyard = new LatLng(Pace_NYC_Court_Yard_LAT, Pace_NYC__Court_Yard_LNG);
     public LatLng PaceUniNYC_Bookstore = new LatLng(Pace_NYC_ParksRow_Bookstore_LAT, Pace_NYC_ParksRow_Bookstore_LNG);
-    public LatLng PaceUniNYC_Cafe101 = new LatLng(Pace_NYC_TasteOfSeaPort_LAT, Pace_NYC_TasteOfSeaPort_LNG);
+    public LatLng PaceUniNYC_Cafe101 = new LatLng(Pace_NYC_Cafe101_LAT, Pace_NYC_Cafe101_LNG);
     public LatLng PaceUniNYC_Lubin = new LatLng(Pace_NYC_Lubin_LAT, Pace_NYC_Lubin_LNG);
     public LatLng PaceUniNYC_Library = new LatLng(Pace_NYC_Library_LAT, Pace_NYC_Library_LNG);
     public LatLng PaceUniNYC_Confucius = new LatLng(Pace_NYC_Confucius_LAT, Pace_NYC_Confucius_LNG);
@@ -358,9 +359,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_Health = new LatLng(Pace_NYC_HEALTH_LAT, Pace_NYC_HEALTH_LNG);
     public LatLng PaceUniNYC_SSS = new LatLng(Pace_NYC_SSS_LAT, Pace_NYC_SSS_LNG);
     public LatLng PaceUniNYC_OSA = new LatLng(Pace_NYC_OnePace_OSA_LAT, Pace_NYC_OnePace_OSA_LNG);
+
+
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
-    private StreetViewPanoramaView mStreetViewPanoramaView;
     //:TODO Get working on higer API Phones
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -377,7 +379,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        tType = (ToggleButton) findViewById(R.id.satellite);
 
 
         /*** Toggle For map PLV /NYC      *******************************************************/
@@ -390,13 +391,13 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
         /**toggle map type******/
-
+        tType = (ToggleButton) findViewById(R.id.satellite);
 
         tType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     changeType(buttonView);
-                    tType.setBackgroundResource(R.drawable.map_pace);
+                    tType.setBackgroundResource(R.drawable.map_pace_light);
                     Log.d("change map type", "toggle pressed map");
 
                     // The toggle satellite
@@ -411,13 +412,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-
-        /**Street view map type******/
-
-
-        /**Street viewz functions***********/
-
         /*** Toggle For map PLV /NYC      *******************************************************/
+
+
     }
 
     /**
@@ -507,6 +504,24 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 /** Auto correct initialize onMap ready for user**/
 
 
+                /**Search with enter******/
+                location_tf.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            final String location_search = location_tf.getText().toString();
+                            performSearch(location_search);
+                            Log.d("Entered Search", "pressed Enter");
+                            return true;
+
+                        }
+                        return false;
+                    }
+                });
+
+                /**Search with enter******/
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+
             }
 
 
@@ -520,7 +535,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (marker.getTitle().equals("Pace University - Pleasantville Campus")) {
+                if (marker.getTitle().equals("One Pace Plaza")) {
                     // if marker source is clicked
                     // display toast
                     Toast.makeText(PaceMaps.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
@@ -860,24 +875,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public void onSearch(final View view) {
 
 // Get a reference to the AutoCompleteTextView in the layout
-
         final String location_search = location_tf.getText().toString();
-
         /**search with enter button**/
         Log.d("debug", location_tf.toString());
 
-        location_tf.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    onSearch(view);
-                    Log.d("Entered Search", "pressed Enter");
-                    return true;
-
-                }
-                return false;
-            }
-        });
         performSearch(location_search); //search button on screen
 
     }
@@ -1076,6 +1077,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
     }
+
 
     private void GS() {
 /**Gs    **/

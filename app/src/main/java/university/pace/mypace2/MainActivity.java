@@ -3,12 +3,15 @@ package university.pace.mypace2;
 
 import android.*;
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -48,14 +51,14 @@ import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.TestingPackage.CardTest;
-import university.pace.mypace2.TestingPackage.ChatRoomActivity;
+//import university.pace.mypace2.TestingPackage.ChatRoomActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton phoneButton, MapButton;
     AudioManager am;
-
+    private RelativeLayout bg2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,9 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-
-
     }
 
 
@@ -254,11 +254,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            switch (id) {
+                case R.id.bg1:
+                    Log.d("Bg select", "Bloodcity");
+                    RelativeLayout bg = (RelativeLayout) findViewById(R.id.mainpage);
+                    bg.setBackground(getResources().getDrawable(R.drawable.blood_city_low, getResources().newTheme()));
+
+                    break;
+
+                case R.id.bg2:
+                    Log.d("Bg select", "city that never sleeps");
+                    bg2 = (RelativeLayout) findViewById(R.id.mainpage);
+                    bg2.setBackground(getResources().getDrawable(R.drawable.city_that_never_sleep2, getResources().newTheme()));
+
+                    SaveSuggestion(R.drawable.city_that_never_sleep2);
+
+                    break;
+                case R.id.bg3:
+                    Log.d("Bg select", "Big Apple");
+                    RelativeLayout bg3 = (RelativeLayout) findViewById(R.id.mainpage);
+                    bg3.setBackground(getResources().getDrawable(R.drawable.thebigapple_low, getResources().newTheme()));
+
+                    break;
+                case R.id.bg4:
+                    Log.d("Bg select", "dusk");
+                    RelativeLayout bg4 = (RelativeLayout) findViewById(R.id.mainpage);
+                    bg4.setBackground(getResources().getDrawable(R.drawable.dusk, getResources().newTheme()));
+
+                    break;
+                case R.id.defaultbg:
+                    Log.d("Bg select", "default");
+                    RelativeLayout defaultbg = (RelativeLayout) findViewById(R.id.mainpage);
+                    defaultbg.setBackground(getResources().getDrawable(R.drawable.mainbg3, getResources().newTheme()));
+
+                    break;
 
 
+            }
             return true;
-        }
+
+        } else
+            Toast.makeText(MainActivity.this, "Sorry your Phone can't handle this feature", Toast.LENGTH_LONG).show();
+
+
        /* if (id == R.id.MapTypeChange) {
             *//**   changeType();    Change to satellite  **//*
             return true;
@@ -267,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -293,9 +333,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.pacemail:
 
-                changeScreen(ChatRoomActivity.class);
+                // changeScreen(ChatRoomActivity.class);
 
-                //startNewActivity(this, "com.microsoft.exchange.mowa");
+                startNewActivity(this, "com.microsoft.exchange.mowa");
 //   TODO:here
                 break;
             case R.id.blackboard:
@@ -361,5 +401,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    private void SaveSuggestion(final int bg) {
+
+        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+                R.string.rating_exit_message).setTitle(
+                R.string.rating_exit_title).setCancelable(false)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                SharedPreferences sharepref = getPreferences(Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharepref.edit();
+                                editor.putInt("save background", bg);
+                                editor.apply(); // User selects OK, save changes to db
+
+                            }
+                        }).setNeutralButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                Toast.makeText(MainActivity.this, "Background not saved", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
+                            }
+                        }).show();
+
+    }
+
+    private boolean DisplayUserBackground() {
+
+        SharedPreferences sharepref = getPreferences(Context.MODE_PRIVATE);
+        int changedbg = sharepref.getInt("save background", 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            switch (changedbg) {
+                case R.drawable.city_that_never_sleep2:
+                    Log.d("Bg saved", "city that never sleeps");
+                    bg2 = (RelativeLayout) findViewById(R.id.mainpage);
+                    bg2.setBackground(getResources().getDrawable(R.drawable.city_that_never_sleep2, getResources().newTheme()));
+                    break;
+
+            }
+            return true;
+        }
+
+
+        return false;
+    }
 }
 
