@@ -62,13 +62,13 @@
                 android:background="@drawable/tutor_icon"
                 android:onClick="onClick" />
 
-            <ImageButton
-                android:id="@+id/pacemail"
+            <Button
+                android:id="@+id/feed"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="27dp"
                 android:onClick="onClick"
-                android:background="@drawable/pacemail_words" />
+                android:text="SSS "/>
 
             <ImageButton
                 android:id="@+id/blackboard"
@@ -102,13 +102,15 @@
                 android:text="Courses"
                 android:onClick="onClick"/>
 
-            <Button
-                android:id="@+id/feed"
+
+            <ImageButton
+                android:id="@+id/pacemail"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="60dp"
                 android:onClick="onClick"
-                android:text="SSS link"/>
+                android:background="@drawable/pacemail_words"/>
+
 
             <!---   text font Copper gothic bold size 40 -->
         </TableRow>
