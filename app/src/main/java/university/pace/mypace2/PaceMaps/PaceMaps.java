@@ -728,8 +728,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         //   mMap.addMarker(new MarkerOptions().position(PaceUniNYC)
         //    .title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel)
-                .title("Schimmel Center").snippet("provides performance to the" +
-                " university and the general public").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
+                .title("Schimmel Center").snippet("Performance to the arts" +
+                        "– B level ").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius)
                 .title("The Confucius Institute").snippet("Center for language instruction & cultural immersion").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
@@ -744,7 +744,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria)
                 .title("Maria's Tower").snippet("TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.maria_tower)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101)
-                .title("Cafe 101").snippet("Wide variety of food and drinks including Starbucks-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
+                .title("Cafe 101").snippet("Starbucks/ Food Court-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library)
                 .title("Henry Birnbaum Library").snippet("Study lounges & private group study rooms available-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163)
@@ -768,7 +768,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .title("Information Technology Center").snippet("Tech support available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OSA)
-                .title("Office of Student Assistance").snippet(" Finnacial aid & Student support-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
+                .title("Office of Student Assistance").snippet("Holds/Financial questions/Degree verification -1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_SSS)
                 .title("Student Support Services")
                 .snippet(" First year student support- 4th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));

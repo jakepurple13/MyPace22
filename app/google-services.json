@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "928494328208",
+    "firebase_url": "https://sss-app.firebaseio.com",
+    "project_id": "sss-app",
+    "storage_bucket": "sss-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928494328208:android:e12317606bb4599a",
+        "android_client_info": {
+          "package_name": "university.pace.mypace2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928494328208-v5sh1jds1d88u647v05br4odaf7l8f49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "university.pace.mypace2",
+            "certificate_hash": "56FC9A7585746D0182DF15ACB286C82402FF7E05"
+          }
+        },
+        {
+          "client_id": "928494328208-6efnrq2euh6d32e6mjmn01l28mlqd2eo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmAhhssF-dtUqQjkqktz1AFtPO7EPpMX4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928494328208-6efnrq2euh6d32e6mjmn01l28mlqd2eo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
