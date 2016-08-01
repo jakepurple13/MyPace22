@@ -392,6 +392,7 @@ return false;
     public void changeScreen(Class cl) {
         Intent intent = new Intent(this, cl);
         startActivity(intent);
+        this.finish();
     }
 
     private void SaveSuggestion(final int bg) {
