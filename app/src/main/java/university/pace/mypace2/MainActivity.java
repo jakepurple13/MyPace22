@@ -250,7 +250,7 @@ return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            switch (id) {
+            /*switch (id) {
                 case R.id.bg1:
                     Log.d("Bg select", "Bloodcity");
                     RelativeLayout bg = (RelativeLayout) findViewById(R.id.mainpage);
@@ -287,7 +287,7 @@ return false;
 
 
             }
-            return true;
+            return true;*/
 
         } else
             Toast.makeText(MainActivity.this, "Sorry your Phone can't handle this feature", Toast.LENGTH_LONG).show();
@@ -419,7 +419,7 @@ return false;
 
     }
 
-    private boolean DisplayUserBackground() {
+    /*private boolean DisplayUserBackground() {
 
         SharedPreferences sharepref = getPreferences(Context.MODE_PRIVATE);
         int changedbg = sharepref.getInt("save background", 0);
@@ -439,7 +439,7 @@ return false;
 
 
         return false;
-    }
+    }*/
 
     private void askaboutapp() {
 

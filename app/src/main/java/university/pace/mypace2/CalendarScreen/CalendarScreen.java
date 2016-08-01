@@ -73,7 +73,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    final String CALENDAR_ID = "pacesssprogram@gmail.com";//"1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com";
+    final String CALENDAR_ID = "1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com";
 
     ArrayList<CalendarInfo> events = new ArrayList<>();
     ArrayList<String> colorOfEvent = new ArrayList<>();
@@ -502,10 +502,13 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 }
 
                 for (int i = 0; i < events.size(); i++) {
-                    //Log.e("Line 502", colorOfEvent.get(i));
+
+                    long dt = events.get(i).getEvent().getStart().getDate().getValue();
+                    Log.e("Line 505", dt + "");
+
 
                     com.github.sundeepk.compactcalendarview.domain.Event e =
-                            new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), events.get(i).getEvent().getStart().getDate().getValue(), events.get(i));
+                            new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
                     compactCalendarView.addEvent(e);
                 }
 
