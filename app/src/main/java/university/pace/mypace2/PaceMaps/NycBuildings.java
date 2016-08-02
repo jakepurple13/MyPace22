@@ -199,6 +199,117 @@ public class NycBuildings {
                     case "one pace court yard":
                         latlngSpot = PaceBuilding.PaceUniNYC_OnePace_Courtyard;
                         break;
+
+                    case " Center for Undergraduate Research Experiences":
+                        latlngSpot = PaceBuilding.PaceUniNYC_SSS;
+                        break;
+
+                    case "CURE":
+                        latlngSpot = PaceBuilding.PaceUniNYC_SSS;
+                        break;
+
+                    case "Gym":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePacePlaza;
+                        break;
+                    case " Cardio Room":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePacePlaza;
+                        break;
+                    case "Weight Room":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePacePlaza;
+                        break;
+
+                    case "Financial Aid":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OSA;
+                        break;
+                    case "Pace ID Card":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OSA;
+                        break;
+
+                    case "Starbucks":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Cafe101;
+                        break;
+                    case "Pforzheimer Honors College":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Honors;
+                        break;
+                    case "Center for Community Action and Research":
+                        latlngSpot = PaceBuilding.PaceUniNYC_CCAR;
+                        break;
+                    case "CCAR":
+                        latlngSpot = PaceBuilding.PaceUniNYC_CCAR;
+                        break;
+                    case "Science Departments":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePacePlaza;
+                        break;
+                    case "labs":
+                        latlngSpot = PaceBuilding.PaceUniNYC_OnePacePlaza;
+                        break;
+                    case "IT":
+                        latlngSpot = PaceBuilding.PaceUniNYC_IT;
+                        break;
+                    case "HR":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William156;
+                        break;
+                    case "Human Resources":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William156;
+                        break;
+                    case "Tutoring":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Tutoring;
+                        break;
+
+                    case "Tutoring Center":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Tutoring;
+                        break;
+
+                    case "Dean for Students NYC":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
+                        break;
+                    case "LGBTQA":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
+                        break;
+
+                    case "Social Justice Center":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
+                        break;
+                    case "Office of Multicultural Affairs":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
+                        break;
+                    case "Student Government Association":
+                        latlngSpot = PaceBuilding.PaceUniNYC_Confucius;
+                        break;
+                    case "Career Services":
+                        latlngSpot = PaceBuilding.PaceUniNYC_ParksRow;
+                        break;
+                    case "Dyson Administration and Advisement":
+                        latlngSpot = PaceBuilding.PaceUniNYC_ParksRow;
+                        break;
+                    case "Dyson":
+                        latlngSpot = PaceBuilding.PaceUniNYC_ParksRow;
+                        break;
+                    case "Seidenberg":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William163;
+                        break;
+
+                    case "International Programs and Services":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William163;
+                        break;
+                    case "Counseling Center":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William156;
+                        break;
+
+                    case "140 William Street":
+                        latlngSpot = PaceBuilding.PaceUniNYC_William140;
+                        break;
+
+                    case "33 Beekman":
+                        latlngSpot = PaceBuilding.PaceUniNYC_BEEKMAN;
+                        break;
+
+
+
+
+
+
+
                 }
 
 

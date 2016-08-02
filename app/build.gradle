@@ -39,10 +39,10 @@ android {
 
         compile 'com.android.support:appcompat-v7:23.4.0'
         compile 'pub.devrel:easypermissions:0.1.5'
-        compile 'com.google.android.gms:play-services-identity:9.0.2'//changed 8.4.0 to 9.0.0
+        compile 'com.google.android.gms:play-services-identity:9.0.0'//changed 8.4.0 to 9.0.0
         compile 'com.android.support:recyclerview-v7:23.4.0'
-        compile 'com.google.android.gms:play-services-maps:9.0.2'
-        compile 'com.google.android.gms:play-services:9.0.2'
+        compile 'com.google.android.gms:play-services-maps:9.0.0'
+        compile 'com.google.android.gms:play-services:9.0.0'
         compile 'joda-time:joda-time:+'
         compile 'com.github.sundeepk:compact-calendar-view:1.8.4'
         compile 'com.android.support:cardview-v7:23.4.0'
@@ -61,7 +61,7 @@ android {
 
     }
 // ADD THIS AT THE BOTTOM
-    //apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.gms.google-services'
 
 }
 

@@ -75,7 +75,9 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>computer science department</item>
         <item>health center</item>
         <item>bookstore</item>
-
+        <item>bus</item>
+        <item>bus stop</item>
+        <item>shuttle</item>
 
         <!--NYC     -->
         <item>156 william street</item>
@@ -104,7 +106,7 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>food</item>
         <item>goldstien</item>
         <item>IT</item>
-        <item>Tech Support</item>
+        <item>tech support</item>
         <item>English department</item>
         <item>computer science department</item>
         <item>health center</item>
@@ -114,8 +116,50 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>Student Support Services</item>
         <item>one pace court yard </item>
         <item>court yard </item>
+        <item>Center for Undergraduate Research Experiences</item>
+        <item>CURE</item>
+        <item> Gym</item>
+        <item>Weight Room</item>
+        <item> Cardio Room</item>
+        <item>Financial Aid</item>
+        <item>Pace ID Card </item>
+        <item>Starbucks </item>
+        <item>Pforzheimer Honors College </item>
+        <item>Center for Community Action and Research </item>
+        <item>CCAR</item>
+        <item>holds  </item>
+        <item>Science Departments</item>
+        <item>Labs</item>
+        <item>LGBTQA</item>
+        <item>Social Justice Center</item>
+        <item>Dean for Students NYC</item>
+        <item>Office of Multicultural Affairs</item>
+        <item>Student Government Association</item>
+        <item>Student Government Association</item>
+        <item>Career Services</item>
+        <item>Dyson Administration and Advisement</item>
+        <item>Dyson</item>
+        <item>International Programs and Services </item>
+        <item>Seidenberg </item>
+        <item>Human Resources</item>
+        <item>Counseling Center</item>
+        <item>140 William st</item>
 
-        <!--NYC <item>bookstore</item>
+
+        <!--NYC    <item>  </item>
+
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+        <item>  </item>
+ <item>bookstore</item>
         <item>health center</item>
         <item>bookstore</item>    -->
 
