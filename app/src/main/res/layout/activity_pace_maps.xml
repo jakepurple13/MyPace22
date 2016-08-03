@@ -20,7 +20,7 @@
             android:lines="1"
             android:singleLine="true"
             android:imeOptions="actionSearch"
-            android:hint="Find ex 'class' "
+            android:hint="Search campus"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical" />
 
