@@ -976,8 +976,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             if (Position == PaceUniNYC) {
           /*reads from text list*/
-                Nycmap = new NycBuildings(this).new Building(location_search);
                 LatLng BuildingLatLng;
+                Nycmap = new NycBuildings(this).new Building(location_search);
+
                    /*if nothing is on the list show output*/
                 if (Nycmap.NYClocation(location_search) == null) {
                     Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();

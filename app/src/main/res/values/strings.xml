@@ -49,7 +49,6 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>  miller</item>
         <item> lienhard</item>
         <item> marks </item>
-        <item> dyson</item>
         <item> seidenberg  </item>
         <item>lubin </item>
         <item>goldstien class </item>
@@ -118,7 +117,6 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>court yard </item>
         <item>Center for Undergraduate Research Experiences</item>
         <item>CURE</item>
-        <item> Gym</item>
         <item>Weight Room</item>
         <item> Cardio Room</item>
         <item>Financial Aid</item>
@@ -137,14 +135,12 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>Student Government Association</item>
         <item>Student Government Association</item>
         <item>Career Services</item>
-        <item>Dyson Administration and Advisement</item>
         <item>Dyson</item>
         <item>International Programs and Services </item>
-        <item>Seidenberg </item>
         <item>Human Resources</item>
         <item>Counseling Center</item>
         <item>140 William st</item>
-
+        <item>Cafe</item>
 
         <!--NYC    <item>  </item>
 
@@ -186,6 +182,10 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="UserExperience">How was using this app today?</string>
     <string name="more">Select how you felt below</string>
     <string name="bad">Poor</string>
+    <string name="FinancialAid">Financial Counseling</string>
+    <string name="Personel">Mentoring</string>
+    <string name="Academic">Academic Advisement</string>
+    <string name="Culture">Cultural Events</string>
 
     <!--blackboard   -->
 

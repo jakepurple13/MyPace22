@@ -230,10 +230,10 @@ public class Buildings {
                     case "health center":
                         latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
                         break;
-                    case "Tech Support":
+                    case "tech support":
                         latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
                         break;
-                    case "IT":
+                    case "it":
                         latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
                         break;
                     case "computer science department":
@@ -261,6 +261,13 @@ public class Buildings {
                     case "bus stop":
                         latlngSpot = PaceBuilding.PaceUniPLV_BUS_WILCOX;
                         break;
+                    case "bus":
+                        latlngSpot = PaceBuilding.PaceUniPLV_BUS_WILCOX;
+                        break;
+                    case "shuttle":
+                        latlngSpot = PaceBuilding.PaceUniPLV_BUS_MILLER;
+                        break;
+
 
                 }
 
