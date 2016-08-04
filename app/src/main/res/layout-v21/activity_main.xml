@@ -47,7 +47,7 @@
 
 
                 android:onClick="onClick"
-                android:background="@drawable/coursesbutton" />
+                android:background="@drawable/coursesbutton2" />
 
 
         </TableRow>
