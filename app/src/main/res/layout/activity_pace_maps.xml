@@ -2,6 +2,7 @@
 <LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
     >
@@ -36,7 +37,7 @@
 
         <ToggleButton
             style="@android:style/Widget.Button"
-            android:layout_width="90dp"
+            android:layout_width="86dp"
             android:layout_height="50dp"
             android:id="@+id/Toggle"
             android:layout_gravity="right"
@@ -55,11 +56,14 @@
             android:clickable="true"
             android:textOn=""
             android:textOff="" />
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -67,10 +71,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/map"
             tools:context=".GoogleMaps"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            android:name="com.google.android.gms.maps.SupportMapFragment">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/refresh"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                app:fabSize="normal"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp"
+                app:rippleColor="@android:color/transparent" />
+        </fragment>
 
 
     </LinearLayout>
 
 
 </LinearLayout>
+
+
+    <!-- set to transparent color -->

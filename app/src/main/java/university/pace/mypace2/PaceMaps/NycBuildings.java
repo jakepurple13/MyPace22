@@ -151,7 +151,7 @@ public class NycBuildings {
                     case "library":
                         latlngSpot = PaceBuilding.PaceUniNYC_Library;
                         break;
-                    case "Barns & Nobles Bookstore":
+                    case "barns & nobles bookstore":
                         latlngSpot = PaceBuilding.PaceUniNYC_Bookstore;
                         break;
                     case "barns & nobles":
@@ -300,6 +300,9 @@ public class NycBuildings {
                         latlngSpot = PaceBuilding.PaceUniNYC_BEEKMAN;
                         break;
 
+                    case "beekman":
+                        latlngSpot = PaceBuilding.PaceUniNYC_BEEKMAN;
+                        break;
 
 
 

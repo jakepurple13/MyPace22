@@ -79,42 +79,41 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>shuttle</item>
 
         <!--NYC     -->
-        <item>156 william street</item>
+        <item>156 William street</item>
         <item>182 Broadway</item>
-        <item>55 john street</item>
-        <item>106 fulton street</item>
-        <item>163 william street</item>
+        <item>55 John street</item>
+        <item>106 Flton street</item>
+        <item>163 William street</item>
         <item>Maria tower</item>
         <item>the confucius institute</item>
         <item>Barns and Nobles Bookstore</item>
-        <item>41 parks row</item>
-        <item>schimmel center</item>
-        <item>henry birnbaum</item>
-        <item>henry birnbaum library</item>
-        <item>library</item>
-        <item>one pace plaza</item>
+        <item>41 Parks row</item>
+        <item>Schimmel center</item>
+        <item>Henry birnbaum</item>
+        <item>Henry birnbaum library</item>
+        <item>Library</item>
+        <item>One pace plaza</item>
         <item>Broadway</item>
-        <item>john street</item>
-        <item>william street</item>
-        <item>fulton street</item>
+        <item>John street</item>
+        <item>Fulton street</item>
         <item>Maria</item>
         <item>one pace</item>
         <item>confucius institute</item>
         <item>math department</item>
-        <item>class</item>
-        <item>food</item>
-        <item>goldstien</item>
+        <item>Class</item>
+        <item>Food</item>
+        <item>Goldstien</item>
         <item>IT</item>
         <item>tech support</item>
         <item>English department</item>
         <item>computer science department</item>
-        <item>health center</item>
-        <item>bookstore</item>
-        <item>nurse</item>
+        <item>Health Center</item>
+        <item>Bookstore</item>
+        <item>Nurse</item>
         <item>SSS</item>
         <item>Student Support Services</item>
-        <item>one pace court yard </item>
-        <item>court yard </item>
+        <item>One pace court yard </item>
+        <item>Court yard </item>
         <item>Center for Undergraduate Research Experiences</item>
         <item>CURE</item>
         <item>Weight Room</item>
@@ -139,9 +138,9 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>International Programs and Services </item>
         <item>Human Resources</item>
         <item>Counseling Center</item>
-        <item>140 William st</item>
+        <item>140 William street</item>
         <item>Cafe</item>
-
+        <item>33 Beekman</item>
         <!--NYC    <item>  </item>
 
         <item>  </item>
@@ -184,8 +183,10 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="bad">Poor</string>
     <string name="FinancialAid">Financial Counseling</string>
     <string name="Personel">Mentoring</string>
-    <string name="Academic">Academic Advisement</string>
+    <string name="Academic">ACADEMIC SERVICES</string>
     <string name="Culture">Cultural Events</string>
+    <string name="Benifits">Benefits</string>
+    <string name="On_More_Academic_Pressed">Academic services we provide</string>
 
     <!--blackboard   -->
 

@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Context;
 
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -425,7 +427,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
                 } else {
                     changeType(buttonView);
-                    findViewById(R.id.satellite).setBackgroundResource(R.drawable.earth);
+                    findViewById(R.id.satellite).setBackgroundResource(R.drawable.google_earth);
                     Log.d("change map type", "toggle pressed satellite");
                     // The toggle on Map
 
@@ -434,6 +436,22 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         });
 
         /*** Toggle For map PLV /NYC      *******************************************************/
+
+/**refresh button****/
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        ColorStateList rippleColor = ContextCompat.getColorStateList(this, R.drawable.fab_ripple_color);
+        fab.setBackgroundTintList(rippleColor);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshMap(v);
+
+            }
+        });
+/**refresh button****/
+
+
+
 
 
     }
@@ -614,6 +632,30 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
+    public void refreshMap(View view) {
+        if (mMap != null) {
+
+            if (Position == PaceUniPLV) {
+                mMap.clear();  //clears anything on the map
+                PleasantvilleCampusOnMapView();
+                Toast.makeText(this, "Refresh", Toast.LENGTH_LONG).show();
+                Log.d("User toggled", "refresh");
+
+
+            } else {
+                mMap.clear(); //clears anything on the map
+                NYVCampusOnMapView();
+                Toast.makeText(this, "Refresh", Toast.LENGTH_LONG).show();
+                Log.d("User toggled", "refresh");
+
+
+            }
+
+
+        }
+    }
+
+
     private void PleasantvilleCampusOnMapView() {
 
 
@@ -744,74 +786,82 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void NYVCampusOnMapView() {
-
-
-        //   mMap.addMarker(new MarkerOptions().position(PaceUniNYC)
-        //    .title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel)
-                .title("Schimmel Center").snippet("Performance to the arts" +
-                        "– B level ").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
-
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Honors)
-                .title("Pforzheimer Honors College/Office for Student Success").snippet("•Rm W209A/Office for any need on campus Rm-Y21–2nd FL ").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore)
-                .title("Barns & Noble BookStore").snippet("•Purchase books,apparel and more").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow)
-                .title("41 Parks Row").snippet("•Classrooms and offices/SDCA-8th").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin)
-                .title("Lubin School of Business").snippet("•The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
-
-
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePacePlaza)
 
                 .title("One Pace Plaza").snippet("•Lubin Administration and Advisement-4th FL").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_one_plaza)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Schimmel)
+                .title("Schimmel Center").snippet("•Performance to the arts" +
+                        "– B level ").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Honors)
+                .title("Office for Student Success/Honors College")
+                .snippet("•Office for any need on campus Rm-Y21–2nd FL/Rm W209A").icon(BitmapDescriptorFactory.fromResource(R.drawable.studentsuccessmkr)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Lubin)
+                .title("Lubin School of Business").snippet("•The business school of Pace University").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
+
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Maria)
                 .title("Maria's Tower").snippet("•TV lounge and a study lounge on every floor").icon(BitmapDescriptorFactory.fromResource(R.drawable.maria_tower)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Cafe101)
                 .title("Cafe 101").snippet("•Starbucks/ Food Court-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_kessel))); //TODO: we have food
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Library)
                 .title("Henry Birnbaum Library").snippet("•Study lounges/private group study rooms available-1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePace_Courtyard)
+                .title("Court Yard")
+                .snippet("•Relax in this outdoor area- 1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.courtyardmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_IT)
+                .title("Information Technology Center").snippet("•Tech support available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.itmkr)));
+
+        //   mMap.addMarker(new MarkerOptions().position(PaceUniNYC)
+        //    .title("Pace University -City Campus").snippet("1 Pace Plaza, New York, NY 10038").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_marks)));
+
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_ParksRow)
+                .title("41 Parks Row").snippet("•Classrooms and offices/SDCA-8th").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore)
+                .title("Barns & Noble BookStore").snippet("•Purchase books,apparel and more").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Tutoring)
+                .title("Tutoring Center/First Year Experience/Advising Center for Exploring Majors")
+                .snippet("•Student/Professional tutors and more available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.tutormkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Health)
+                .title("Health Center").snippet("•Nurse available-Rm 313 3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.healthmkr)));
+        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_SSS)
+                .title("Student Support Services")
+                .snippet("•First year student support/CURE- 4th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.sssmkr)));
+
+
+
+
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163)
-                .title("163 William Street").snippet("•Seidenberg School of Computer Science-2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("163 William Street").snippet("•Seidenberg School of Computer Science-2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.seidenbergmkr)));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William163_IP)
-                .title("International Programs and Services").snippet("•Study Abroad/International Student advisement-16th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
+                .title("International Programs and Services").snippet("•Study Abroad/International Student AD-16th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_JohnStreet)
                 .title("55 John Street").snippet("•Residence Halls").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Broadway)
                 .title("182 Broadway").snippet("•Residence Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William156)
-                .title("156 William Street").snippet("•Counseling Center–8th FL/Human Resources-5th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("156 William Street").snippet("•Counseling Center–8th FL/Human Resources-5th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.hrmkr)));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_William140)
                 .title("140 William Street").snippet("•Performing Arts").icon(BitmapDescriptorFactory.fromResource(R.drawable.schimmelmkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_BEEKMAN)
                 .title("33 Beekman st").snippet("•Student housing").icon(BitmapDescriptorFactory.fromResource(R.drawable.dormmkr)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Tutoring)
-                .title("Tutoring Center/First Year Experience/Advising Center for Exploring Majors  ")
-                .snippet("•Student/Professional tutors and more available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Health)
-                .title("•Health Center").snippet("Nurse available-Rm 313 3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_IT)
-                .title("•Information Technology Center").snippet("•Tech support available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+
 
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OSA)
                 .title("Office of Student Assistance").snippet("•Holds/Financial questions/Degree verification -1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_osa_icon)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_SSS)
-                .title("Student Support Services")
-                .snippet("•First year student support/CURE- 4th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
-        mMap.addMarker(new MarkerOptions().position(PaceUniNYC_OnePace_Courtyard)
-                .title("Court Yard")
-                .snippet(" Relax in this outdoor area- 1st Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Confucius)
-                .title("Office of Multicultural Affairs & Dean for Students ")
-                .snippet("•LGBTQA & Social Justice Center/Student Government Association- 9th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("Office of Multicultural Affairs & Dean for Students")
+                .snippet("•Social Justice Center/Student Government- 9th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.socialjusticemkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_CCAR)
                 .title("Center for Undergraduate Research Experiences ")
-                .snippet("•CCAR Rm-Y31–3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .snippet("•CCAR Rm-Y31–3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.undergrademkr)));
+
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_CareerSer)
-                .title("Career Services/Dyson Administration and Advisement   ")
-                .snippet("•Future for you begins here-14th FL/Dyson-16th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker_50_65dp)));
+                .title("Career Services/Dyson Administration and Advisement")
+                .snippet("•Future for you begins here-14th FL/Dyson-16th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.csmkr)));
 //TODO: Add new locations to search engine
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));

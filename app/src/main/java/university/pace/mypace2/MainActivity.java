@@ -318,7 +318,7 @@ return false;
 
                 break;
 
-            case R.id.next:
+            case R.id.tutoringbutt:
                 askaboutapp();
                 //     changeScreen(CardTest.class);
 
@@ -326,17 +326,21 @@ return false;
 
             case R.id.pacemail:
 
-                // changeScreen(ChatRoomActivity.class);
-
                 startNewActivity(this, "com.microsoft.exchange.mowa");
-//   TODO:here
+
                 break;
             case R.id.blackboard:
                 startNewActivity(this, "com.blackboard.android");
 
-//can not logon    TODO:here
+
                 break;
 
+
+            case R.id.sss:
+                changeScreen(SSSprogram.class);
+
+
+                break;
 
             default:
                 break;

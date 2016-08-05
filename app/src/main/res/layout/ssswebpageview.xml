@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="university.pace.mypace2.SSSprogram"
+    android:id="@+id/infofrag">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <WebView
+        android:layout_width="fill_parent"
+        android:layout_height="508dp"
+        android:id="@+id/SSSwebPage"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <!--   <android.support.design.widget.FloatingActionButton
+             android:id="@+id/fab_email"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/refresh"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             app:fabSize="normal"
+             app:borderWidth="0dp"
+             app:elevation="6dp"
+             app:pressedTranslationZ="12dp"
+             app:rippleColor="@android:color/transparent"/>set to transparent color -->
+
+    </WebView>
+
+
+</FrameLayout>
