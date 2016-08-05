@@ -781,7 +781,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 16));
 
-        Toast.makeText(this, "Now viewing the Westchester Campus", Toast.LENGTH_LONG).show();
 
     }
 
@@ -865,7 +864,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 //TODO: Add new locations to search engine
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
-        Toast.makeText(this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
+
     }
 
     private void ShowCampusNearMe(double lat) {
@@ -886,8 +885,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                             changeMap(buttonView);
                             toggle.setBackgroundResource(R.drawable.togglenyc);
                             Log.d("toggle pressed Blue", "NYC Map");
-
-                            // The toggle on PLV
+                            Toast.makeText(PaceMaps.this, "Now viewing the NYC Campus", Toast.LENGTH_LONG).show();
+                            // The toggle while on  PLV
                         }
 
                     } else {
@@ -895,9 +894,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         if (Position == PaceUniNYC) {
                             changeMap(buttonView);
                             findViewById(R.id.Toggle).setBackgroundResource(R.drawable.toggleplv);
-
+                            Toast.makeText(PaceMaps.this, "Now viewing the Westchester Campus", Toast.LENGTH_LONG).show();
                             Log.d("toggle pressed Yellow", "PLV Map");
-                            // The toggle on NYC
+                            // The toggle while on NYC
                         }
 
 
@@ -937,8 +936,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                             changeMap(buttonView);
                             toggle.setText(R.string.toggleNYC);
                             findViewById(R.id.Toggle).setBackgroundResource(R.drawable.nyc_toggle);
-
                             Log.d("toggle pressed Yellow", "PLV Map");
+
                             // The toggle on NYC
                         }
 
