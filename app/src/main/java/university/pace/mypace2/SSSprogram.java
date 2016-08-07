@@ -68,7 +68,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
             case R.id.john_email:
 
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, Constants.JOHNEMAIL);
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOHNEMAIL});
                 emailIntent.setType("message/rfc822");
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello Mr.Hooker,");
