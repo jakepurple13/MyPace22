@@ -4,8 +4,11 @@ package university.pace.mypace2;
  * Created by Mrgds on 8/5/2016.
  */
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 ;
 
-//TODO:   WORK ON GETTING WEB VIEW UP INFO
+//Creates Fragment view
 
 
 public class SupportFragment extends Fragment {
@@ -27,11 +30,12 @@ public class SupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View rootView = inflater.inflate(R.layout.ssswebpageview, container, false);
         WebView viewfrag = (WebView) rootView.findViewById(R.id.SSSwebPage);
         WebSettings webSettings = viewfrag.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        viewfrag.loadUrl(Constants.SSSpage);
+        viewfrag.loadUrl(Constants.SSSPAGE);
 
 
         return rootView;

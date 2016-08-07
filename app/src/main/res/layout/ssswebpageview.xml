@@ -6,27 +6,14 @@
     tools:context="university.pace.mypace2.SSSprogram"
     android:id="@+id/infofrag">
 
-    <!-- TODO: Update blank fragment layout -->
-
+    <!-- TODO: webview fragment -->
 
     <WebView
-        android:layout_width="fill_parent"
-        android:layout_height="508dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/SSSwebPage"
         android:layout_gravity="center_horizontal|bottom">
 
-        <!--   <android.support.design.widget.FloatingActionButton
-             android:id="@+id/fab_email"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:src="@drawable/refresh"
-             android:layout_alignParentBottom="true"
-             android:layout_alignParentRight="true"
-             app:fabSize="normal"
-             app:borderWidth="0dp"
-             app:elevation="6dp"
-             app:pressedTranslationZ="12dp"
-             app:rippleColor="@android:color/transparent"/>set to transparent color -->
 
     </WebView>
 

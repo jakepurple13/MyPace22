@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -307,39 +309,46 @@ return false;
         switch (v.getId()) {
 
             case R.id.campusmap:
-
+                Fade(v);
                 changeScreen(PaceMaps.class);
 
                 break;
 
             case R.id.calBut:
-
+                Fade(v);
                 changeScreen(CalendarScreen.class);
 
                 break;
 
             case R.id.tutoringbutt:
-                askaboutapp();
-                //     changeScreen(CardTest.class);
+                Fade(v);
+                changeScreen(CardTest.class);
 
                 break;
 
             case R.id.pacemail:
-
-                startNewActivity(this, "com.microsoft.exchange.mowa");
+                Fade(v);
+                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
 
                 break;
             case R.id.blackboard:
-                startNewActivity(this, "com.blackboard.android");
+                Fade(v);
+                TakeUserToMarket(this, "com.blackboard.android");
 
 
                 break;
 
 
             case R.id.sss:
+                Fade(v);
                 changeScreen(SSSprogram.class);
 
 
+                break;
+
+            case R.id.test:
+                Fade(v);
+                askaboutapp();
                 break;
 
             default:
@@ -381,7 +390,7 @@ return false;
     }
 
 
-    public void startNewActivity(Context context, String packageName) {
+    public void TakeUserToMarket(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
             // Bring user to the market
@@ -471,6 +480,14 @@ return false;
                                 Toast.makeText(MainActivity.this, "We are sorry to hear that", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
                             }
                         }).show();
+
+
+    }
+
+
+    public void Fade(View v) {
+        Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
+        v.startAnimation(Anim);
 
 
     }
