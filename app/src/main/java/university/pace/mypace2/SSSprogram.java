@@ -29,10 +29,10 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
         market = new MainActivity();
         academic = (Button) findViewById(R.id.academicbutt);
-/**email john button****/
+        /**email john button****/
         fab = (FloatingActionButton) findViewById(R.id.john_email);
         RippleAnim(fab);
-/**email john button****/
+        /**email john button****/
 
         /**email maria button****/
         fab2 = (FloatingActionButton) findViewById(R.id.maria_email);

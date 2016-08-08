@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import university.pace.mypace2.Constants;
 import university.pace.mypace2.R;
 
 
@@ -147,6 +149,24 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                     color = Color.HSVToColor(hsv);
                     holder.colored = color;
                     holder.cv.setCardBackgroundColor(color);
+
+
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOYCEEMAIL});
+                    emailIntent.setType("message/rfc822");
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                    String emailText = "Hello Mr.Hooker,\nI would like to attend " +
+                            event.getSummary() + " at " +
+                            event.getStart().getDate() + " to " +
+                            event.getEnd().getDate();
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, emailText);
+                    /**Checks to see if user has email app/ if not takes to market to download**/
+                    try {
+                        in.startActivity(Intent.createChooser(emailIntent,
+                                "Send email using..."));
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Log.wtf("WTF", ex);
+                    }
 
 
                 } else {

@@ -405,7 +405,7 @@ return false;
     public void changeScreen(Class cl) {
         Intent intent = new Intent(this, cl);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     private void SaveSuggestion(final int bg) {
@@ -432,28 +432,6 @@ return false;
                         }).show();
 
     }
-
-    /*private boolean DisplayUserBackground() {
-
-        SharedPreferences sharepref = getPreferences(Context.MODE_PRIVATE);
-        int changedbg = sharepref.getInt("save background", 0);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            switch (changedbg) {
-                case R.drawable.city_that_never_sleep2:
-                    Log.d("Bg saved", "city that never sleeps");
-                    bg2 = (RelativeLayout) findViewById(R.id.mainpage);
-                    bg2.setBackground(getResources().getDrawable(R.drawable.city_that_never_sleep2, getResources().newTheme()));
-                    break;
-
-            }
-            return true;
-        }
-
-
-        return false;
-    }*/
 
     private void askaboutapp() {
 
@@ -488,7 +466,6 @@ return false;
     public void Fade(View v) {
         Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
         v.startAnimation(Anim);
-
 
     }
 }
