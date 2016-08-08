@@ -40,14 +40,14 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
         <meta-data
             android:name="com.google.android.calendar.v3.API_KEY"
-            android:value="AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ" />
+            android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg"/>
 
 
         <!-- [START firebase_service] -->
