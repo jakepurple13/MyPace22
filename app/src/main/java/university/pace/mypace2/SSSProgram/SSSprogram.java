@@ -1,10 +1,9 @@
-package university.pace.mypace2;
+package university.pace.mypace2.SSSProgram;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +14,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
+import university.pace.mypace2.Constants;
+import university.pace.mypace2.MainActivity;
+import university.pace.mypace2.R;
+
 /**
  * Created by Mrgds on 8/5/2016.
  */
@@ -22,6 +25,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     MainActivity market;
     Button academic;
     FloatingActionButton fab, fab2, fab3, fab4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +54,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         /**email norma button****/
 
 
-
     }
 
     @Override
@@ -60,7 +63,11 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
                 Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
                 v.startAnimation(Anim);
-                inflatewebview(); //invokes Fragment view
+
+                Intent i = new Intent(this, SSWebView.class);
+                startActivity(i);
+
+                //inflatewebview(); //invokes Fragment view
 
                 break;
 

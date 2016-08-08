@@ -1,4 +1,4 @@
-package university.pace.mypace2;
+package university.pace.mypace2.SSSProgram;
 
 /**
  * Created by Mrgds on 8/5/2016.
@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-;
+;import university.pace.mypace2.Constants;
+import university.pace.mypace2.R;
 
 //Creates Fragment view
 

@@ -16,10 +16,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,7 +25,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 
@@ -38,6 +35,7 @@ import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 ;
 import university.pace.mypace2.PaceMaps.PaceMaps;
+import university.pace.mypace2.SSSProgram.SSSprogram;
 import university.pace.mypace2.TestingPackage.CardTest;
 //import university.pace.mypace2.TestingPackage.ChatRoomActivity;
 

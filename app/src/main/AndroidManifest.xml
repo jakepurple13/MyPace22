@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="university.pace.mypace2">
 
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -49,7 +48,6 @@
             android:name="com.google.android.calendar.v3.API_KEY"
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg"/>
 
-
         <!-- [START firebase_service] -->
         <service android:name=".TestingPackage.MyFirebaseMessagingService">
             <intent-filter>
@@ -57,31 +55,26 @@
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
-        <!--<meta-data
+        <!--
+            <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />-->
-
+            android:value="@integer/google_play_services_version" />
+        -->
 
         <activity
             android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light" />
-
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
         <activity android:name=".CalendarScreen.CalendarScreen" />
         <activity android:name=".TestingPackage.CardTest" />
         <activity
             android:name=".TutoringCenter.Tutoring"
             android:label="@string/title_activity_tutoring"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-        <activity android:name=".SSSprogram">
-
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SSSProgram.SSSprogram"></activity>
+        <activity android:name=".SSSProgram.SSWebView"></activity>
     </application>
 
 </manifest>
