@@ -863,7 +863,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .snippet("•Future for you begins here-14th FL/Dyson-16th Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.csmkr)));
 //TODO: Add new locations to search engine
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniNYC, 17));
 
     }
 

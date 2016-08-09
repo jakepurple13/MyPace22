@@ -18,7 +18,7 @@ public class SSWebView extends AppCompatActivity {
         WebView viewfrag = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = viewfrag.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        viewfrag.loadUrl(Constants.SSSPAGE + "");
+        viewfrag.loadUrl(Constants.SSSPAGE + "#eli");
 
     }
 }
