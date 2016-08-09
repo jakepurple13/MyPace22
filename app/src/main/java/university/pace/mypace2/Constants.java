@@ -8,4 +8,5 @@ public class Constants {
     public static final String MARIAEMAIL = "miacullobird@pace.edu";
     public static final String JOHNEMAIL = "jhooker@pace.edu";
     public static final String JOYCEEMAIL = "jlau@pace.edu";
+    public static final String NORMAEMAIL = "nquiridumbay@pace.edu";
 }

@@ -101,11 +101,11 @@
                 android:background="@drawable/bb_words" />
 
             <ImageButton
-                android:id="@+id/test"
+                android:id="@+id/mentor"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/pacemessage"
+                android:background="@drawable/pacementor_nopace"
                 android:onClick="onClick" />
 
 

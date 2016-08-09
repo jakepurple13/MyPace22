@@ -98,7 +98,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 emailI.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.MARIAEMAIL});
                 emailI.setType("plain/text");
                 emailI.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                emailI.putExtra(Intent.EXTRA_TEXT, "Hello Mrs.Iacullo-Bird,");
+                emailI.putExtra(Intent.EXTRA_TEXT, "Hello Dr.Iacullo-Bird,");
                 /**Checks to see if user has email app/ if not takes to market to download**/
                 try {
                     startActivity(Intent.createChooser(emailI,
@@ -110,6 +110,44 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                     market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
                 }
                 break;
+
+            case R.id.joyce_email:
+                Intent emailj = new Intent(android.content.Intent.ACTION_SEND);
+                emailj.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOYCEEMAIL});
+                emailj.setType("plain/text");
+                emailj.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                emailj.putExtra(Intent.EXTRA_TEXT, "Hello Ms.Lau,");
+                /**Checks to see if user has email app/ if not takes to market to download**/
+                try {
+                    startActivity(Intent.createChooser(emailj,
+                            "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this,
+                            "No email clients installed.",
+                            Toast.LENGTH_SHORT).show();
+                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
+                }
+                break;
+
+
+            case R.id.norma_email:
+                Intent emailn = new Intent(android.content.Intent.ACTION_SEND);
+                emailn.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.NORMAEMAIL});
+                emailn.setType("plain/text");
+                emailn.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                emailn.putExtra(Intent.EXTRA_TEXT, "Hello Ms.Quiridumbay,");
+                /**Checks to see if user has email app/ if not takes to market to download**/
+                try {
+                    startActivity(Intent.createChooser(emailn,
+                            "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this,
+                            "No email clients installed.",
+                            Toast.LENGTH_SHORT).show();
+                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
+                }
+                break;
+
 
         }
 
