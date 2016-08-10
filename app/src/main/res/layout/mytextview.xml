@@ -17,13 +17,14 @@
         android:elevation="5dp"
         android:background="@drawable/myrect"
         android:id="@+id/textView" />
+    <!--   " -->
 
     <ImageView
         android:id="@+id/callArrow"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:background="@drawable/squarerect"
-        android:src="@drawable/arrowright"/>
 
+
+        />
 
 </LinearLayout>

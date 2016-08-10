@@ -16,6 +16,7 @@
     <color name="red">#ff0000</color>
     <color name="transparent">#00000000</color>
     <color name="Pace_blue_light">#3271D3</color>
+    <color name="Pace_blue_light_2">#34ccff</color>
 
 
 </resources>

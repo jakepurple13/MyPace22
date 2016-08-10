@@ -46,7 +46,7 @@
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
         <meta-data
             android:name="com.google.android.calendar.v3.API_KEY"
-            android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg"/>
+            android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
 
         <!-- [START firebase_service] -->
         <service android:name=".TestingPackage.MyFirebaseMessagingService">
@@ -72,9 +72,13 @@
         <activity
             android:name=".TutoringCenter.Tutoring"
             android:label="@string/title_activity_tutoring"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SSSProgram.SSSprogram" />
+        <activity android:name=".SSSProgram.SSWebView" />
+        <activity
+            android:name=".Courses.Courses"
+            android:label="@string/title_activity_courses"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SSSProgram.SSSprogram"></activity>
-        <activity android:name=".SSSProgram.SSWebView"></activity>
     </application>
 
 </manifest>

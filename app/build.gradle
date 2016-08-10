@@ -16,6 +16,12 @@ android {
     }
 
     sourceSets {
+
+        main {
+            java {
+                exclude '**/.java'
+            }
+        }
         buildTypes {
             release {
                 minifyEnabled false
@@ -23,7 +29,6 @@ android {
             }
         }
     }
-
 
     //fixed  java.lang.OutOfMemoryError: 7/20/16
     dependencies {
@@ -65,4 +70,6 @@ android {
 
 }
 
-
+dependencies {
+    compile files('libs/jxl-2.6.jar')
+}
