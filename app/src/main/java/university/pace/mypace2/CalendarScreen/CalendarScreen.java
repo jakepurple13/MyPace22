@@ -124,7 +124,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         monthName.setText(getMonthName(compactCalendarView.getFirstDayOfCurrentMonth().getMonth()));
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Calling Google Calendar API ...");
+        mProgress.setMessage("Loading calendar...Please wait");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_viewCal);
 

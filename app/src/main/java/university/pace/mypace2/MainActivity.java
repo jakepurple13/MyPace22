@@ -32,6 +32,7 @@ import java.util.Date;
 
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
+import university.pace.mypace2.Courses.CourseDisplay;
 import university.pace.mypace2.Courses.Courses;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 ;
@@ -291,7 +292,6 @@ return false;
 
                 break;
 
-
             case R.id.sss:
                 Fade(v);
                 changeScreen(SSSprogram.class);
@@ -307,7 +307,7 @@ return false;
             /**reads in from .xl file  8/10/16**/
             case R.id.courses:
                 Fade(v);
-                changeScreen(Courses.class);
+                changeScreen(CourseDisplay.class);
                 break;
 
 
