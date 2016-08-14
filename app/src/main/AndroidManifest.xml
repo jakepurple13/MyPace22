@@ -72,12 +72,20 @@
         <activity
             android:name=".TutoringCenter.Tutoring"
             android:label="@string/title_activity_tutoring"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SSSProgram.SSSprogram" />
-        <activity android:name=".SSSProgram.SSWebView" />
+        <activity
+            android:name=".SSSProgram.SSSprogram"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".SSSProgram.SSWebView"
+
+            />
         <activity
             android:name=".Courses.Courses"
             android:label="@string/title_activity_courses"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
