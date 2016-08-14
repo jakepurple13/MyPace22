@@ -4,6 +4,9 @@ package university.pace.mypace2.PaceMaps;
 import android.Manifest;
 import android.content.Context;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.location.Address;
@@ -11,6 +14,7 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -58,7 +62,7 @@ import university.pace.mypace2.R;
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;
-    private double latitude;
+    private double latitude, longitude;
     private NycBuildings.Building Nycmap;
     private Buildings.Building pacemap;
     private Buildings pace;
@@ -263,8 +267,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_NYC_ParksRow_LNG = -74.006211;
     public final double Pace_NYC_ParksRow_LAT = 40.711674;
 
-    public final double Pace_NYC_HEALTH_LNG = -74.006803;
-    public final double Pace_NYC_HEALTH_LAT = 40.711582;
+    public final double Pace_NYC_HEALTH_LNG = -74.006690;
+    public final double Pace_NYC_HEALTH_LAT = 40.711563;
 
     public final double Pace_NYC_ParksRow_Bookstore_LNG = -74.006244;
     public final double Pace_NYC_ParksRow_Bookstore_LAT = 40.711616;
@@ -517,10 +521,12 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             Location location = locationManager.getLastKnownLocation(locationManager
                     .getBestProvider(criteria, false));
             latitude = location.getLatitude();
-
+            longitude = location.getLongitude();
         /*ECHO SHOW USER's LAT */
-            System.out.println("user's latitude" + latitude);
-            double longitude = location.getLongitude();
+            System.out.println("user's latitude" + latitude + "user's longitude" + longitude);
+
+
+
 
 /**checks if Location is on if not then show default map**/
 
@@ -570,28 +576,19 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
             Log.d("error", e.toString());
         }
-
+                                                                                            /*On info Window Clicked */
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (marker.getTitle().equals("One Pace Plaza")) {
-                    // if marker source is clicked
-                    // display toast
-                    Toast.makeText(PaceMaps.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
-                    //Create view
-                    //TODO:  Create layout view
-                    //   setContentView(R.layout.pace_marker_info);
-
-                    Log.v("Pace marker clicked", "k");
-
-                } else
-                    Log.v("Pace marker not clicked", "no");
-
+                double DirectionsOnClickLat = marker.getPosition().latitude;
+                double DirectionsOnClickLong = marker.getPosition().longitude;//gets clicked info window position
+                OnLocationGo(DirectionsOnClickLat, DirectionsOnClickLong, latitude, longitude);//passes to google maps
+                //   Log.d("Pace marker clicked",DirectionsOnClickLong);
 
             }
         });
 
-
+                                                                                            /*On info Window Clicked End*/
     }
 
 
@@ -1162,6 +1159,45 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
     }
+
+
+    private void OnLocationGo(final double goLat, final double goLong, double userLat, double userLong) {
+
+        final String UserLat = String.valueOf(userLat);
+        final String UserLong = String.valueOf(userLong); //gets user latitude & longitude
+
+
+        final String MarkerLong = String.valueOf(goLong); //gets user longitude & latitude
+        final String MarkerLat = String.valueOf(goLat);
+
+        Log.d("UserLong", UserLong);
+        Log.d("UserLat", UserLat);
+
+        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+                R.string.OnPressMessage).setTitle(
+                R.string.UndertitleLocation).setCancelable(false)
+                .setNeutralButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                Toast.makeText(PaceMaps.this, "Maybe next time then...", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
+                            }
+                        }).setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                        Uri.parse("http://maps.google.com/maps?saddr=" + UserLat
+                                                + "," + UserLong + "&" + "daddr=" + MarkerLat + "," + MarkerLong));
+                                startActivity(intent);
+                                Log.d("OkDirections", "user is getting directions");
+
+                            }
+                        }).show();
+
+    }
+
+
 
 
     private void GS() {

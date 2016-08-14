@@ -239,8 +239,7 @@ return false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -251,53 +250,8 @@ return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            /*switch (id) {
-                case R.id.bg1:
-                    Log.d("Bg select", "Bloodcity");
-                    RelativeLayout bg = (RelativeLayout) findViewById(R.id.mainpage);
-                    bg.setBackground(getResources().getDrawable(R.drawable.blood_city_low, getResources().newTheme()));
 
-                    break;
-
-                case R.id.bg2:
-                    Log.d("Bg select", "city that never sleeps");
-                    bg2 = (RelativeLayout) findViewById(R.id.mainpage);
-                    bg2.setBackground(getResources().getDrawable(R.drawable.city_that_never_sleep2, getResources().newTheme()));
-
-                    SaveSuggestion(R.drawable.city_that_never_sleep2);
-
-                    break;
-                case R.id.bg3:
-                    Log.d("Bg select", "Big Apple");
-                    RelativeLayout bg3 = (RelativeLayout) findViewById(R.id.mainpage);
-                    bg3.setBackground(getResources().getDrawable(R.drawable.thebigapple_low, getResources().newTheme()));
-
-                    break;
-                case R.id.bg4:
-                    Log.d("Bg select", "dusk");
-                    RelativeLayout bg4 = (RelativeLayout) findViewById(R.id.mainpage);
-                    bg4.setBackground(getResources().getDrawable(R.drawable.dusk, getResources().newTheme()));
-
-                    break;
-                case R.id.defaultbg:
-                    Log.d("Bg select", "default");
-                    RelativeLayout defaultbg = (RelativeLayout) findViewById(R.id.mainpage);
-                    defaultbg.setBackground(getResources().getDrawable(R.drawable.mainbg3, getResources().newTheme()));
-
-                    break;
-
-
-            }
-            return true;*/
-
-        } else
-            Toast.makeText(MainActivity.this, "Sorry your Phone can't handle this feature", Toast.LENGTH_LONG).show();
-
-
-       /* if (id == R.id.MapTypeChange) {
-            *//**   changeType();    Change to satellite  **//*
-            return true;
-        }*/
+        }
 
 
         return super.onOptionsItemSelected(item);
@@ -415,30 +369,7 @@ return false;
         //this.finish();
     }
 
-    private void SaveSuggestion(final int bg) {
 
-        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
-                R.string.rating_exit_message).setTitle(
-                R.string.rating_exit_title).setCancelable(false)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                SharedPreferences sharepref = getPreferences(Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharepref.edit();
-                                editor.putInt("save background", bg);
-                                editor.apply(); // User selects OK, save changes to db
-
-                            }
-                        }).setNeutralButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                Toast.makeText(MainActivity.this, "Background not saved", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
-                            }
-                        }).show();
-
-    }
 
     private void askaboutapp() {
 

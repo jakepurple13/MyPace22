@@ -188,6 +188,8 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
     <string name="Benifits">Benefits</string>
     <string name="On_More_Academic_Pressed">Academic services we provide</string>
     <string name="title_activity_courses">Courses</string>
+    <string name="OnPressMessage">Do you want to go here?</string>
+    <string name="UndertitleLocation">Get turn by turn Directions</string>
 
     <!--blackboard   -->
 

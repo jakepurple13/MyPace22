@@ -8,16 +8,55 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/address"
+            android:inputType="text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/map"
-            tools:context=".GoogleMaps"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            android:lines="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:hint="Search campus"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical" />
+
+
+        <Button
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_campus_button"
+            android:id="@+id/Bsearch"
+            android:onClick="onSearch"
+            android:clickable="true" />
+
+        <ToggleButton
+            style="@android:style/Widget.Button"
+            android:layout_width="86dp"
+            android:layout_height="50dp"
+            android:id="@+id/Toggle"
+            android:layout_gravity="right"
+            android:background="@drawable/cover"
+            android:clickable="true"
+            android:textOn=""
+            android:textOff="" />
+
+        <ToggleButton
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/satellite"
+            android:layout_gravity="right"
+            android:background="@drawable/check_maptype"
+            android:clickable="true"
+            android:textOn=""
+            android:textOff="" />
+
 
     </LinearLayout>
+
 </LinearLayout>
