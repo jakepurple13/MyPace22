@@ -27,7 +27,7 @@ public class CourseDisplay extends AppCompatActivity {
 
         AssetManager am = getAssets();
         InputStream is = null;
-
+        Log.d("asdf", "adsf");
        /* try {
             is = am.open();
         } catch (IOException e1) {
