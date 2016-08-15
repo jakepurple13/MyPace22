@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton phoneButton, MapButton;
     AudioManager am;
     private RelativeLayout bg2;
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         /**Ask User for Location Premisson and Accounts**/
         AskPremission();
-
-        // [START shared_app_measurement]
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        // [END shared_app_measurement]
 
         MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -384,7 +379,7 @@ return false;
                                 // [START custom_event]
                                 Bundle params = new Bundle();
                                 params.putString("image_name", getResources().getString(R.string.useful));
-                                mFirebaseAnalytics.logEvent("Good experience", params);
+
                                 // [END custom_event]
 
 
