@@ -243,7 +243,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             descriptions.add(cursor.getString(2));
             CNames[i] = cursor.getString(1);
 
-            Log.e("Line 210", CNames[i]);
+            //Log.e("Line 210", CNames[i]);
 
             cursor.moveToNext();
 
