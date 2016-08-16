@@ -55,7 +55,7 @@
 
 
                 android:onClick="onClick"
-                android:background="@drawable/calender_words"
+                android:background="@drawable/calendar_words"
                 android:layout_column="9" />
 
             <Space
@@ -75,7 +75,7 @@
 
 
                 android:onClick="onClick"
-                android:background="@drawable/coursesbutton2"
+                android:background="@drawable/coursesbutton"
                 android:layout_column="16" />
 
 
@@ -114,7 +114,7 @@
                 android:layout_height="90dp"
 
                 android:onClick="onClick"
-                android:background="@drawable/sssbutton"
+                android:background="@drawable/sssbutton_new"
                 android:layout_column="9" />
 
             <Space
@@ -131,7 +131,7 @@
                 android:layout_width="6dp"
                 android:layout_height="90dp"
                 android:onClick="onClick"
-                android:background="@drawable/hotline"
+                android:background="@drawable/hotline_v21"
                 android:layout_column="16" />
 
 
