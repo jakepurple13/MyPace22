@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton phoneButton, MapButton;
     AudioManager am;
     private RelativeLayout bg2;
-    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /**Ask User for Location Premisson and Accounts**/
         AskPremission();
 
-        // [START shared_app_measurement]
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        // [END shared_app_measurement]
 
         MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -116,64 +113,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //TODO: button grey out on press testing
 
-/**
- MapButton.setOnTouchListener(new View.OnTouchListener() {
 
-@Override public boolean onTouch(View view, MotionEvent event) {
-if (event.getAction() == MotionEvent.ACTION_UP) {
-MapButton.setBackgroundResource(R.drawable.map_onpress);
-changeScreen(PaceMaps.class);
+        MapButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
 
-Log.d("on touch", "darken");
-} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-MapButton.setBackgroundResource(R.drawable.map_onpress);
-}
-return false;
-}
+                Date dec = new Date();
+                dec.setMonth(11);
 
-});
+                if (new Date().getMonth() == dec.getMonth()) {
 
- MapButton.setOnLongClickListener(new View.OnLongClickListener() {
-@Override public boolean onLongClick(View v) {
+                }
 
-Date dec = new Date();
-dec.setMonth(11);
+                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-if (new Date().getMonth() == dec.getMonth()) {
+                am.setStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                        15);
 
-}
+                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
 
-final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+                mediaPlayer.start();
+                int duration = mediaPlayer.getDuration();
+                int current_position = mediaPlayer.getCurrentPosition();
 
-am.setStreamVolume(
-AudioManager.STREAM_MUSIC,
-am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-15);
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        am.setStreamVolume(
+                                AudioManager.STREAM_MUSIC,
+                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                normalSound);
+                    }
+                });
 
-MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
+                Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
 
-mediaPlayer.start();
-int duration = mediaPlayer.getDuration();
-int current_position = mediaPlayer.getCurrentPosition();
-
-mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-@Override public void onCompletion(MediaPlayer mp) {
-am.setStreamVolume(
-AudioManager.STREAM_MUSIC,
-am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-normalSound);
-}
-});
-
-Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
-
-return false;
-}
-});
- **/
+                return false;
+            }
+        });
 
 
     }
+
+
 
 
     @Override
@@ -381,12 +365,6 @@ return false;
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
 
-                                // [START custom_event]
-                                Bundle params = new Bundle();
-                                params.putString("image_name", getResources().getString(R.string.useful));
-                                mFirebaseAnalytics.logEvent("Good experience", params);
-                                // [END custom_event]
-
 
                             }
                         }).setNeutralButton(R.string.bad,
@@ -406,4 +384,6 @@ return false;
         v.startAnimation(Anim);
 
     }
+
+
 }

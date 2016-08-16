@@ -390,6 +390,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_CareerSer = new LatLng(Pace_NYC_CareerS_LAT, Pace_NYC_CareerS_LNG);
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
+
     //:TODO Get working on higer API Phones
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -399,7 +400,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
         setContentView(R.layout.activity_pace_maps);
-
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -412,9 +412,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         toggle = (ToggleButton) findViewById(R.id.Toggle);
 
 
-
         /**toogle functions************/
-
 
 
         /**toggle map type******/
@@ -453,9 +451,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 /**refresh button****/
-
-
-
 
 
     }
@@ -502,15 +497,24 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
             /** Premission request to Find current location**/
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                /**Checks and Enable Gps**/
+
+
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+                } else {
+                    showGPSDisabledAlertToUser();
+                }
+
+                /**Checks and Enable Gps**/
+
+
+                ShowCampusNearMe(latitude);
             }
             mMap.setMyLocationEnabled(true);  //this does not work without permission check_campus
  /*   Gets user Location */
@@ -524,8 +528,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             longitude = location.getLongitude();
         /*ECHO SHOW USER's LAT */
             System.out.println("user's latitude" + latitude + "user's longitude" + longitude);
-
-
 
 
 /**checks if Location is on if not then show default map**/
@@ -559,7 +561,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                             Log.d("Entered Search", "pressed Enter");
                             return true;
 
-                        }
+                    }
                         return false;
                     }
                 });
@@ -570,23 +572,31 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             }
 
 
-        } catch (Exception e) {
+        } catch (
+                Exception e
+                )
+
+        {
 
 /*If latitude not there or something- default */
 
             Log.d("error", e.toString());
         }
                                                                                             /*On info Window Clicked */
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                double DirectionsOnClickLat = marker.getPosition().latitude;
-                double DirectionsOnClickLong = marker.getPosition().longitude;//gets clicked info window position
-                OnLocationGo(DirectionsOnClickLat, DirectionsOnClickLong, latitude, longitude);//passes to google maps
-                //   Log.d("Pace marker clicked",DirectionsOnClickLong);
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
 
-            }
-        });
+                                          {
+                                              @Override
+                                              public void onInfoWindowClick(Marker marker) {
+                                                  double DirectionsOnClickLat = marker.getPosition().latitude;
+                                                  double DirectionsOnClickLong = marker.getPosition().longitude;//gets clicked info window position
+                                                  OnLocationGo(DirectionsOnClickLat, DirectionsOnClickLong, latitude, longitude);//passes to google maps
+                                                  //   Log.d("Pace marker clicked",DirectionsOnClickLong);
+
+    }
+                                          }
+
+        );
 
                                                                                             /*On info Window Clicked End*/
     }
@@ -921,7 +931,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
                             changeMap(buttonView);
                             toggle.setText(R.string.togglePLV);
-                            toggle.setBackgroundResource(R.drawable.plv_toggle);
+                            toggle.setBackgroundResource(R.drawable.toggleplv);
                             Log.d("toggle pressed Blue", "NYC Map");
 
                             // The toggle on PLV
@@ -932,7 +942,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         if (Position == PaceUniPLV) {
                             changeMap(buttonView);
                             toggle.setText(R.string.toggleNYC);
-                            findViewById(R.id.Toggle).setBackgroundResource(R.drawable.nyc_toggle);
+                            findViewById(R.id.Toggle).setBackgroundResource(R.drawable.togglenyc);
                             Log.d("toggle pressed Yellow", "PLV Map");
 
                             // The toggle on NYC
@@ -1197,7 +1207,27 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-
+    private void showGPSDisabledAlertToUser() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Goto Settings Page To Enable GPS",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
 
 
     private void GS() {
