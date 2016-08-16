@@ -104,6 +104,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         //TODO: Work here on getting this looking nicer
 
+        final Event ever = event;
 
         holder.mTextView.setText(info);
 
@@ -114,7 +115,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
                 readCalendarEvent(in);
 
-                if (eventCheck(event)) {
+                if (eventCheck(ever)) {
 
                     //if (holder.colored==Color.WHITE) {
 
@@ -186,18 +187,24 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         for (int i = 0; i < nameOfEvent.size(); i++) {
 
-            Log.e("Line 172", nameOfEvent.get(i) + "");
-            Log.e("Line 173", descriptions.get(i) + "");
-            Log.e("Line 174", startDates.get(i) + "");
+            //Log.e("Line 172", nameOfEvent.get(i) + " name");
+            //Log.e("Line 172", e.getSummary() + " e");
+            //Log.e("Line 173", descriptions.get(i) + "");
+            //Log.e("Line 174", startDates.get(i) + "");
+            if (e.getSummary() != null) {
+                if (e.getSummary().equals(nameOfEvent.get(i))) {
+                    if (e.getDescription() == null || descriptions.get(i) == null) {
+                        return false;
+                    } else if (e.getDescription().equals(descriptions.get(i))) {
+                        return false;
+                    }
 
-            if (e.getSummary().equals(nameOfEvent.get(i)) && e.getDescription().equals(descriptions.get(i))) {
-                return false;
+                }
+
+                if (getDate(e.getStart().getDate().getValue() + (1000 * 60 * 60 * 24)) == startDates.get(i)) {
+                    return false;
+                }
             }
-
-            if (getDate(e.getStart().getDate().getValue() + (1000 * 60 * 60 * 24)) == startDates.get(i)) {
-                return false;
-            }
-
         }
 
         return true;
@@ -236,7 +243,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             descriptions.add(cursor.getString(2));
             CNames[i] = cursor.getString(1);
 
-            Log.e("Line 210", CNames[i]);
+            //Log.e("Line 210", CNames[i]);
 
             cursor.moveToNext();
 

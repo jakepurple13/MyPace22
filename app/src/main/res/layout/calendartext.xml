@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(Click to add to calendar)"
+            android:text="(Click to add to calendar and RSVP)"
             android:layout_gravity="right"
             android:id="@+id/textView3" />
 

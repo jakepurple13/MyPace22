@@ -13,11 +13,11 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/linearLayout">
 
 
@@ -63,69 +63,77 @@
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/emailtableLayout">
+            android:id="@+id/emailtableLayout"
+            >
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <android.support.design.widget.FloatingActionButton
+                <ImageButton
                     android:id="@+id/john_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
                     android:src="@drawable/hookerhoto"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="15dp"
-                    app:fabSize="normal"
-                    app:borderWidth="0dp"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp"
-                    app:rippleColor="@android:color/transparent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:onClick="onClick" />
+                    android:onClick="onClick"
+                    android:layout_column="1"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <ImageButton
                     android:id="@+id/joyce_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
                     android:src="@drawable/joycephoto"
-                    android:layout_marginRight="15dp"
-                    app:fabSize="normal"
-                    app:borderWidth="0dp"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp"
-                    app:rippleColor="@android:color/transparent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:onClick="onClick" />
+                    android:onClick="onClick"
+                    android:layout_column="2"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <Space
+                    android:layout_width="16px"
+                    android:layout_height="20px"
+                    android:layout_column="0"
+
+
+                    />
+
+                <ImageButton
                     android:id="@+id/maria_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
                     android:src="@drawable/mariaphoto"
-                    android:layout_marginRight="15dp"
-                    app:fabSize="normal"
-                    app:borderWidth="0dp"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp"
-                    app:rippleColor="@android:color/transparent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:onClick="onClick" />
+                    android:onClick="onClick"
+                    android:layout_column="22"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <ImageButton
                     android:id="@+id/norma_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="16dp"
+
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
                     android:src="@drawable/normaphoto"
-                    app:fabSize="normal"
-                    app:borderWidth="0dp"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp"
-                    app:rippleColor="@android:color/transparent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:onClick="onClick" />
+                    android:onClick="onClick"
+                    android:layout_column="23"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="10dp">
+
+
             </TableRow>
 
             <TableRow android:background="@drawable/supportteam">
