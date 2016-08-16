@@ -65,8 +65,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
-        <activity android:name=".CalendarScreen.CalendarScreen">
+        <activity
+            android:name=".ImportantNumbersScreen.ImportantNumbers"
+            android:label="Hotline">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".CalendarScreen.CalendarScreen"
+            android:label="Calendar">
 
 
         <intent-filter>
@@ -82,9 +94,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SSSProgram.SSSprogram"
-            android:screenOrientation="portrait"
-
-            />
+            android:label="SSS Support"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SSSProgram.SSWebView"
 
             />

@@ -60,19 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
 
-        if(pref.getBoolean("firststart", true)){
-            // update sharedpreference - another start wont be the first
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("firststart", false);
-            editor.commit(); // apply changes
-
-            // first start, show your dialog | first-run code goes here
-
-            CalendarShortcut();
-
-        }
 
 
         MapButton = (ImageButton) findViewById(R.id.campusmap);
@@ -365,27 +353,7 @@ return false;
     }
 
 
-    public void CalendarShortcut() {
-        final Intent shortcutIntent=new Intent(this, CalendarScreen.class);
-        final Intent.ShortcutIconResource iconResource=Intent.ShortcutIconResource.fromContext(this,R.drawable.calender_words);
-        final Intent intent=new Intent();
-        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortcutIntent);
-        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"Calendar");
-        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,iconResource);
-        setResult(RESULT_OK,intent);
-        //finish();
-    }
 
-    public void MapShortcut() {
-        final Intent shortcutIntent=new Intent(this, PaceMaps.class);
-        final Intent.ShortcutIconResource iconResource=Intent.ShortcutIconResource.fromContext(this,R.drawable.map_icon_words);
-        final Intent intent=new Intent();
-        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortcutIntent);
-        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"Maps");
-        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,iconResource);
-        setResult(RESULT_OK,intent);
-        //finish();
-    }
 
 
     public void TakeUserToMarket(Context context, String packageName) {

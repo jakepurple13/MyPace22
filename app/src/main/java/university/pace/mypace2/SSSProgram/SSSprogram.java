@@ -31,6 +31,20 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support);
 
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.sssbutton);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, SSSprogram.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "SSS Support");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
         market = new MainActivity();
         academic = (Button) findViewById(R.id.academicbutt);
         /**email john button****/

@@ -102,6 +102,21 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
         //dh = new DatabaseHelper(getApplicationContext());
 
+
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.calender_words);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, CalendarScreen.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Calendar");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {

@@ -402,6 +402,21 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_pace_maps);
 
 
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.map_icon_words);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, PaceMaps.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Maps");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

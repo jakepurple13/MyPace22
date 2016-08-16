@@ -1,5 +1,6 @@
 package university.pace.mypace2.ImportantNumbersScreen;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,22 @@ public class ImportantNumbers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_important_numbers);
+
+
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.hotline);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, ImportantNumbers.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Hotline");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
 
         ArrayList<ImportantInfo> al = new ArrayList<>();
 
