@@ -1039,8 +1039,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 if (Nycmap.NYClocation(location_search) == null) {
                     Toast.makeText(this, "No matches found on the NYC Campus", Toast.LENGTH_LONG).show();
                     Log.d("not on list ", "show toast");
-                }                                                                                                    /*check_campus list
-                                                                                                                            for matches*/ else {
+                }   /*check_campus list
+                       for matches*/ else {
 
                         /*returns LatLng Position*/
                     BuildingLatLng = Nycmap.NYClocation(location_search);
@@ -1170,7 +1170,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-
+    /**
+     * Checks Takes user to location on map with chooser
+     **/
     private void OnLocationGo(final double goLat, final double goLong, double userLat, double userLong) {
 
         final String UserLat = String.valueOf(userLat);
@@ -1206,7 +1208,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         }).show();
 
     }
+    /**Checks Takes user to location on map with chooser**/
 
+
+    /**Checks GPS Enable**/
     private void showGPSDisabledAlertToUser() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
@@ -1229,6 +1234,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         alert.show();
     }
 
+    /**Checks GPS Enable**/
 
     private void GS() {
 /**Gs    **/
