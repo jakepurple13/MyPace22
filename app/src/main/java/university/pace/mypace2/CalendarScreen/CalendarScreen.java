@@ -148,6 +148,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         getResultsFromApi();
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

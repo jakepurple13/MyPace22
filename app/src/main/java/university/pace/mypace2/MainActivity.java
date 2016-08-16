@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -17,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +26,12 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 
 import java.util.Date;
 
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
+import university.pace.mypace2.Courses.CourseDisplay;
 import university.pace.mypace2.Courses.Courses;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 ;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AudioManager am;
     private RelativeLayout bg2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +55,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AskPremission();
 
 
+
+
+
+
+
+        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
+
+        if(pref.getBoolean("firststart", true)){
+            // update sharedpreference - another start wont be the first
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("firststart", false);
+            editor.commit(); // apply changes
+
+            // first start, show your dialog | first-run code goes here
+
+            CalendarShortcut();
+
+        }
+
+
         MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        /***Important Numbers****/////////////
+        /***Important Numbers****/
         phoneButton = (ImageButton) findViewById(R.id.numbers);
 
         phoneButton.setOnClickListener(new View.OnClickListener() {
@@ -113,51 +131,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //TODO: button grey out on press testing
 
+/**
+ MapButton.setOnTouchListener(new View.OnTouchListener() {
 
-        MapButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
+@Override public boolean onTouch(View view, MotionEvent event) {
+if (event.getAction() == MotionEvent.ACTION_UP) {
+MapButton.setBackgroundResource(R.drawable.map_onpress);
+changeScreen(PaceMaps.class);
 
-                Date dec = new Date();
-                dec.setMonth(11);
+Log.d("on touch", "darken");
+} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+MapButton.setBackgroundResource(R.drawable.map_onpress);
+}
+return false;
+}
 
-                if (new Date().getMonth() == dec.getMonth()) {
+});
 
-                }
+ MapButton.setOnLongClickListener(new View.OnLongClickListener() {
+@Override public boolean onLongClick(View v) {
 
-                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+Date dec = new Date();
+dec.setMonth(11);
 
-                am.setStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                        15);
+if (new Date().getMonth() == dec.getMonth()) {
 
-                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
+}
 
-                mediaPlayer.start();
-                int duration = mediaPlayer.getDuration();
-                int current_position = mediaPlayer.getCurrentPosition();
+final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        am.setStreamVolume(
-                                AudioManager.STREAM_MUSIC,
-                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                normalSound);
-                    }
-                });
+am.setStreamVolume(
+AudioManager.STREAM_MUSIC,
+am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+15);
 
-                Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
+MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
 
-                return false;
-            }
-        });
+mediaPlayer.start();
+int duration = mediaPlayer.getDuration();
+int current_position = mediaPlayer.getCurrentPosition();
+
+mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+@Override public void onCompletion(MediaPlayer mp) {
+am.setStreamVolume(
+AudioManager.STREAM_MUSIC,
+am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+normalSound);
+}
+});
+
+Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
+
+return false;
+}
+});
+ **/
 
 
     }
-
-
 
 
     @Override
@@ -241,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    //hi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -276,7 +306,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-
             case R.id.sss:
                 Fade(v);
                 changeScreen(SSSprogram.class);
@@ -292,10 +321,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /**reads in from .xl file  8/10/16**/
             case R.id.courses:
                 Fade(v);
-                changeScreen(Courses.class);
+                changeScreen(CourseDisplay.class);
                 break;
 
-//hi
+
 
             default:
                 break;
@@ -336,6 +365,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void CalendarShortcut() {
+        final Intent shortcutIntent=new Intent(this, CalendarScreen.class);
+        final Intent.ShortcutIconResource iconResource=Intent.ShortcutIconResource.fromContext(this,R.drawable.calender_words);
+        final Intent intent=new Intent();
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortcutIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"Calendar");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,iconResource);
+        setResult(RESULT_OK,intent);
+        //finish();
+    }
+
+    public void MapShortcut() {
+        final Intent shortcutIntent=new Intent(this, PaceMaps.class);
+        final Intent.ShortcutIconResource iconResource=Intent.ShortcutIconResource.fromContext(this,R.drawable.map_icon_words);
+        final Intent intent=new Intent();
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortcutIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"Maps");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,iconResource);
+        setResult(RESULT_OK,intent);
+        //finish();
+    }
+
+
     public void TakeUserToMarket(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
@@ -366,6 +418,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
 
+                                // [START custom_event]
+                                Bundle params = new Bundle();
+                                params.putString("image_name", getResources().getString(R.string.useful));
+
+                                // [END custom_event]
+
 
                             }
                         }).setNeutralButton(R.string.bad,
@@ -376,7 +434,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }).show();
 
-
     }
 
 
@@ -385,6 +442,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         v.startAnimation(Anim);
 
     }
-
-
 }

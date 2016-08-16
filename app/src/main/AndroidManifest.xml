@@ -58,9 +58,22 @@
             android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ImportantNumbersScreen.ImportantNumbers" />
-        <activity android:name=".CalendarScreen.CalendarScreen" />
+        <activity android:name=".CalendarScreen.CalendarScreen">
+
+
+        <intent-filter>
+            <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>>
         <activity android:name=".TestingPackage.CardTest" />
         <activity
             android:name=".TutoringCenter.Tutoring"
