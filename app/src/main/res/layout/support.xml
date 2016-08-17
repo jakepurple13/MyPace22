@@ -17,8 +17,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/linearLayout">
+        android:layout_marginLeft="20dp">
 
 
         <Button
@@ -38,33 +37,33 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/Culture"
-            android:id="@+id/culturalevents"
+            android:id="@+id/culturalbutt"
             android:textColor="#FFFFFFFF"
             android:background="@color/PaceBlue"
             android:textSize="37dp"
             android:layout_marginBottom="20dp"
             android:clickable="true"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            android:onClick="onClick" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/FinancialAid"
-            android:id="@+id/Financial"
+            android:id="@+id/Finanbutt"
             android:textSize="37dp"
             android:textColor="#FFFFFFFF"
             android:background="@color/PaceBlue"
             android:elegantTextHeight="false"
             android:clickable="true"
             android:textStyle="bold|italic"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:onClick="onClick" />
 
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/emailtableLayout"
-            >
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -164,7 +163,9 @@
 
             </TableRow>
 
-            <TableRow android:background="@drawable/supportteam">
+            <TableRow
+
+                android:background="@drawable/supportteam">
 
             </TableRow>
 

@@ -3,8 +3,10 @@
         android:color="?android:colorControlHighlight"
         tools:targetApi="lollipop">
     <item>
-        <shape android:shape="oval">
-            <solid android:color="?android:colorAccent"/>
+        <shape
+            android:shape="oval"
+            android:color="@color/PaceYellow">
+
         </shape>
     </item>
 </ripple>

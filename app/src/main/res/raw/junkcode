@@ -1,0 +1,47 @@
+public void alert(){
+AlertDialog.Builder alertDialog = new AlertDialog.Builder(PDFDisplayActivity.this);
+  alertDialog.setTitle(" Auto Logout");
+alertDialog.setMessage("You will be logged out automatically after 1 minute.");
+
+alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+    public void onClick(DialogInterface dialog, int which) {
+
+     waitTimer = new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //Toast.makeText(getApplicationContext(), "seconds remaining: " + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+            }
+            public void onFinish() {
+                Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
+                logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(logout);
+                finish();
+            }
+         }.start();
+    }
+});
+
+alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+    public void onClick(DialogInterface dialog, int which) {
+      Toast.makeText(getApplicationContext(), "Please logout when you are done reading the agreement.", Toast.LENGTH_SHORT).show();
+     waitTimer = new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //Toast.makeText(getApplicationContext(), "seconds remaining: " + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+            }
+            public void onFinish() {
+                alert();
+            }
+         }.start();
+
+    }
+});
+alertDialog.show();
+
+
+
+  WebView mWebView=new WebView(this);
+                mWebView.getSettings().setJavaScriptEnabled(true);
+                mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url=");
+                setContentView(mWebView);
+

@@ -1,30 +1,8 @@
 <resources>
     <string name="app_name">SSS Freshman App</string>
     <string name="title_activity_pace_maps">Map</string>
-    <string name="title_activity_pace_map">Map</string>
-    <string name="gps_network_not_enabled">Your gps location is not enable! Would you like to turn it on?</string>
-    <string name="open_location_settings">Yes</string>
-    <string name="Cancel">No</string>
-    <string name="gps_network_enabled">Enable you location?</string>
     <string name="mypace2_was_developed">MyPace2 was Developed by Pace University Students(George Samuels II and Jacob Rein)</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyB2csJ6GbjvTk_wufl39Li02CQBx7PvZIw
-    </string>
-    <string name="ToggleMap">Toggle Campus Map</string>
-    <string name="ChangeMapType">Change Map Type</string>
-    <string name="enable_gps_question">Turn your Location on?</string>
-    <string name="PacePLV">Pace University - Pleasantville Campus  </string>
-    <string name="PacePLVdescription">Monday: 10:00 AM - 9:00 PM \n
-Tuesday: 10:00 AM - 9:00 PM \n
-Wednesday: 10:00 AM - 9:00 PM\n
-Thursday: 10:00 AM - 9:00 PM\n
-Friday: CLOSED\n
-Saturday: CLOSED\n
-Sunday: 4:00 PM - 10:00 PM\n </string>
-    <string name="dyson">dyson</string>
     <string name="title_activity_tutoring">Tutoring</string>
-    <string name="getTutoring">Get Tutoring</string>
-    <string name="Math">Math</string>
 
     <string-array name="Buildings">
         <!--PLV -->
@@ -159,33 +137,15 @@ Sunday: 4:00 PM - 10:00 PM\n </string>
         <item>bookstore</item>    -->
 
     </string-array>
-    <string name="AADAuthority">https://login.microsoftonline.com/common</string>
-    <string name="AADResourceId">https://outlook.office.com</string>
-    <string name="AADClientId">Paste your Client ID HERE</string>
-    <string name="AADRedirectUrl">Paste your Redirect URI HERE</string>
-    <string name="title_activity_pacemail">Email</string>
-    <string name="switch_map">Switch map</string>
     <string name="toggleNYC">NYC</string>
     <string name="togglePLV">PLV</string>
-    <string name="SelectCampus">Campus</string>
-    <string name="ColorChange">Change Theme Color</string>
-    <string name="item1">Blood City</string>
-    <string name="action_settings">Change Background</string>
-    <string name="item2">City that never sleeps</string>
-    <string name="item3">Big Apple</string>
-    <string name="item4">Plesantville rules</string>
-    <string name="defaultbg">Go back to default</string>
-    <string name="rating_exit_message">Would you like to save this as your background</string>
-    <string name="rating_exit_title">Select Background</string>
     <string name="useful">Great</string>
     <string name="UserExperience">How was using this app today?</string>
     <string name="more">Select how you felt below</string>
     <string name="bad">Poor</string>
     <string name="FinancialAid">Financial Literacy</string>
-    <string name="Mentor">Mentoring</string>
     <string name="Academic">ACADEMIC SERVICES</string>
     <string name="Culture">Cultural Events</string>
-    <string name="Benifits">Benefits</string>
     <string name="On_More_Academic_Pressed">Academic services we provide</string>
     <string name="title_activity_courses">Courses</string>
     <string name="OnPressMessage">Do you want to go here?</string>

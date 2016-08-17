@@ -105,10 +105,20 @@
 
             />
         <activity
-            android:name=".Courses.Courses"
+            android:name=".Courses.CourseDisplay"
             android:label="@string/title_activity_courses"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".SSSProgram.CulturalEventsPdfView"
+
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
     </application>
 
 </manifest>

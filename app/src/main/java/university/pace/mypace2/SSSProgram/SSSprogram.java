@@ -68,26 +68,19 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.academicbutt:
-
-                //   Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
-                //  v.startAnimation(Anim);
-
+                Anim(v);
                 changeScreen(SSWebView.class);
                 break;
 
-            case R.id.culturalevents:
+            case R.id.culturalbutt:
 
-                //  Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
-                //  v.startAnimation(Anim);
-
+                Anim(v);
                 changeScreen(CulturalEventsPdfView.class);
                 break;
 
-            case R.id.Financial:
+            case R.id.Finanbutt:
 
-                //  Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
-                //  v.startAnimation(Anim);
-
+                Anim(v);
                 //  changeScreen();
                 break;
 
@@ -152,7 +145,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    public void Anim(ImageButton button) {
+    public void Anim(View button) {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         button.startAnimation(shake);
 

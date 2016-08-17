@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SSSProgram.SSSprogram">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/pdf_press"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cast_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/PaceBlue"
+        android:layout_gravity="center_horizontal|bottom"
+        android:onClick="onClick" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/joycefab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/joycephoto"
+        android:background="@color/PaceYellow"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/PaceYellow"
+
+        android:layout_gravity="right|bottom"
+        android:onClick="onClick" />
+
+    <android.support.design.widget.FloatingActionButton
+
+        android:id="@+id/johnfab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hookerhoto"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/PaceYellow"
+        android:layout_gravity="left|bottom"
+        android:onClick="onClick" />
+
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SSSwebPagecul"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <!-- Pdf View  -->
+
+
+        <!-- Pdf View  -->
+
+    </WebView>
+
+
+</FrameLayout>
