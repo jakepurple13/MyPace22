@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import university.pace.mypace2.Constants;
@@ -24,8 +25,8 @@ import university.pace.mypace2.R;
 public class SSSprogram extends AppCompatActivity implements View.OnClickListener {
     MainActivity market;
     Button academic;
-    FloatingActionButton fab, fab2, fab3, fab4;
-
+    FloatingActionButton fab2, fab4;
+    ImageButton JohnContact, JoyceContact;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,36 +37,29 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Intent.ShortcutIconResource.fromContext(this, R.drawable.sssbutton);
 
         Intent intent = new Intent();
-
         Intent launchIntent = new Intent(this, SSSprogram.class);
-
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
         intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "SSS Support");
         intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
 
         setResult(RESULT_OK, intent);
+        // create shortcut if requested end
+
 
         market = new MainActivity();
         academic = (Button) findViewById(R.id.academicbutt);
+
+
         /**email john button****/
-        fab = (FloatingActionButton) findViewById(R.id.john_email);
-        RippleAnim(fab);
+        JohnContact = (ImageButton) findViewById(R.id.john_email);
         /**email john button****/
 
-        /**email maria button****/
-        fab2 = (FloatingActionButton) findViewById(R.id.maria_email);
-        RippleAnim(fab2);
-        /**email maria button****/
 
         /**email joyce button****/
-        fab3 = (FloatingActionButton) findViewById(R.id.joyce_email);
-        RippleAnim(fab3);
+        JoyceContact = (ImageButton) findViewById(R.id.joyce_email);
+
         /**email joyce button****/
 
-        /**email norma button****/
-        fab4 = (FloatingActionButton) findViewById(R.id.norma_email);
-        RippleAnim(fab4);
-        /**email norma button****/
 
 
     }
@@ -75,16 +69,27 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.academicbutt:
 
-                Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
-                v.startAnimation(Anim);
+                //   Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
+                //  v.startAnimation(Anim);
 
-                Intent i = new Intent(this, SSWebView.class);
-                startActivity(i);
-
-                //inflatewebview(); //invokes Fragment view
-
+                changeScreen(SSWebView.class);
                 break;
 
+            case R.id.culturalevents:
+
+                //  Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
+                //  v.startAnimation(Anim);
+
+                changeScreen(CulturalEventsPdfView.class);
+                break;
+
+            case R.id.Financial:
+
+                //  Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
+                //  v.startAnimation(Anim);
+
+                //  changeScreen();
+                break;
 
             case R.id.john_email:
 
@@ -107,23 +112,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
                 break;
 
-            case R.id.maria_email:
-                Intent emailI = new Intent(android.content.Intent.ACTION_SEND);
-                emailI.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.MARIAEMAIL});
-                emailI.setType("plain/text");
-                emailI.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                emailI.putExtra(Intent.EXTRA_TEXT, "Hello Dr.Iacullo-Bird,");
-                /**Checks to see if user has email app/ if not takes to market to download**/
-                try {
-                    startActivity(Intent.createChooser(emailI,
-                            "Send email using..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this,
-                            "No email clients installed.",
-                            Toast.LENGTH_SHORT).show();
-                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
-                }
-                break;
 
             case R.id.joyce_email:
                 Intent emailj = new Intent(android.content.Intent.ACTION_SEND);
@@ -144,23 +132,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 break;
 
 
-            case R.id.norma_email:
-                Intent emailn = new Intent(android.content.Intent.ACTION_SEND);
-                emailn.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.NORMAEMAIL});
-                emailn.setType("plain/text");
-                emailn.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                emailn.putExtra(Intent.EXTRA_TEXT, "Hello Ms.Quiridumbay,");
-                /**Checks to see if user has email app/ if not takes to market to download**/
-                try {
-                    startActivity(Intent.createChooser(emailn,
-                            "Send email using..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this,
-                            "No email clients installed.",
-                            Toast.LENGTH_SHORT).show();
-                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
-                }
-                break;
 
 
         }
@@ -181,10 +152,20 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    public void RippleAnim(FloatingActionButton button) {
-        ColorStateList ripple = ContextCompat.getColorStateList(SSSprogram.this, R.drawable.ripple_colour);
-        button.setBackgroundTintList(ripple);
+    public void Anim(ImageButton button) {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        button.startAnimation(shake);
 
     }
+
+    public void changeScreen(Class cl) {
+        Intent intent = new Intent(this, cl);
+        startActivity(intent);
+        //this.finish();
+    }
+
+
+
+
 
 }

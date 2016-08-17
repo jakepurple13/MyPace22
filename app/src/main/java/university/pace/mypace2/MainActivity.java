@@ -265,15 +265,13 @@ return false;
         switch (v.getId()) {
 
             case R.id.campusmap:
-                Fade(v);
                 changeScreen(PaceMaps.class);
-
+                //  Fade(v);
                 break;
 
             case R.id.calBut:
-                Fade(v);
                 changeScreen(CalendarScreen.class);
-
+                //  Fade(v);
                 break;
 
             case R.id.tutoringbutt:

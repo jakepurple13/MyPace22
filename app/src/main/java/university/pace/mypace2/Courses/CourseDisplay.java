@@ -37,7 +37,7 @@ public class CourseDisplay extends AppCompatActivity {
         try {
             Workbook wb = Workbook.getWorkbook(new File(String.valueOf(R.raw.courses_fa16)));
             // Get the first sheet
-            // read in rows and colums
+            // read in rows and columns
             Sheet sheet = wb.getSheet(0);
             int row = sheet.getRows();
             int col = sheet.getColumns();

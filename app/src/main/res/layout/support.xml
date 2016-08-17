@@ -38,7 +38,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/Culture"
-            android:id="@+id/SettingsLanguage"
+            android:id="@+id/culturalevents"
             android:textColor="#FFFFFFFF"
             android:background="@color/PaceBlue"
             android:textSize="37dp"
@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/FinancialAid"
-            android:id="@+id/k"
+            android:id="@+id/Financial"
             android:textSize="37dp"
             android:textColor="#FFFFFFFF"
             android:background="@color/PaceBlue"
@@ -70,64 +70,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="7" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="8" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="9" />
+
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="10" />
+
                 <ImageButton
                     android:id="@+id/john_email"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
                     android:background="@drawable/ripple_oval"
                     android:elevation="8dp"
                     android:src="@drawable/hookerhoto"
                     android:onClick="onClick"
-                    android:layout_column="1"/>
+                    android:layout_column="11" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="12" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="13" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="14" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="15" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="16" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_column="17" />
+
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px" />
 
                 <ImageButton
                     android:id="@+id/joyce_email"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/ripple_oval"
                     android:elevation="8dp"
                     android:src="@drawable/joycephoto"
                     android:onClick="onClick"
-                    android:layout_column="2"/>
-
-                <Space
-                    android:layout_width="16px"
-                    android:layout_height="20px"
-                    android:layout_column="0"
+                    android:layout_column="19" />
 
 
-                    />
-
-                <ImageButton
-                    android:id="@+id/maria_email"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/ripple_oval"
-                    android:elevation="8dp"
-                    android:src="@drawable/mariaphoto"
-                    android:onClick="onClick"
-                    android:layout_column="22"/>
-
-                <ImageButton
-                    android:id="@+id/norma_email"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="16dp"
-
-                    android:background="@drawable/ripple_oval"
-                    android:elevation="8dp"
-                    android:src="@drawable/normaphoto"
-                    android:onClick="onClick"
-                    android:layout_column="23"/>
             </TableRow>
 
             <TableRow

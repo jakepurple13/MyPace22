@@ -14,11 +14,19 @@ public class SSWebView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ssweb_view);
+        String linkstring = Constants.SSSPAGE + "#eli";
+        webviewUser(linkstring);
 
+    }
+
+    public void webviewUser(String LinkTo) {
         WebView viewfrag = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = viewfrag.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        viewfrag.loadUrl(Constants.SSSPAGE + "#eli");
+        viewfrag.loadUrl(LinkTo);
 
     }
+
+
+
 }
