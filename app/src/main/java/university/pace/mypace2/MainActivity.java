@@ -43,6 +43,7 @@ import university.pace.mypace2.TestingPackage.CardTest;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.testfairy.TestFairy;
 //import university.pace.mypace2.TestingPackage.ChatRoomActivity;
 
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        TestFairy.begin(this, "bde19002b059bcf18e75d5029b2862d582033bf4");
 /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
