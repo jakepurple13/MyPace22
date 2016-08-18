@@ -45,3 +45,22 @@ alertDialog.show();
                 mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url=");
                 setContentView(mWebView);
 
+
+                /**
+                 MapButton.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                MapButton.setBackgroundResource(R.drawable.map_onpress);
+                changeScreen(PaceMaps.class);
+
+                Log.d("on touch", "darken");
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                MapButton.setBackgroundResource(R.drawable.map_onpress);
+                }
+                return false;
+                }
+
+                });
+                        **/
+

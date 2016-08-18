@@ -33,12 +33,18 @@ import java.util.Date;
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
 import university.pace.mypace2.Courses.CourseDisplay;
 import university.pace.mypace2.Courses.Courses;
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
-;
+
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.SSSProgram.SSSprogram;
 import university.pace.mypace2.TestingPackage.CardTest;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 //import university.pace.mypace2.TestingPackage.ChatRoomActivity;
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,22 +52,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton phoneButton, MapButton;
     AudioManager am;
     private RelativeLayout bg2;
-
+    private Tracker mTracker;
+    private final String TAG = "MainActivity";
+    private String Screentracker = "StartScreen";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+/**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker + "|| " + TAG);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
+
+
+
+
+
+
         /**Ask User for Location Premisson and Accounts**/
         AskPremission();
-
-
-
-
-
-
-
-
-
 
         MapButton = (ImageButton) findViewById(R.id.campusmap);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -119,25 +136,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //TODO: button grey out on press testing
 
-/**
- MapButton.setOnTouchListener(new View.OnTouchListener() {
-
-@Override public boolean onTouch(View view, MotionEvent event) {
-if (event.getAction() == MotionEvent.ACTION_UP) {
-MapButton.setBackgroundResource(R.drawable.map_onpress);
-changeScreen(PaceMaps.class);
-
-Log.d("on touch", "darken");
-} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-MapButton.setBackgroundResource(R.drawable.map_onpress);
-}
-return false;
-}
-
-});
 
  MapButton.setOnLongClickListener(new View.OnLongClickListener() {
 @Override public boolean onLongClick(View v) {
+/**Track who finds the Easter Egg**/
+    mTracker.send(new HitBuilders.EventBuilder()
+            .setCategory("I'm the Map Easter Egg")
+            .setAction("User Held the Maps button")
+            .build());
+    Log.i(TAG, "Held Map button");
+    /**Track who finds the Easter Egg**/
+
+
+
 
 Date dec = new Date();
 dec.setMonth(11);
@@ -173,7 +184,6 @@ Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you 
 return false;
 }
 });
- **/
 
 
     }
