@@ -97,9 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/ripple_oval"
+                    android:background="@drawable/bubble"
                     android:elevation="8dp"
-                    android:src="@drawable/hookerhoto"
+                    android:src="@drawable/hookerhoto_words"
                     android:onClick="onClick"
                     android:layout_column="11" />
 
@@ -148,9 +148,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/ripple_oval"
+                    android:background="@drawable/bubble"
                     android:elevation="8dp"
-                    android:src="@drawable/joycephoto"
+                    android:src="@drawable/joycephoto_words"
                     android:onClick="onClick"
                     android:layout_column="19" />
 

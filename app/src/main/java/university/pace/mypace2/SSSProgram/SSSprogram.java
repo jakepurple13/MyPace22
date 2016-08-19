@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,7 +16,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import university.pace.mypace2.Constants;
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.MainActivity;
 import university.pace.mypace2.R;
 
@@ -27,10 +32,24 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     Button academic;
     FloatingActionButton fab2, fab4;
     ImageButton JohnContact, JoyceContact;
+    private Tracker mTracker;
+    private final String TAG = "SSSprogram";
+    private String Screentracker = "SSS Screen";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support);
+
+/**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
 
         // create shortcut if requested
         Intent.ShortcutIconResource icon =
@@ -68,20 +87,31 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.academicbutt:
+                /**Tracks**/
+                Tracks("Viewing Academic services content", "Pressed Academic services button");
+                Log.i(TAG, "Pressed Academic services button");
+                /**Tracks**/
                 Anim(v);
                 changeScreen(SSWebView.class);
                 break;
 
             case R.id.culturalbutt:
-
+                /**Tracks**/
+                Tracks("Viewing Cultural events content", "Pressed Cultural events button");
+                Log.i(TAG, "Pressed Cultural events button");
+                /**Tracks**/
                 Anim(v);
                 changeScreen(CulturalEventsPdfView.class);
                 break;
 
             case R.id.Finanbutt:
+                /**Tracks**/
+                Tracks("Viewing Financial content", "Pressed Financial events button");
+                /**Tracks**/
+                Log.i(TAG, "Pressed Financial events button");
 
                 Anim(v);
-                //  changeScreen();
+                changeScreen(FinancialLit.class);
                 break;
 
             case R.id.john_email:
@@ -101,6 +131,11 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                             Toast.LENGTH_SHORT).show();
                     market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
                 }
+
+                /**Tracks**/
+                Tracks("Contacting John Hooker", "Pressed email John button");
+                /**Tracks**/
+                Log.i(TAG, "Pressed email John button");
 
 
                 break;
@@ -122,6 +157,10 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                             Toast.LENGTH_SHORT).show();
                     market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
                 }
+                /**Tracks**/
+                Tracks("Contacting Joyce Lau", "Pressed email Joyce button");
+                /**Tracks**/
+
                 break;
 
 
@@ -157,7 +196,13 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         //this.finish();
     }
 
+    public void Tracks(String catogory, String action) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(catogory)
+                .setAction(action)
+                .build());
 
+    }
 
 
 

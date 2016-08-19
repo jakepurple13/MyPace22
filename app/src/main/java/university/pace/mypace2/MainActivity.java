@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTracker = application.getDefaultTracker();
 
         Log.i(TAG, TAG + Screentracker);
-        mTracker.setScreenName(Screentracker + "|| " + TAG);
+        mTracker.setScreenName(Screentracker);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         /**Start Tracking users onCreate Screen***/
@@ -276,27 +276,47 @@ return false;
         switch (v.getId()) {
 
             case R.id.campusmap:
+                Fade(v);
                 changeScreen(PaceMaps.class);
-                //  Fade(v);
+                /**Tracks**/
+                Tracks("Pressed Maps button", "Viewing Maps");
+                Log.i(TAG, "Pressed Map button");
+                /**Tracks**/
+
                 break;
 
             case R.id.calBut:
+                Fade(v);
                 changeScreen(CalendarScreen.class);
-                //  Fade(v);
+                /**Tracks**/
+                Tracks("Pressed Calendar button", "Viewing Calendar");
+                Log.i(TAG, "Pressed Calendar button");
+                /**Tracks**/
                 break;
 
             case R.id.tutoringbutt:
                 Fade(v);
                 changeScreen(CardTest.class);
-
+                /**Tracks**/
+                Tracks("Pressed Tutoring button", "Viewing Tutoring");
+                Log.i(TAG, "Pressed Tutoring button");
+                /**Tracks**/
                 break;
 
             case R.id.pacemail:
                 Fade(v);
                 TakeUserToMarket(this, "com.microsoft.exchange.mowa");
-
+                /**Tracks**/
+                Tracks("Pressed E-mail button", "Viewing E-mail");
+                Log.i(TAG, "Pressed E-mail button");
+                /**Tracks**/
                 break;
             case R.id.blackboard:
+
+                /**Tracks**/
+                Tracks("Pressed Blackboard button", "Viewing Blackboard content");
+                Log.i(TAG, "Pressed Blackboard  button");
+                /**Tracks**/
                 Fade(v);
                 TakeUserToMarket(this, "com.blackboard.android");
 
@@ -304,6 +324,10 @@ return false;
                 break;
 
             case R.id.sss:
+
+                /**Tracks**/
+                Tracks("Pressed SSS button", "Viewing SSS content");
+                /**Tracks**/
                 Fade(v);
                 changeScreen(SSSprogram.class);
 
@@ -313,12 +337,17 @@ return false;
             case R.id.test:
                 Fade(v);
                 askaboutapp();
+
                 break;
 
             /**reads in from .xl file  8/10/16**/
             case R.id.courses:
                 Fade(v);
                 changeScreen(CourseDisplay.class);
+                /**Tracks**/
+                Tracks("Pressed Courses button", "Viewing Courses content");
+                Log.i(TAG, "Pressed Courses button");
+                /**Tracks**/
                 break;
 
 
@@ -362,8 +391,13 @@ return false;
     }
 
 
+    public void Tracks(String catogory, String action) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(catogory)
+                .setAction(action)
+                .build());
 
-
+    }
 
     public void TakeUserToMarket(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);

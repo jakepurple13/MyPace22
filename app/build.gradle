@@ -31,7 +31,7 @@ android {
     }
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "1g"  //change from 4g to 1g
     }
 
     //fixed  java.lang.OutOfMemoryError: 7/20/16

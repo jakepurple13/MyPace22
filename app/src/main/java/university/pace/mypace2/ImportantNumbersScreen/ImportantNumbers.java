@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.viethoa.RecyclerViewFastScroller;
 import com.viethoa.models.AlphabetItem;
 
@@ -18,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
 
 public class ImportantNumbers extends AppCompatActivity {
@@ -26,16 +29,29 @@ public class ImportantNumbers extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Tracker mTracker;
+    private final String TAG = "ImportantNumbers";
+    private String Screentracker = "HotlineScreen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_important_numbers);
 
+/**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
 
         // create shortcut if requested
         Intent.ShortcutIconResource icon =
-                Intent.ShortcutIconResource.fromContext(this, R.drawable.hotline);
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.hotline_v21);
 
         Intent intent = new Intent();
 

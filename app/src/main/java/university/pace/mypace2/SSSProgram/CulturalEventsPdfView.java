@@ -108,7 +108,7 @@ public class CulturalEventsPdfView extends Activity implements View.OnClickListe
                 break;
 
             case R.id.pdf_press:
-                File file = new File("/sdcard/example.pdf");
+                File file = new File(String.valueOf(getResources().openRawResource(R.raw.academics))); //TODO: Change for cultural events
 
                 if (file.exists()) {
                     Uri path = Uri.fromFile(file);

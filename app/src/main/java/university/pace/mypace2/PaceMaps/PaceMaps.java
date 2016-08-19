@@ -41,6 +41,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,6 +56,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.MainActivity;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.R;
@@ -390,7 +393,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniNYC_CareerSer = new LatLng(Pace_NYC_CareerS_LAT, Pace_NYC_CareerS_LNG);
     /*Default Map view*/
     private LatLng Position = PaceUniPLV;
-
+    private Tracker mTracker;
+    private final String TAG = "PaceMaps";
+    private String Screentracker = "Maps Screen";
     //:TODO Get working on higer API Phones
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -401,6 +406,16 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         setContentView(R.layout.activity_pace_maps);
 
+        /**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
 
         // create shortcut if requested
         Intent.ShortcutIconResource icon =
@@ -435,6 +450,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         tType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Tracks("Satellite", "Satellite used");
+
                 if (isChecked) {
                     changeType(buttonView);
                     tType.setBackgroundResource(R.drawable.map_pace_light);
@@ -462,7 +479,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 refreshMap(v);
-
+                Tracks("Refresh on map", "Refresh used");
             }
         });
 /**refresh button****/
@@ -521,7 +538,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "GPS is Enabled on your device", Toast.LENGTH_SHORT).show();
                 } else {
                     showGPSDisabledAlertToUser();
                 }
@@ -573,6 +590,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             final String location_search = location_tf.getText().toString();
                             performSearch(location_search);
+                            Tracks("Entered Search " + location_search, "pressed Enter");
                             Log.d("Entered Search", "pressed Enter");
                             return true;
 
@@ -598,23 +616,19 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             Log.d("error", e.toString());
         }
                                                                                             /*On info Window Clicked */
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
-
-                                          {
-                                              @Override
-                                              public void onInfoWindowClick(Marker marker) {
-                                                  double DirectionsOnClickLat = marker.getPosition().latitude;
-                                                  double DirectionsOnClickLong = marker.getPosition().longitude;//gets clicked info window position
-                                                  OnLocationGo(DirectionsOnClickLat, DirectionsOnClickLong, latitude, longitude);//passes to google maps
-                                                  //   Log.d("Pace marker clicked",DirectionsOnClickLong);
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                double DirectionsOnClickLat = marker.getPosition().latitude;
+                double DirectionsOnClickLong = marker.getPosition().longitude;//gets clicked info window position
+                OnLocationGo(DirectionsOnClickLat, DirectionsOnClickLong, latitude, longitude);//passes to google maps
+                //   Log.d("Pace marker clicked",DirectionsOnClickLong);
+                Tracks("Used GPS on Maps", marker.getTitle() + " " + marker.getPosition());
+            }
+        });
 
     }
-                                          }
-
-        );
-
-                                                                                            /*On info Window Clicked End*/
-    }
+    /*On info Window Clicked End*/
 
 
     /**
@@ -638,6 +652,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 mMap.clear();  //clears anything on the map that should not be there 'gs' jr' 'jl'
                 NYVCampusOnMapView();
                 Position = PaceUniNYC;
+                Tracks("User toggled", "Showing NYC");
                 Log.d("User toggled", "Showing NYC");
                 Log.d(" Grey", "Map");
 
@@ -645,6 +660,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 mMap.clear(); //clears anything on the map that should not be there 'gs' jr' 'jl'
                 PleasantvilleCampusOnMapView();
                 Position = PaceUniPLV;
+                Tracks("User toggled", "Showing PLV");
                 Log.d("User toggled", "Showing PLV");
                 Log.d(" Blue", "Map");
 
@@ -985,7 +1001,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         /**search with enter button**/
         Log.d("debug", location_tf.toString());
 
-        performSearch(location_search); //search button on screen
+        performSearch(location_search);
+        Tracks("Entered Search " + location_search, "pressed search button");//search button on screen
 
     }
 
@@ -993,7 +1010,6 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         if (location_search.equalsIgnoreCase("George Samuels") && Position == PaceUniPLV)
             GS();
-
 
 
   /*User can Search any location on pace grounds */
@@ -1229,9 +1245,9 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     /**Checks GPS Enable**/
     private void showGPSDisabledAlertToUser() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+        alertDialogBuilder.setMessage("GPS is disabled on your device. Would you like to enable it?")
                 .setCancelable(false)
-                .setPositiveButton("Goto Settings Page To Enable GPS",
+                .setPositiveButton("Go to Settings Page To Enable GPS",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent callGPSSettingIntent = new Intent(
@@ -1250,6 +1266,16 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     }
 
     /**Checks GPS Enable**/
+
+
+    public void Tracks(String catogory, String action) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(catogory)
+                .setAction(action)
+                .build());
+
+    }
+
 
     private void GS() {
 /**Gs    **/
