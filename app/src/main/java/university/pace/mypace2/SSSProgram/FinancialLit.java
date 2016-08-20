@@ -38,6 +38,7 @@ public class FinancialLit extends AppCompatActivity {
     private Tracker mTracker;
     private final String TAG = "FinancialLit";
     private String Screentracker = "Financial Literacy Screen";
+    private ParcelFileDescriptor file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +87,14 @@ public class FinancialLit extends AppCompatActivity {
             int REQ_WIDTH = imageView.getWidth();
             int REQ_HEIGHT = imageView.getHeight();
 
+            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_4444);
 
-            File file = new File(String.valueOf(getResources().openRawResource(R.raw.financiallit)));
+            file = this.getAssets().openFd(String.valueOf(new File
+                    (String.valueOf(getResources().openRawResource(R.raw.financiallit))))).getParcelFileDescriptor();
+
+
             /**  reads in Pdf to Render**/
-            PdfRenderer renderer = new PdfRenderer(ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY));
+            PdfRenderer renderer = new PdfRenderer(file);
             /**  reads in Pdf to Render**/
             if (currentPage < 0) {
                 currentPage = 0;
@@ -99,9 +104,9 @@ public class FinancialLit extends AppCompatActivity {
 
             Matrix m = imageView.getImageMatrix();
             Rect rect = new Rect(0, 0, REQ_WIDTH, REQ_HEIGHT);
-            renderer.openPage(currentPage).render(loadBitmapFromView(imageView), rect, m, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            renderer.openPage(currentPage).render(bitmap, rect, m, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
             imageView.setImageMatrix(m);
-            imageView.setImageBitmap(loadBitmapFromView(imageView));
+            imageView.setImageBitmap(bitmap);
             imageView.invalidate();
 
         } catch (Exception e) {

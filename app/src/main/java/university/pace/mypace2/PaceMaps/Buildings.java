@@ -133,24 +133,27 @@ public class Buildings {
                     case "wilcox hall":
                         latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
                         break;
-                    case "goldstien academic center":
-                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                    case "goldstein academic center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstein;
                         break;
-                    case "goldstien academic":
-                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                    case "goldstein ":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstein;
+                        break;
+                    case "goldstein academic":
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstein;
                         break;
 
                     case "lubin":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
                     case "seidenberg":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
-                    case "goldstien fitness center":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                    case "goldstein fitness center":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
                     case "gym":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
                     case "kessel":
                         latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
@@ -203,7 +206,7 @@ public class Buildings {
                     case "pink house":
                         latlngSpot = PaceBuilding.PaceUniPLV_Choate;
                         break;
-                    case "OSA":
+                    case "osa":
                         latlngSpot = PaceBuilding.PaceUniPLV_OSA;
                         break;
                     case "office of student assistance":
@@ -221,14 +224,14 @@ public class Buildings {
                     case "class":
                         latlngSpot = PaceBuilding.PaceUniPLV_Miller;
                         break;
-                    case "goldstien":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                    case "Goldstein":
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
                     case "bookstore":
                         latlngSpot = PaceBuilding.PaceUniPLV_Kessel;
                         break;
                     case "health center":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
                     case "tech support":
                         latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
@@ -237,14 +240,14 @@ public class Buildings {
                         latlngSpot = PaceBuilding.PaceUniPLV_Wilcox;
                         break;
                     case "computer science department":
-                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstien;
+                        latlngSpot = PaceBuilding.PaceUniPLV_Goldstein;
                         break;
                     case "english department":
                         latlngSpot = PaceBuilding.PaceUniPLV_Choate;
                         break;
 
                     case "basketball courts":
-                        latlngSpot = PaceBuilding.PaceUniPLV_GoldstienGym;
+                        latlngSpot = PaceBuilding.PaceUniPLV_GoldsteinGym;
                         break;
 
                     case "baseball field":

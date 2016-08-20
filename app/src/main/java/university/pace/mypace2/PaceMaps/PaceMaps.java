@@ -86,11 +86,11 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public final double Pace_PLV_LIENHARD_LAT = 41.127413;
 
 
-    public final double Pace_PLV_GOLDSTIEN_LNG = -73.805302;
-    public final double Pace_PLV_GOLDSTIEN_LAT = 41.126664;
+    public final double Pace_PLV_GOLDSTEIN_LNG = -73.805302;
+    public final double Pace_PLV_GOLDSTEIN_LAT = 41.126664;
 
-    public final double Pace_PLV_GOLDSTIENGYM_LNG = -73.809295;
-    public final double Pace_PLV_GOLDSTIENGYM_LAT = 41.129429;
+    public final double Pace_PLV_GOLDSTEINGYM_LNG = -73.809295;
+    public final double Pace_PLV_GOLDSTEINGYM_LAT = 41.129429;
 
     public final double Pace_PLV_DYSON_LNG = -73.808012;
     public final double Pace_PLV_DYSON_LAT = 41.125481;
@@ -325,8 +325,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public LatLng PaceUniPLV_Environmental = new LatLng(Pace_PLV_EnvironmentalCenter_LAT, Pace_PLV_EnvironmentalCenter_LNG);
     public LatLng PaceUniPLV_Miller = new LatLng(Pace_PLV_Miller_LAT, Pace_PLV_Miller_LNG);
     public LatLng PaceUniPLV_Lienhard = new LatLng(Pace_PLV_LIENHARD_LAT, Pace_PLV_LIENHARD_LNG);
-    public LatLng PaceUniPLV_Goldstien = new LatLng(Pace_PLV_GOLDSTIEN_LAT, Pace_PLV_GOLDSTIEN_LNG);
-    public LatLng PaceUniPLV_GoldstienGym = new LatLng(Pace_PLV_GOLDSTIENGYM_LAT, Pace_PLV_GOLDSTIENGYM_LNG);
+    public LatLng PaceUniPLV_Goldstein = new LatLng(Pace_PLV_GOLDSTEIN_LAT, Pace_PLV_GOLDSTEIN_LNG);
+    public LatLng PaceUniPLV_GoldsteinGym = new LatLng(Pace_PLV_GOLDSTEINGYM_LAT, Pace_PLV_GOLDSTEINGYM_LNG);
     public LatLng PaceUniPLV_Dyson = new LatLng(Pace_PLV_DYSON_LAT, Pace_PLV_DYSON_LNG);
     public LatLng PaceUniPLV_Marks = new LatLng(Pace_PLV_Marks_LAT, Pace_PLV_Marks_LNG);
     public LatLng PaceUniPLV_Wilcox = new LatLng(Pace_PLV_WILCOX_LAT, Pace_PLV_WILOCX_LNG);
@@ -713,12 +713,12 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .title("Lienhard Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet("College Academic Building" +
                         " and College Nursing Building"));
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Goldstien)
-                .title("Goldstien Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet(
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldsteinGym)
+                .title("Goldstein Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.classmkr)).snippet(
                         "Home of Lubin and Computer Science students"));
 
-        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldstienGym)
-                .title("Goldstien Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym_dogpound)).snippet(
+        mMap.addMarker(new MarkerOptions().position(PaceUniPLV_GoldsteinGym)
+                .title("Goldstein Fitness Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_gym_dogpound)).snippet(
                         "Gym,Pool & Basketball courts & Health Center"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Marks)
@@ -759,7 +759,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Baseball)
-                .title("Baseball Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.baseballmker)).snippet("NEW Baseball field near Goldstien Gym"));
+                .title("Baseball Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.baseballmker)).snippet("NEW Baseball field near Goldstein Gym"));
 
         mMap.addMarker(new MarkerOptions().position(PaceUniPLV_Football)
                 .title("Football Field").icon(BitmapDescriptorFactory.fromResource(R.drawable.football_mker)).snippet("Rebuilt Football field behind Choate house"));
@@ -808,10 +808,10 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
  .title("Parking lot T").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_t)).snippet("Campus Parking- Above Library parking lot Z "));
 
  mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_U)
- .title("Parking lot U").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_u)).snippet("Campus Parking- Near Goldstien Academic Center "));
+ .title("Parking lot U").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_u)).snippet("Campus Parking- Near Goldstein Academic Center "));
 
  mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_X)
- .title("Parking lot X").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_x)).snippet("Campus Parking- Lower Goldstien Academic Center "));
+ .title("Parking lot X").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_x)).snippet("Campus Parking- Lower Goldstein Academic Center "));
 
  mMap.addMarker(new MarkerOptions().position(PaceUniPLV_PARKING_Z)
  .title("Parking lot Z").icon(BitmapDescriptorFactory.fromResource(R.drawable.park_z)).snippet("Campus Parking- Library"));
@@ -997,7 +997,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public void onSearch(final View view) {
 
 // Get a reference to the AutoCompleteTextView in the layout
-        final String location_search = location_tf.getText().toString();
+        String location_search = location_tf.getText().toString();
         /**search with enter button**/
         Log.d("debug", location_tf.toString());
 
@@ -1041,14 +1041,14 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                           /*returns LatLng Positions for keyword class*/
                     if (location_search.equalsIgnoreCase("class") || location_search.equalsIgnoreCase("classes")) {
                         //TODO:won't show miller?
-                        SetClassMarker(PaceUniPLV_Dyson, PaceUniPLV_Goldstien, PaceUniPLV_Lienhard, BuildingLatLng, location_search,
-                                "Here is at Dyson Hall ", "Here is at Goldstien ", "found at Lienhard Hall " + "", "found at " + "Miller Hall");
+                        SetClassMarker(PaceUniPLV_Dyson, PaceUniPLV_Goldstein, PaceUniPLV_Lienhard, BuildingLatLng, location_search,
+                                "Here is at Dyson Hall ", "Here is at Goldstein ", "found at Lienhard Hall " + "", "found at " + "Miller Hall");
 
                     } else if (location_search.equalsIgnoreCase("food") && Position == PaceUniPLV) {
                         SetMultiMarker(PaceUniPLV_Kessel, BuildingLatLng, PaceUniPLV_Miller, location_search,
                                 "Here is ", "found at the " + "Pace Perk", "found at " + "Miller Hall");
-                    } else if (location_search.equalsIgnoreCase("goldstien") && Position == PaceUniPLV) {
-                        SetTwoMarker(PaceUniPLV_Goldstien, BuildingLatLng, location_search,
+                    } else if (location_search.equalsIgnoreCase("goldstein") && Position == PaceUniPLV) {
+                        SetTwoMarker(PaceUniPLV_Goldstein, BuildingLatLng, location_search,
                                 "Here is ", "found at the " + "Gym");
                     }  /** got lazy   **/
 

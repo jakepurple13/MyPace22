@@ -1,12 +1,9 @@
-package university.pace.mypace2.CalendarScreen;
+package university.pace.mypace2.SSSMentors;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+/**
+ * Created by Mrgds on 8/19/2016.
+ */
 
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -19,14 +16,13 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 
-import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.client.util.DateTime;
+import com.google.api.services.sheets.v4.SheetsScopes;
 
-import com.google.api.services.calendar.model.*;
-import com.google.api.services.calendar.model.Event;
+import com.google.api.services.sheets.v4.model.*;
 
 import android.Manifest;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,62 +31,39 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-import university.pace.mypace2.DividerItemDecoration;
-import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
-import university.pace.mypace2.R;
 
-
-public class CalendarScreen extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class Mentors extends Activity
+        implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
+    private TextView mOutputText;
+    private Button mCallApiButton;
     ProgressDialog mProgress;
+
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
+    private static final String BUTTON_TEXT = "Call Google Sheets API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = {CalendarScopes.CALENDAR};
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private Tracker mTracker;
-    private final String TAG = "CalendarScreen";
-    private String Screentracker = "Calendar";
-    // 1a1iec4vgcj376oah12f0lu1vk@group.calendar.google.com    old   cal id
-
-    final String CALENDAR_ID = "kd0jfkn4qikqq9fajturdappqc@group.calendar.google.com";  //SSS cal ID
-
-    ArrayList<CalendarInfo> events = new ArrayList<>();
-    ArrayList<String> colorOfEvent = new ArrayList<>();
-
-    com.google.api.services.calendar.Calendar mServices;
-
-    //DatabaseHelper dh;
-
-    TextView monthName;
-
-    CompactCalendarView compactCalendarView;
+    private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
     /**
      * Create the main activity.
@@ -100,142 +73,49 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar_screen);
+        LinearLayout activityLayout = new LinearLayout(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        activityLayout.setLayoutParams(lp);
+        activityLayout.setOrientation(LinearLayout.VERTICAL);
+        activityLayout.setPadding(16, 16, 16, 16);
 
-        /**Start Tracking users onCreate Screen***/
-        // Obtain the shared Tracker instance.
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        Log.i(TAG, TAG + Screentracker);
-        mTracker.setScreenName(Screentracker);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-
-        /**Start Tracking users onCreate Screen***/
-
-
-
-
-
-
-
-        monthName = (TextView) findViewById(R.id.textView2);
-
-        compactCalendarView = (CompactCalendarView) findViewById(R.id.view);
-
-        //dh = new DatabaseHelper(getApplicationContext());
-
-
-        // create shortcut if requested
-        Intent.ShortcutIconResource icon =
-                Intent.ShortcutIconResource.fromContext(this, R.drawable.calender_words);
-
-        Intent intent = new Intent();
-
-        Intent launchIntent = new Intent(this, CalendarScreen.class);
-
-        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
-        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Calendar");
-        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-
-        setResult(RESULT_OK, intent);
-
-        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+        mCallApiButton = new Button(this);
+        mCallApiButton.setText(BUTTON_TEXT);
+        mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDayClick(Date dateClicked) {
-                List<com.github.sundeepk.compactcalendarview.domain.Event> events = compactCalendarView.getEvents(dateClicked);
-                Log.d("Line 105", "Day was clicked: " + dateClicked + " with events " + events);
-                mAdapter = new CalendarAdapter(compactCalendarView.getEvents(dateClicked), CalendarScreen.this);
-                //mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
-                mRecyclerView.setAdapter(mAdapter);
-            }
-
-            @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-                Log.d("Line 110", "Month was scrolled to: " + firstDayOfNewMonth);
-                String month = getMonthName(firstDayOfNewMonth.getMonth());
-
-                monthName.setText(month);
+            public void onClick(View v) {
+                mCallApiButton.setEnabled(false);
+                mOutputText.setText("");
+                getResultsFromApi();
+                mCallApiButton.setEnabled(true);
             }
         });
+        activityLayout.addView(mCallApiButton);
 
-        monthName.setText(getMonthName(compactCalendarView.getFirstDayOfCurrentMonth().getMonth()));
+        mOutputText = new TextView(this);
+        mOutputText.setLayoutParams(tlp);
+        mOutputText.setPadding(16, 16, 16, 16);
+        mOutputText.setVerticalScrollBarEnabled(true);
+        mOutputText.setMovementMethod(new ScrollingMovementMethod());
+        mOutputText.setText(
+                "Click the \'" + BUTTON_TEXT + "\' button to test the API.");
+        activityLayout.addView(mOutputText);
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Loading calendar...Please wait");
+        mProgress.setMessage("Calling Google Sheets API ...");
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_viewCal);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        //mRecyclerView.addItemDecoration(
-        //      new DividerItemDecoration(this, R.drawable.divider));
+        setContentView(activityLayout);
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
-
-        getResultsFromApi();
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    public String getMonthName(int monthNum) {
-        String month = "";
-        switch (monthNum) {
-            case 0:
-                month = "January";
-                break;
-            case 1:
-                month = "February";
-                break;
-            case 2:
-                month = "March";
-                break;
-            case 3:
-                month = "April";
-                break;
-            case 4:
-                month = "May";
-                break;
-            case 5:
-                month = "June";
-                break;
-            case 6:
-                month = "July";
-                break;
-            case 7:
-                month = "August";
-                break;
-            case 8:
-                month = "September";
-                break;
-            case 9:
-                month = "October";
-                break;
-            case 10:
-                month = "November";
-                break;
-            case 11:
-                month = "December";
-                break;
-            default:
-                return "";
-        }
-        return month;
     }
 
 
@@ -252,7 +132,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (!isDeviceOnline()) {
-            Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
+            mOutputText.setText("No network connection available.");
         } else {
             new MakeRequestTask(mCredential).execute();
         }
@@ -311,9 +191,9 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
-                    Toast.makeText(this,
+                    mOutputText.setText(
                             "This app requires Google Play Services. Please install " +
-                                    "Google Play Services on your device and relaunch this app.", Toast.LENGTH_SHORT).show();
+                                    "Google Play Services on your device and relaunch this app.");
                 } else {
                     getResultsFromApi();
                 }
@@ -438,32 +318,31 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                CalendarScreen.this,
+                this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
     }
 
     /**
-     * An asynchronous task that handles the Google Calendar API call.
+     * An asynchronous task that handles the Google Sheets API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
     private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
-        private com.google.api.services.calendar.Calendar mService = null;
+        private com.google.api.services.sheets.v4.Sheets mService = null;
         private Exception mLastError = null;
 
         public MakeRequestTask(GoogleAccountCredential credential) {
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-            mService = new com.google.api.services.calendar.Calendar.Builder(
+            mService = new com.google.api.services.sheets.v4.Sheets.Builder(
                     transport, jsonFactory, credential)
-                    .setApplicationName("Google Calendar API Android Quickstart")
+                    .setApplicationName("SSS Freshman App")
                     .build();
-            mServices = mService;
         }
 
         /**
-         * Background task to call Google Calendar API.
+         * Background task to call Google Sheets API.
          *
          * @param params no parameters needed for this task.
          */
@@ -479,82 +358,44 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
         }
 
         /**
-         * Fetch a list of the next 10 events from the primary calendar.
+         * Fetch a list of names and majors of students in a sample spreadsheet:
+         * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
          *
-         * @return List of Strings describing returned events.
+         * @return List of names and majors
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException {
-            // List the next 10 events from the primary calendar.
-            DateTime now = new DateTime(System.currentTimeMillis());
-            List<String> eventStrings = new ArrayList<String>();
-            Events events = mService.events().list(CALENDAR_ID)
-                    .setMaxResults(50)
-                    .setTimeMin(now)
-                    .setOrderBy("startTime")
-                    .setSingleEvents(true)
+            String spreadsheetId = "1njPTxjoLI2c2QpQdBv11Q9YOxTRYZKxs0WEAgwg96PI";
+            String range = "Class Data!A2:E";
+            List<String> results = new ArrayList<String>();
+            ValueRange response = this.mService.spreadsheets().values()
+                    .get(spreadsheetId, range)
                     .execute();
-            List<Event> items = events.getItems();
-
-            // Retrieve color definitions for calendars and events
-            Colors colors = mService.colors().get().execute();
-            String c = "";
-            for (Map.Entry<String, ColorDefinition> color : colors.getEvent().entrySet()) {
-                //System.out.println("ColorId : " + color.getKey());
-                //System.out.println("  Background: " + color.getValue().getBackground());
-                //System.out.println("  Foreground: " + color.getValue().getForeground());
-                c = color.getValue().getBackground();
-                colorOfEvent.add(c);
-            }
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    // All-day events don't have start times, so just use
-                    // the start date.
-                    start = event.getStart().getDate();
-                    //event.setStart(start.);
+            List<List<Object>> values = response.getValues();
+            if (values != null) {
+                results.add("Name, Major");
+                for (List row : values) {
+                    results.add(row.get(0) + ", " + row.get(4));
                 }
-                eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
-                CalendarScreen.this.events.add(new CalendarInfo(event));//, colorOfEvent.get(i));
-                //eventsFromGoogle.add(event);
             }
-            return eventStrings;
+            return results;
         }
+
 
         @Override
         protected void onPreExecute() {
+            mOutputText.setText("");
             mProgress.show();
         }
 
         @Override
         protected void onPostExecute(List<String> output) {
-            mProgress.dismiss(); //used to be hide
+            mProgress.hide();
             if (output == null || output.size() == 0) {
-                Toast.makeText(CalendarScreen.this, "No results returned.", Toast.LENGTH_SHORT).show();
+                mOutputText.setText("No results returned.");
             } else {
-
-                ArrayList<com.github.sundeepk.compactcalendarview.domain.Event> newEvents = new ArrayList<com.github.sundeepk.compactcalendarview.domain.Event>();
-
-                for (CalendarInfo e : events) {
-                    System.out.println(e);
-                }
-
-                for (int i = 0; i < events.size(); i++) {
-
-                    long dt = events.get(i).getEvent().getStart().getDate().getValue() + (86400000);
-                    Log.e("Line 505", dt + "");
-
-
-                    com.github.sundeepk.compactcalendarview.domain.Event e =
-                            new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
-                    compactCalendarView.addEvent(e);
-                }
-
-                //mAdapter = new CalendarAdapter(events, CalendarScreen.this);
-                //mAdapter = new CalendarAdapter(compactCalendarView.getEvents(new Date()), CalendarScreen.this);
-                //mRecyclerView.setAdapter(mAdapter);
-
+                output.add(0, "Data retrieved using the Google Sheets API:");
+                mOutputText.setText(TextUtils.join("\n", output));
             }
         }
 
@@ -569,49 +410,14 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            CalendarScreen.REQUEST_AUTHORIZATION);
+                            Mentors.REQUEST_AUTHORIZATION);
                 } else {
-                    Toast.makeText(CalendarScreen.this, "The following error occurred:\n"
-                            + mLastError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    Log.d(TAG, mLastError.getMessage());                                                   //TODO: FIX THIS ERROR
+                    mOutputText.setText("The following error occurred:\n"
+                            + mLastError.getMessage());
                 }
             } else {
-                Toast.makeText(CalendarScreen.this, "Request cancelled.", Toast.LENGTH_SHORT).show();
+                mOutputText.setText("Request cancelled.");
             }
         }
     }
-
-
-    public class CalendarInfo {
-        String name;
-        Event event;
-        String c;
-
-        public CalendarInfo(String name) {
-            this.name = name;
-        }
-
-        public CalendarInfo(Event event) {
-            this.event = event;
-        }
-
-        public CalendarInfo(Event event, String c) {
-            this.event = event;
-            this.c = c;
-        }
-
-        public Event getEvent() {
-            return event;
-        }
-
-        @Override
-        public String toString() {
-            return event.getSummary();
-        }
-
-    }
-
 }
-
-
