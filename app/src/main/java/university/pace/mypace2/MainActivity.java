@@ -37,6 +37,8 @@ import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 
 import university.pace.mypace2.PaceMaps.PaceMaps;
+import university.pace.mypace2.SSSMentors.MentorActivity;
+import university.pace.mypace2.SSSMentors.Mentors;
 import university.pace.mypace2.SSSProgram.SSSprogram;
 import university.pace.mypace2.TestingPackage.CardTest;
 
@@ -44,8 +46,6 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.testfairy.TestFairy;
-//import university.pace.mypace2.TestingPackage.ChatRoomActivity;
-
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,12 +56,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Tracker mTracker;
     private final String TAG = "MainActivity";
     private String Screentracker = "StartScreen";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TestFairy.begin(this, "bde19002b059bcf18e75d5029b2862d582033bf4");
+        //TestFairy.begin(this, "bde19002b059bcf18e75d5029b2862d582033bf4");
 /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
@@ -72,10 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         /**Start Tracking users onCreate Screen***/
-
-
-
-
 
 
         /**Ask User for Location Premisson and Accounts**/
@@ -138,53 +136,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //TODO: button grey out on press testing
 
 
- MapButton.setOnLongClickListener(new View.OnLongClickListener() {
-@Override public boolean onLongClick(View v) {
+        MapButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
 /**Track who finds the Easter Egg**/
-    mTracker.send(new HitBuilders.EventBuilder()
-            .setCategory("I'm the Map Easter Egg")
-            .setAction("User Held the Maps button")
-            .build());
-    Log.i(TAG, "Held Map button");
-    /**Track who finds the Easter Egg**/
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("I'm the Map Easter Egg")
+                        .setAction("User Held the Maps button")
+                        .build());
+                Log.i(TAG, "Held Map button");
+                /**Track who finds the Easter Egg**/
 
 
+                Date dec = new Date();
+                dec.setMonth(11);
+
+                if (new Date().getMonth() == dec.getMonth()) {
+
+                }
+
+                final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+                am.setStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                        15);
+
+                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
+
+                mediaPlayer.start();
+                int duration = mediaPlayer.getDuration();
+                int current_position = mediaPlayer.getCurrentPosition();
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        am.setStreamVolume(
+                                AudioManager.STREAM_MUSIC,
+                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                normalSound);
+                    }
+                });
+
+                Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
+
+                return false;
+            }
+        });
 
 
-Date dec = new Date();
-dec.setMonth(11);
+        ImageButton MentorButton = (ImageButton) findViewById(R.id.mentorButton);
 
-if (new Date().getMonth() == dec.getMonth()) {
-
-}
-
-final int normalSound = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-am.setStreamVolume(
-AudioManager.STREAM_MUSIC,
-am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-15);
-
-MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.imthemap);
-
-mediaPlayer.start();
-int duration = mediaPlayer.getDuration();
-int current_position = mediaPlayer.getCurrentPosition();
-
-mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-@Override public void onCompletion(MediaPlayer mp) {
-am.setStreamVolume(
-AudioManager.STREAM_MUSIC,
-am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-normalSound);
-}
-});
-
-Toast.makeText(MainActivity.this, "Achievement Unlocked: If there's a place you gotta go", Toast.LENGTH_LONG).show();
-
-return false;
-}
-});
+        MentorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeScreen(MentorActivity.class);
+            }
+        });
 
 
     }
@@ -305,7 +313,7 @@ return false;
 
             case R.id.pacemail:
                 Fade(v);
-                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
+                TakeUserToMarket(this, "ccom.microsoft.office.outlook");
                 /**Tracks**/
                 Tracks("Pressed E-mail button", "Viewing E-mail");
                 Log.i(TAG, "Pressed E-mail button");
@@ -349,7 +357,6 @@ return false;
                 Log.i(TAG, "Pressed Courses button");
                 /**Tracks**/
                 break;
-
 
 
             default:
@@ -416,7 +423,6 @@ return false;
         startActivity(intent);
         //this.finish();
     }
-
 
 
     private void askaboutapp() {

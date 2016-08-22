@@ -50,6 +50,7 @@
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
 
 
+
         <!--
             <meta-data
             android:name="com.google.android.gms.version"
@@ -60,33 +61,31 @@
             android:label="@string/title_activity_pace_maps"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light">
-
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ImportantNumbersScreen.ImportantNumbers"
             android:label="Hotline">
-
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".CalendarScreen.CalendarScreen"
             android:label="Calendar">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
 
-
-        <intent-filter>
-            <action android:name="android.intent.action.CREATE_SHORTCUT" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-        </activity>>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        >
         <activity android:name=".TestingPackage.CardTest" />
         <activity
             android:name=".TutoringCenter.Tutoring"
@@ -99,32 +98,28 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SSSProgram.SSWebView"
-
-            />
+        <activity android:name=".SSSProgram.SSWebView" />
+        <activity
+            android:name=".SSSMentors.Mentors"
+            android:label="Mentors"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SSSProgram.CulturalEventsPdfView"
-
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name=".SSSProgram.FinancialLit"
-
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Courses.CourseDisplay"
             android:label="@string/title_activity_courses"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SSSMentors.MentorActivity"></activity>
     </application>
 
 </manifest>
