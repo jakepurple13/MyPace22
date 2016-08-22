@@ -132,7 +132,6 @@ public class MentorActivity extends Activity
 
         //mCallApiButton.setEnabled(false);
         //mOutputText.setText("");
-        getResultsFromApi();
         //mCallApiButton.setEnabled(true);
 
 
@@ -140,6 +139,8 @@ public class MentorActivity extends Activity
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
+
+        getResultsFromApi();
 
         al = new ArrayList<>();
 
@@ -512,13 +513,14 @@ public class MentorActivity extends Activity
 
         @Override
         protected void onPostExecute(List<String> output) {
-           /* mProgress.hide();
+            //mProgress.hide();
             if (output == null || output.size() == 0) {
-                mOutputText.setText("No results returned.");
+                //mOutputText.setText("No results returned.");
             } else {
                 output.add(0, "Data retrieved using the Google Sheets API:");
-                mOutputText.setText(TextUtils.join("\n", output));
-            }*/
+
+                // mOutputText.setText(TextUtils.join("\n", output));
+            }
         }
 
         @Override
