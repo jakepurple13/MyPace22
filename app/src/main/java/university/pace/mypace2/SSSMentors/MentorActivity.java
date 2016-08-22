@@ -169,45 +169,7 @@ public class MentorActivity extends Activity
         }*/
 
 
-        Collections.sort(al, new InfoCompare());
 
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new MyMentorAdapter(al, this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        RecyclerViewFastScroller fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller);
-
-        // adds in Alphabetical scroller
-        fastScroller.setRecyclerView(mRecyclerView);
-
-        ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
-        List<String> strAlphabets = new ArrayList<>();
-        for (int i = 0; i < al.size(); i++) {
-            String name = al.get(i).name;
-            if (name == null || name.trim().isEmpty())
-                continue;
-
-            String word = name.substring(0, 1);
-            if (!strAlphabets.contains(word)) {
-                strAlphabets.add(word);
-                mAlphabetItems.add(new AlphabetItem(i, word, false));
-            }
-        }
-
-        fastScroller.setUpAlphabet(mAlphabetItems);
-
-        // adds in Alphabetical scroller end
 
     }
 
@@ -500,6 +462,48 @@ public class MentorActivity extends Activity
 
                     results.add(row.get(0) + ", " + row.get(4));
                 }
+
+
+                Collections.sort(al, new InfoCompare());
+
+
+                mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                mRecyclerView.setHasFixedSize(true);
+
+                // use a linear layout manager
+                mLayoutManager = new LinearLayoutManager(MentorActivity.this);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+
+                // specify an adapter (see also next example)
+                mAdapter = new MyMentorAdapter(al, MentorActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+
+                RecyclerViewFastScroller fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller);
+
+                // adds in Alphabetical scroller
+                fastScroller.setRecyclerView(mRecyclerView);
+
+                ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
+                List<String> strAlphabets = new ArrayList<>();
+                for (int i = 0; i < al.size(); i++) {
+                    String name = al.get(i).name;
+                    if (name == null || name.trim().isEmpty())
+                        continue;
+
+                    String word = name.substring(0, 1);
+                    if (!strAlphabets.contains(word)) {
+                        strAlphabets.add(word);
+                        mAlphabetItems.add(new AlphabetItem(i, word, false));
+                    }
+                }
+
+                fastScroller.setUpAlphabet(mAlphabetItems);
+
+                // adds in Alphabetical scroller end
+
             }
             return results;
         }
