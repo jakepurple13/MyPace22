@@ -19,6 +19,8 @@ import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import com.google.api.services.sheets.v4.model.*;
+import com.viethoa.RecyclerViewFastScroller;
+import com.viethoa.models.AlphabetItem;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -33,21 +35,30 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.mypace2.ImportantNumbersScreen.MyNumberAdapter;
+import university.pace.mypace2.R;
 
 public class MentorActivity extends Activity
         implements EasyPermissions.PermissionCallbacks {
@@ -65,6 +76,11 @@ public class MentorActivity extends Activity
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    ArrayList<MentorInfo> al;
+
     /**
      * Create the main activity.
      *
@@ -73,7 +89,9 @@ public class MentorActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout activityLayout = new LinearLayout(this);
+
+        setContentView(R.layout.activity_mentor);
+        /*LinearLayout activityLayout = new LinearLayout(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
@@ -110,13 +128,113 @@ public class MentorActivity extends Activity
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Sheets API ...");
 
-        setContentView(activityLayout);
+        setContentView(activityLayout);*/
+
+        mCallApiButton.setEnabled(false);
+        mOutputText.setText("");
+        getResultsFromApi();
+        mCallApiButton.setEnabled(true);
+
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
+
+        al = new ArrayList<>();
+
+        //InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.important_numbers));
+
+        //BufferedReader br = new BufferedReader(is);
+
+        String line = " ";
+        String number = " ";
+        /*while(line!=null) {
+            try {
+                line = br.readLine();
+                number = br.readLine();
+
+                if(line==null) {
+                    break;
+                }
+
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("asdfkjh", line + "\t" + number);
+
+        }*/
+
+
+        Collections.sort(al, new InfoCompare());
+
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyMentorAdapter(al, this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        RecyclerViewFastScroller fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller);
+
+        // adds in Alphabetical scroller
+        fastScroller.setRecyclerView(mRecyclerView);
+
+        ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
+        List<String> strAlphabets = new ArrayList<>();
+        for (int i = 0; i < al.size(); i++) {
+            String name = al.get(i).name;
+            if (name == null || name.trim().isEmpty())
+                continue;
+
+            String word = name.substring(0, 1);
+            if (!strAlphabets.contains(word)) {
+                strAlphabets.add(word);
+                mAlphabetItems.add(new AlphabetItem(i, word, false));
+            }
+        }
+
+        fastScroller.setUpAlphabet(mAlphabetItems);
+
+        // adds in Alphabetical scroller end
+
     }
+
+
+    public class MentorInfo {
+        String name;
+        String email;
+        String major;
+
+        public MentorInfo(String name, String email, String major) {
+            this.name = name;
+            this.email = email;
+            this.major = major;
+        }
+
+        @Override
+        public String toString() {
+            return name + "\nemail " + email + "\nmajor " + major;
+        }
+
+    }
+
+    public class InfoCompare implements Comparator<MentorInfo> {
+        public int compare(MentorInfo e1, MentorInfo e2) {
+            return e1.name.compareTo(e2.name);
+        }
+    }
+
 
 
     /**
@@ -365,8 +483,8 @@ public class MentorActivity extends Activity
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException {
-            String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            String range = "Class Data!A2:E";
+            String spreadsheetId = "1njPTxjoLI2c2QpQdBv11Q9YOxTRYZKxs0WEAgwg96PI";//"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
+            String range = "Mentors!A2:E";
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, range)
@@ -375,6 +493,10 @@ public class MentorActivity extends Activity
             if (values != null) {
                 results.add("Name, Major");
                 for (List row : values) {
+
+                    MentorInfo ii = new MentorInfo((String) row.get(0) + row.get(1), (String) row.get(2), (String) row.get(4));
+                    al.add(ii);
+
                     results.add(row.get(0) + ", " + row.get(4));
                 }
             }
@@ -384,24 +506,24 @@ public class MentorActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            mOutputText.setText("");
-            mProgress.show();
+            //mOutputText.setText("");
+            //mProgress.show();
         }
 
         @Override
         protected void onPostExecute(List<String> output) {
-            mProgress.hide();
+           /* mProgress.hide();
             if (output == null || output.size() == 0) {
                 mOutputText.setText("No results returned.");
             } else {
                 output.add(0, "Data retrieved using the Google Sheets API:");
                 mOutputText.setText(TextUtils.join("\n", output));
-            }
+            }*/
         }
 
         @Override
         protected void onCancelled() {
-            mProgress.hide();
+            //mProgress.hide();
             if (mLastError != null) {
                 if (mLastError instanceof GooglePlayServicesAvailabilityIOException) {
                     showGooglePlayServicesAvailabilityErrorDialog(

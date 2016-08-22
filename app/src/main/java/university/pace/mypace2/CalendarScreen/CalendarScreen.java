@@ -542,7 +542,14 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
                 for (int i = 0; i < events.size(); i++) {
 
-                    long dt = events.get(i).getEvent().getStart().getDate().getValue() + (86400000);
+                    long day = events.get(i).getEvent().getStart().getDate().getValue();
+                    long dt;
+                    try {
+                        dt = day + (86400000);
+                    } catch (NullPointerException e) {
+                        dt = 123123;
+                    }
+
                     Log.e("Line 505", dt + "");
 
 
