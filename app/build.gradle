@@ -62,6 +62,9 @@ android {
         compile files('libs/jxl-2.6.jar')
         compile 'testfairy:testfairy-android-sdk:1.+@aar'
         compile 'com.android.support:multidex:1.0.1'
+        compile('com.google.api-client:google-api-client-android:1.22.0') {
+            exclude group: 'org.apache.httpcomponents'
+        }
         compile('com.google.apis:google-api-services-sheets:v4-rev18-1.22.0') {
             exclude group: 'org.apache.httpcomponents'
         }

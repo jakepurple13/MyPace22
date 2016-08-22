@@ -48,6 +48,12 @@
         <meta-data
             android:name="com.google.android.calendar.v3.API_KEY"
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
+        <meta-data
+            android:name="com.google.android.sheets.v4.API_KEY"
+            android:value="AIzaSyD5umksFDRfA_IQrjFziyVWrF-A0JLKrLA" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
 
 

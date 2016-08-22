@@ -542,20 +542,24 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
                 for (int i = 0; i < events.size(); i++) {
 
-                    long day = events.get(i).getEvent().getStart().getDate().getValue();
-                    long dt;
+
                     try {
+
+                        long day = events.get(i).getEvent().getStart().getDate().getValue();
+                        long dt;
                         dt = day + (86400000);
+
+
+                        com.github.sundeepk.compactcalendarview.domain.Event e =
+                                new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
+                        compactCalendarView.addEvent(e);
                     } catch (NullPointerException e) {
-                        dt = 123123;
+                        //dt = 123123;
                     }
 
-                    Log.e("Line 505", dt + "");
+                    //Log.e("Line 505", dt + "");
 
 
-                    com.github.sundeepk.compactcalendarview.domain.Event e =
-                            new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
-                    compactCalendarView.addEvent(e);
                 }
 
                 //mAdapter = new CalendarAdapter(events, CalendarScreen.this);
