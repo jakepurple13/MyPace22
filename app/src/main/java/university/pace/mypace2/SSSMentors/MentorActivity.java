@@ -250,7 +250,7 @@ public class MentorActivity extends Activity
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (!isDeviceOnline()) {
-            mOutputText.setText("No network connection available.");
+            //mOutputText.setText("No network connection available.");
         } else {
             new MakeRequestTask(mCredential).execute();
         }
@@ -309,9 +309,9 @@ public class MentorActivity extends Activity
         switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
-                    mOutputText.setText(
-                            "This app requires Google Play Services. Please install " +
-                                    "Google Play Services on your device and relaunch this app.");
+                    //mOutputText.setText(
+                    //      "This app requires Google Play Services. Please install " +
+                    //            "Google Play Services on your device and relaunch this app.");
                 } else {
                     getResultsFromApi();
                 }
@@ -534,11 +534,11 @@ public class MentorActivity extends Activity
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             Mentors.REQUEST_AUTHORIZATION);
                 } else {
-                    mOutputText.setText("The following error occurred:\n"
-                            + mLastError.getMessage());
+                    //mOutputText.setText("The following error occurred:\n"
+                    //      + mLastError.getMessage());
                 }
             } else {
-                mOutputText.setText("Request cancelled.");
+                //mOutputText.setText("Request cancelled.");
             }
         }
     }
