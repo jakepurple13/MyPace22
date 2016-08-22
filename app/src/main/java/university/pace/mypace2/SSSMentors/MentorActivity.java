@@ -79,7 +79,6 @@ public class MentorActivity extends Activity
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<MentorInfo> al;
-    RecyclerViewFastScroller fastScroller;
 
     /**
      * Create the main activity.
@@ -96,31 +95,16 @@ public class MentorActivity extends Activity
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
 
-
-        mCallApiButton = (Button) findViewById(R.id.button);
-        mCallApiButton.setText(BUTTON_TEXT);
-        mCallApiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
-                getResultsFromApi();
-                mCallApiButton.setEnabled(true);
-
-                mAdapter = new MyMentorAdapter(al, MentorActivity.this);
-                mRecyclerView.setAdapter(mAdapter);
-                fastScroller.setRecyclerView(mRecyclerView);
-
-            }
-        });
-
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Sheets API ...");
 
-        //getResultsFromApi();
-
-        Log.e("sadfasdf", "Mentor");
 
         al = new ArrayList<>();
+
+
+        /*for(int i=0;i<al.size();i++) {
+            Log.w("Row " + i, al.get(i).toString());
+        }*/
 
         Collections.sort(al, new InfoCompare());
 
@@ -139,28 +123,16 @@ public class MentorActivity extends Activity
         mRecyclerView.setAdapter(mAdapter);
 
 
-        fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller_mentor);
 
-        // adds in Alphabetical scroller
-        fastScroller.setRecyclerView(mRecyclerView);
 
-        ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
-        List<String> strAlphabets = new ArrayList<>();
-        for (int i = 0; i < al.size(); i++) {
-            String name = al.get(i).name;
-            if (name == null || name.trim().isEmpty())
-                continue;
-
-            String word = name.substring(0, 1);
-            if (!strAlphabets.contains(word)) {
-                strAlphabets.add(word);
-                mAlphabetItems.add(new AlphabetItem(i, word, false));
-            }
-        }
-
-        fastScroller.setUpAlphabet(mAlphabetItems);
 
         // adds in Alphabetical scroller end
+
+        getResultsFromApi();
+
+        /*mAdapter = new MyMentorAdapter(al, MentorActivity.this);
+        mRecyclerView.setAdapter(mAdapter);
+        fastScroller.setRecyclerView(mRecyclerView);*/
 
     }
 
@@ -208,6 +180,11 @@ public class MentorActivity extends Activity
         } else {
             new MakeRequestTask(mCredential, this).execute();
         }
+
+
+        mAdapter = new MyMentorAdapter(al, MentorActivity.this);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     /**
@@ -451,7 +428,7 @@ public class MentorActivity extends Activity
                 results.add("Name, Major");
                 for (List row : values) {
 
-                    MentorInfo ii = new MentorInfo((String) row.get(0) + row.get(1), (String) row.get(2), (String) row.get(4));
+                    MentorInfo ii = new MentorInfo((String) row.get(0) + " " + row.get(1), (String) row.get(2), (String) row.get(4));
                     ma.al.add(ii);
                     for (int i = 0; i < row.size(); i++) {
                         Log.e("Row number: " + i, (String) row.get(i));
@@ -479,6 +456,10 @@ public class MentorActivity extends Activity
                 output.add(0, "Data retrieved using the Google Sheets API:");
 
                 Log.w("onPost", TextUtils.join("\n", output));
+
+                ma.mAdapter = new MyMentorAdapter(ma.al, MentorActivity.this);
+                ma.mRecyclerView.setAdapter(ma.mAdapter);
+
             }
         }
 

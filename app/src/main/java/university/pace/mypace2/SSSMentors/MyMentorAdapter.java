@@ -7,6 +7,7 @@ package university.pace.mypace2.SSSMentors;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.viethoa.RecyclerViewFastScroller;
 
 import java.util.ArrayList;
 
+import university.pace.mypace2.Constants;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.R;
 
@@ -91,9 +93,19 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
         View.OnClickListener von = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + mDataset.get(position).number));
-                in.startActivity(intent);*/
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mDataset.get(position).email});
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                String emailText = "I need help with " + mDataset.get(position).major + ".";
+                emailIntent.putExtra(Intent.EXTRA_TEXT, emailText);
+                /**Checks to see if user has email app/ if not takes to market to download**/
+                try {
+                    in.startActivity(Intent.createChooser(emailIntent,
+                            "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Log.wtf("WTF", ex);
+                }
             }
         };
 
