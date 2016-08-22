@@ -101,7 +101,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Log.i(TAG, "Pressed Cultural events button");
                 /**Tracks**/
                 Anim(v);
-                changeScreen(CulturalEventsPdfView.class);
+                //    changeScreen(CulturalEventsPdfView.class);
                 break;
 
             case R.id.Finanbutt:

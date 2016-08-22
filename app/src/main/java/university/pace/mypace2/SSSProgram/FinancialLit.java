@@ -25,6 +25,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.io.File;
 import java.io.InputStreamReader;
 
+import university.pace.mypace2.Constants;
 import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
 
@@ -44,6 +45,10 @@ public class FinancialLit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.financial_screen);
+
+        String linkstring = Constants.SSSPAGE + "#academicservices";
+
+
 /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
@@ -54,73 +59,7 @@ public class FinancialLit extends AppCompatActivity {
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         /**Start Tracking users onCreate Screen    ***/
-        next = (Button) findViewById(R.id.next);
-        previous = (Button) findViewById(R.id.previous);
 
-        next.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                currentPage++;
-                render();
-            }
-        });
-
-        previous.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                currentPage--;
-                render();
-            }
-        });
-
-        render();
     }
-
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void render() {
-        try {
-            imageView = (ImageView) findViewById(R.id.image);
-            assert imageView != null;
-            int REQ_WIDTH = imageView.getWidth();
-            int REQ_HEIGHT = imageView.getHeight();
-
-            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_4444);
-
-            file = this.getAssets().openFd(String.valueOf(new File
-                    (String.valueOf(getResources().openRawResource(R.raw.financiallit))))).getParcelFileDescriptor();
-
-
-            /**  reads in Pdf to Render**/
-            PdfRenderer renderer = new PdfRenderer(file);
-            /**  reads in Pdf to Render**/
-            if (currentPage < 0) {
-                currentPage = 0;
-            } else if (currentPage > renderer.getPageCount()) {
-                currentPage = renderer.getPageCount() - 1;
-            }
-
-            Matrix m = imageView.getImageMatrix();
-            Rect rect = new Rect(0, 0, REQ_WIDTH, REQ_HEIGHT);
-            renderer.openPage(currentPage).render(bitmap, rect, m, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-            imageView.setImageMatrix(m);
-            imageView.setImageBitmap(bitmap);
-            imageView.invalidate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Bitmap loadBitmapFromView(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.layout(0, 0, v.getWidth(), v.getHeight());
-        v.draw(c);
-        return b;
-    }
-
 
 }

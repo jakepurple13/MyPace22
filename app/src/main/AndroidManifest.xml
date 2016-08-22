@@ -109,9 +109,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SSSProgram.CulturalEventsPdfView"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SSSProgram.FinancialLit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

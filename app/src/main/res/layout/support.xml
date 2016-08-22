@@ -21,13 +21,13 @@
 
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Academic"
             android:id="@+id/academicbutt"
             android:textColor="#FFFFFF"
             android:background="@color/PaceBlue"
-            android:textSize="37dp"
+            android:textSize="37sp"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:textStyle="bold|italic"
