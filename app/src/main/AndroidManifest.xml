@@ -118,10 +118,11 @@
             android:name=".SSSProgram.FinancialLit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Courses.CourseDisplay"
+            android:name=".Courses.Courses"
             android:label="@string/title_activity_courses"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".SSSMentors.MentorActivity"></activity>
     </application>
 

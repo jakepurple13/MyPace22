@@ -3,6 +3,7 @@ package university.pace.mypace2.Courses;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.WorkSource;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,9 +53,7 @@ public class Courses extends AppCompatActivity {
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_course);  // specify an adapter (see also next example)
-        mAdapter = new MyCoursesAdapter(courselist, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setHasFixedSize(true);
+
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -66,11 +65,18 @@ public class Courses extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        Log.d("reading", "====>");
 
-        File inputWorkbook = new File("C://Users//Mrgds//AndroidStudioProjects//MyPace22//app//src//main//ExcelFile");
-        if (inputWorkbook.exists()) {
+
+        File inputWorkbook = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/" + this.getPackageName() + "/ExcelFile/", "courses_fa16.xls");
+///storage/emulated/0/Android/data/university.pace.mypace2/ExcelFile/courses_fa16.xls:
+
+
             Workbook w;
             try {
+
+                Log.d("workbook exist", "====>");
                 w = Workbook.getWorkbook(inputWorkbook);
                 // Get the first sheet
                 Sheet sheet = w.getSheet(0);
@@ -80,19 +86,31 @@ public class Courses extends AppCompatActivity {
 
                     for (int i = 0; i < sheet.getColumns(); i++) {
                         Cell cel = sheet.getCell(i, j);
-                        //     courselist.add(cel.getContents());
+                        //   courselist.add(cel.getContents());
+
                         Course info = new Course(cell, cel, cell, cel, cell, cel, cell);
+                        Log.d("course info=>", info.toString());
                         courselist.add(info);
+
 
                     }
                 }
+                mAdapter = new MyCoursesAdapter(courselist, this);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setHasFixedSize(true);
+
+
                 Log.d("courselist", courselist.toString());
 
 
             } catch (BiffException e) {
                 e.printStackTrace();
+                Log.d("Bliff=>", e.toString());
+
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.d("Except=>", e.toString());
+
             }
 
             ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
@@ -110,7 +128,7 @@ public class Courses extends AppCompatActivity {
             }
 
             fastScroller.setUpAlphabet(mAlphabetItems);
-        }
+
         /**  else
          {
          courselist.add("File not found..!");

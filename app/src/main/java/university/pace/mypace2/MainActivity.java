@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /**reads in from .xl file  8/10/16**/
             case R.id.courses:
                 Fade(v);
-                changeScreen(CourseDisplay.class);
+                changeScreen(Courses.class);
                 /**Tracks**/
                 Tracks("Pressed Courses button", "Viewing Courses content");
                 Log.i(TAG, "Pressed Courses button");

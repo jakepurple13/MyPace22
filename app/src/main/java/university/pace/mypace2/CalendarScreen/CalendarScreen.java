@@ -552,7 +552,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
                         com.github.sundeepk.compactcalendarview.domain.Event e =
                                 new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
-                        compactCalendarView.addEvent(e);
+                        compactCalendarView.addEvent(e); //TODO: deprecated method error on 554
                     } catch (NullPointerException e) {
                         //dt = 123123;
                     }

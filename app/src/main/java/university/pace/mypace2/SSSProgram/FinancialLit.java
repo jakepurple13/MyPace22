@@ -33,20 +33,23 @@ import university.pace.mypace2.R;
  * Created by Mrgds on 8/18/2016.
  */
 public class FinancialLit extends AppCompatActivity {
-    private ImageView imageView;
+
     private int currentPage = 0;
-    private Button next, previous;
     private Tracker mTracker;
     private final String TAG = "FinancialLit";
     private String Screentracker = "Financial Literacy Screen";
     private ParcelFileDescriptor file;
-
+    String link = Constants.SSSPAGE + "#academicservices";
+    String webvA = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.financial_screen);
 
-        String linkstring = Constants.SSSPAGE + "#academicservices";
+        Intent i = new Intent(this, SSWebView.class);
+        i.putExtra("#academicservices", webvA);
+        startActivity(i);
+
 
 
 /**Start Tracking users onCreate Screen***/
