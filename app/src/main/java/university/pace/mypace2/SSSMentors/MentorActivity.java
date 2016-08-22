@@ -130,10 +130,10 @@ public class MentorActivity extends Activity
 
         setContentView(activityLayout);*/
 
-        mCallApiButton.setEnabled(false);
-        mOutputText.setText("");
+        //mCallApiButton.setEnabled(false);
+        //mOutputText.setText("");
         getResultsFromApi();
-        mCallApiButton.setEnabled(true);
+        //mCallApiButton.setEnabled(true);
 
 
         // Initialize credentials and service object.
