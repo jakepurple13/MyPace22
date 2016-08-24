@@ -1,249 +1,492 @@
 package university.pace.mypace2.Courses;
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
+/**
+ * Created by Mrgds on 8/19/2016.
+ */
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.ExponentialBackOff;
+
+import com.google.api.services.sheets.v4.SheetsScopes;
+
+import com.google.api.services.sheets.v4.model.*;
+
+import android.Manifest;
+import android.accounts.AccountManager;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.WorkSource;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.services.calendar.model.Event;
-import com.google.common.collect.Table;
-import com.viethoa.RecyclerViewFastScroller;
-import com.viethoa.models.AlphabetItem;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import university.pace.mypace2.R;
 
-public class Courses extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerViewFastScroller fastScroller;
+public class Courses extends Activity
+        implements EasyPermissions.PermissionCallbacks {
+    GoogleAccountCredential mCredential;
+    private TextView mOutputText;
+    private Button mCallApiButton;
+    ProgressDialog mProgress;
 
+    static final int REQUEST_ACCOUNT_PICKER = 1000;
+    static final int REQUEST_AUTHORIZATION = 1001;
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+
+    private static final String BUTTON_TEXT = "Displaying Courses...";
+    private static final String PREF_ACCOUNT_NAME = "accountName";
+    private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
+    ArrayList<Course> List;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager lm;
+    private RecyclerView.Adapter adapt;
+    /**
+     * Create the main activity.
+     *
+     * @param savedInstanceState previously saved instance data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.view_courses);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
 
-        ArrayList<Course> courselist = new ArrayList<>();
+        // Initialize credentials and service object.
+        mCredential = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(), Arrays.asList(SCOPES))
+                .setBackOff(new ExponentialBackOff());
 
+        List = new ArrayList<>();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_course);  // specify an adapter (see also next example)
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_course);
+        recyclerView.setHasFixedSize(true);
+        lm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(lm);
+        adapt = new MyCoursesAdapter(List, this);
+        recyclerView.setAdapter(adapt);
 
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        //instantiate  List
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Displaying Courses...");
+        // specify an adapter  where you are storing info
 
-
-        fastScroller = (RecyclerViewFastScroller) findViewById(R.id.fast_scroller_courses);
-        fastScroller.setRecyclerView(mRecyclerView);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        Log.d("reading", "====>");
-
-
-        File inputWorkbook = new File(Environment.getExternalStorageDirectory()
-                + "/Android/data/" + this.getPackageName() + "/ExcelFile/", "courses_fa16.xls");
-///storage/emulated/0/Android/data/university.pace.mypace2/ExcelFile/courses_fa16.xls:
-
-
-            Workbook w;
-            try {
-
-                Log.d("workbook exist", "====>");
-                w = Workbook.getWorkbook(inputWorkbook);
-                // Get the first sheet
-                Sheet sheet = w.getSheet(0);
-                // Loop over column and lines
-                for (int j = 0; j < sheet.getRows(); j++) {
-                    Cell cell = sheet.getCell(0, j);
-
-                    for (int i = 0; i < sheet.getColumns(); i++) {
-                        Cell cel = sheet.getCell(i, j);
-                        //   courselist.add(cel.getContents());
-
-                        Course info = new Course(cell, cel, cell, cel, cell, cel, cell);
-                        Log.d("course info=>", info.toString());
-                        courselist.add(info);
-
-
-                    }
-                }
-                mAdapter = new MyCoursesAdapter(courselist, this);
-                mRecyclerView.setAdapter(mAdapter);
-                mRecyclerView.setHasFixedSize(true);
-
-
-                Log.d("courselist", courselist.toString());
-
-
-            } catch (BiffException e) {
-                e.printStackTrace();
-                Log.d("Bliff=>", e.toString());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("Except=>", e.toString());
-
-            }
-
-            ArrayList<AlphabetItem> mAlphabetItems = new ArrayList<>();
-            List<String> strAlphabets = new ArrayList<>();
-            for (int i = 0; i < courselist.size(); i++) {
-                String name = courselist.get(i).subject_code; //.name
-                if (name == null || name.trim().isEmpty())
-                    continue;
-
-                String word = name.substring(0, 1);
-                if (!strAlphabets.contains(word)) {
-                    strAlphabets.add(word);
-                    mAlphabetItems.add(new AlphabetItem(i, word, false));
-                }
-            }
-
-            fastScroller.setUpAlphabet(mAlphabetItems);
-
-        /**  else
-         {
-         courselist.add("File not found..!");
-         }
-         if(courselist.size()==0){
-         courselist.add("Data not found..!");
-         }
-         **/
-
-        /**  fab.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        .setAction("Action", null).show();
-        }
-        });
-         **/
-
-        /**     List<String> courselist = new ArrayList<String>(); //course list
-
-        AssetManager am = getAssets();
-        InputStream is = null;
-
-        try {
-         is = am.open("C://Users//Mrgds//AndroidStudioProjects//MyPace22//app//src//main//ExcelFile");
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
-        try {
-            Workbook wb = Workbook.getWorkbook(is);
-            // Get the first sheet
-            // read in rows and colums
-            Sheet sheet = wb.getSheet(0);
-            int row = sheet.getRows();
-            int col = sheet.getColumns();
-            // Loop over column and lines
-            String data = "";
-
-            for (int i = 0; i < row; i++) {
-                for (int c = 0; c < col; col++) {
-                    Cell cursor = sheet.getCell(c, i);
-                    data = cursor.getContents();
-
-                }
-                courselist.add(data);
-
-            }
-        } catch (BiffException e) {
-            e.printStackTrace();
-            Log.d("Error", "Bliff");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("Error", "While reading" + e);
-        }
-         **/
+        getResultsFromApi();
 
 
     }
 
 
+    /**
+     * Attempt to call the API, after verifying that all the preconditions are
+     * satisfied. The preconditions are: Google Play Services installed, an
+     * account was selected and the device currently has online access. If any
+     * of the preconditions are not satisfied, the app will prompt the user as
+     * appropriate.
+     */
+    private void getResultsFromApi() {
+        if (!isGooglePlayServicesAvailable()) {
+            acquireGooglePlayServices();
+        } else if (mCredential.getSelectedAccountName() == null) {
+            chooseAccount();
+        } else if (!isDeviceOnline()) {
+            //    mOutputText.setText("No network connection available.");
+            Toast.makeText(this, "No network connection available.", Toast.LENGTH_LONG).show();
+        } else {
+            new MakeRequestTask(mCredential, this).execute();
+        }
+    }
 
+    /**
+     * Attempts to set the account used with the API credentials. If an account
+     * name was previously saved it will use that one; otherwise an account
+     * picker dialog will be shown to the user. Note that the setting the
+     * account to use with the credentials object requires the app to have the
+     * GET_ACCOUNTS permission, which is requested here if it is not already
+     * present. The AfterPermissionGranted annotation indicates that this
+     * function will be rerun automatically whenever the GET_ACCOUNTS permission
+     * is granted.
+     */
+    @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
+    private void chooseAccount() {
+        if (EasyPermissions.hasPermissions(
+                this, Manifest.permission.GET_ACCOUNTS)) {
+            String accountName = getPreferences(Context.MODE_PRIVATE)
+                    .getString(PREF_ACCOUNT_NAME, null);
+            if (accountName != null) {
+                mCredential.setSelectedAccountName(accountName);
+                getResultsFromApi();
+            } else {
+                // Start a dialog from which the user can choose an account
+                startActivityForResult(
+                        mCredential.newChooseAccountIntent(),
+                        REQUEST_ACCOUNT_PICKER);
+            }
+        } else {
+            // Request the GET_ACCOUNTS permission via a user dialog
+            EasyPermissions.requestPermissions(
+                    this,
+                    "This app needs to access your Google account (via Contacts).",
+                    REQUEST_PERMISSION_GET_ACCOUNTS,
+                    Manifest.permission.GET_ACCOUNTS);
+        }
+    }
 
+    /**
+     * Called when an activity launched here (specifically, AccountPicker
+     * and authorization) exits, giving you the requestCode you started it with,
+     * the resultCode it returned, and any additional data from it.
+     *
+     * @param requestCode code indicating which activity result is incoming.
+     * @param resultCode  code indicating the result of the incoming
+     *                    activity result.
+     * @param data        Intent (containing result data) returned by incoming
+     *                    activity result.
+     */
+    @Override
+    protected void onActivityResult(
+            int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_GOOGLE_PLAY_SERVICES:
+                if (resultCode != RESULT_OK) {
+                    //      mOutputText.setText(
+                    //     "This app requires Google Play Services. Please install " +
+                    //   "Google Play Services on your device and relaunch this app.");
+                } else {
+                    getResultsFromApi();
+                }
+                break;
+            case REQUEST_ACCOUNT_PICKER:
+                if (resultCode == RESULT_OK && data != null &&
+                        data.getExtras() != null) {
+                    String accountName =
+                            data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                    if (accountName != null) {
+                        SharedPreferences settings =
+                                getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString(PREF_ACCOUNT_NAME, accountName);
+                        editor.apply();
+                        mCredential.setSelectedAccountName(accountName);
+                        getResultsFromApi();
+                    }
+                }
+                break;
+            case REQUEST_AUTHORIZATION:
+                if (resultCode == RESULT_OK) {
+                    getResultsFromApi();
+                }
+                break;
+        }
+    }
+
+    /**
+     * Respond to requests for permissions at runtime for API 23 and above.
+     *
+     * @param requestCode  The request code passed in
+     *                     requestPermissions(android.app.Activity, String, int, String[])
+     * @param permissions  The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *                     which is either PERMISSION_GRANTED or PERMISSION_DENIED. Never null.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
+    }
+
+    /**
+     * Callback for when a permission is granted using the EasyPermissions
+     * library.
+     *
+     * @param requestCode The request code associated with the requested
+     *                    permission
+     * @param list        The requested permission list. Never null.
+     */
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+        // Do nothing.
+    }
+
+    /**
+     * Callback for when a permission is denied using the EasyPermissions
+     * library.
+     *
+     * @param requestCode The request code associated with the requested
+     *                    permission
+     * @param list        The requested permission list. Never null.
+     */
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
+        // Do nothing.
+    }
+
+    /**
+     * Checks whether the device currently has a network connection.
+     *
+     * @return true if the device has a network connection, false otherwise.
+     */
+    private boolean isDeviceOnline() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+    /***
+     * course Class
+     **/
 
     public class Course {
         String campus_description;
         String course_number;
-        String course_level;
         String subject_code;
-        String subject_description;
-        String term_desc;
+        //  String subject_description;
+
         String title;
 
-        public Course(Cell campus_description,
-                      Cell course_number, Cell course_level, Cell subject_code, Cell subject_description, Cell term_desc,
-                      Cell title) {
-            this.campus_description = campus_description.toString();
-            this.course_number = course_number.toString();
-            this.course_level = course_level.toString();
-            this.subject_code = subject_code.toString();
-            this.subject_description = subject_description.toString();
-            this.term_desc = term_desc.toString();
-            this.title = title.toString();
+        /**
+         * Course info class
+         */
+
+        public Course(String campus_description,
+                      String course_number, String subject_code,
+                      String title) {
+            this.campus_description = campus_description;
+            this.course_number = course_number;
+            this.subject_code = subject_code;
+            //  this.subject_description = subject_description;
+
+            this.title = title;
+        }
+
+
+        /**
+         * return display format for textview in adapter
+         **/
+        @Override
+        public String toString() {
+            return "Subject:" + subject_code + "\nCourse Number:" + course_number + "\nCampus: " + campus_description
+                    + "\nCourse title:" + title;
+        }
+
+
+        /**
+         * return Alphabectical order
+         **/
+        public class InfoCompare implements Comparator<Course> {
+            public int compare(Course data1, Course data2) {
+                return data1.subject_code.compareTo(data2.subject_code);
+            }
+        }
+
+    }
+    /***course Class**/
+
+    /**
+     * Check that Google Play services APK is installed and up to date.
+     *
+     * @return true if Google Play Services is available and up to
+     * date on this device; false otherwise.
+     */
+    private boolean isGooglePlayServicesAvailable() {
+        GoogleApiAvailability apiAvailability =
+                GoogleApiAvailability.getInstance();
+        final int connectionStatusCode =
+                apiAvailability.isGooglePlayServicesAvailable(this);
+        return connectionStatusCode == ConnectionResult.SUCCESS;
+    }
+
+    /**
+     * Attempt to resolve a missing, out-of-date, invalid or disabled Google
+     * Play Services installation via a user dialog, if possible.
+     */
+    private void acquireGooglePlayServices() {
+        GoogleApiAvailability apiAvailability =
+                GoogleApiAvailability.getInstance();
+        final int connectionStatusCode =
+                apiAvailability.isGooglePlayServicesAvailable(this);
+        if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
+            showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
+        }
+    }
+
+
+    /**
+     * Display an error dialog showing that Google Play Services is missing
+     * or out of date.
+     *
+     * @param connectionStatusCode code describing the presence (or lack of)
+     *                             Google Play Services on this device.
+     */
+    void showGooglePlayServicesAvailabilityErrorDialog(
+            final int connectionStatusCode) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        Dialog dialog = apiAvailability.getErrorDialog(
+                this,
+                connectionStatusCode,
+                REQUEST_GOOGLE_PLAY_SERVICES);
+        dialog.show();
+    }
+
+    /**
+     * An asynchronous task that handles the Google Sheets API call.
+     * Placing the API calls in their own task ensures the UI stays responsive.
+     */
+    private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
+        private com.google.api.services.sheets.v4.Sheets mService = null;
+        private Exception mLastError = null;
+        Courses Clist;
+
+        public MakeRequestTask(GoogleAccountCredential credential, Courses list) {
+            this.Clist = list;
+
+            HttpTransport transport = AndroidHttp.newCompatibleTransport();
+            JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+            mService = new com.google.api.services.sheets.v4.Sheets.Builder(
+                    transport, jsonFactory, credential)
+                    .setApplicationName("SSS Freshman App")
+                    .build();
+        }
+
+        /**
+         * Background task to call Google Sheets API.
+         *
+         * @param params no parameters needed for this task.
+         */
+        @Override
+        protected List<String> doInBackground(Void... params) {
+            try {
+                return getDataFromApi();
+            } catch (Exception e) {
+                mLastError = e;
+                cancel(true);
+                return null;
+            }
+        }
+
+        /**
+         * Fetch a list of names and majors of students in a sample spreadsheet:
+         * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+         *
+         * @return List of names and majors
+         * @throws IOException
+         */
+        private List<String> getDataFromApi() throws IOException {
+
+            String spreadsheetId = "1mtFnkamBkyWKZZRO4AXdz9azL5TkRjCyHuOknvDkJMI";
+            String range = "Courses!A2:E";
+            List<String> results = new ArrayList<String>();
+            ValueRange response = this.mService.spreadsheets().values()
+                    .get(spreadsheetId, range)
+                    .execute();
+            List<List<Object>> values = response.getValues();
+            if (values != null) {
+                results.add("Name, Major");
+                for (List row : values) {
+
+                    /**read from the Sheet gets specified info to constructor**/
+
+
+                    Course info = new Course((String) row.get(0), (String) row.get(1), (String) row.get(3), (String) row.get(2));
+                    Clist.List.add(info);
+                    //    results.add(row.get(0) + ", " + row.get(4));
+                    for (int i = 0; i < row.size(); i++) {
+                        Log.e("Row number: " + i, (String) row.get(i));
+                    }
+                    Log.e("429", info.toString());
+                    // results.add(row.get(0) + ", " + row.get(4));
+                    /**read from the Sheet **/
+                }
+            }
+            return results;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+//            mOutputText.setText("");
+            mProgress.show();
+            Log.w("onPreExecute", "Loading=>");
         }
 
         @Override
-        public String toString() {
-            return campus_description + "\nCourse Number:" + course_number
-                    + "\nSubject:" + subject_code + "\nDes:" + subject_description + "\nTerm:" + term_desc + "\nCourse title:" + title;
+        protected void onPostExecute(List<String> output) {
+            mProgress.hide();
+            if (output == null || output.size() == 0) {
+                Log.w("NoResults", "==>");
+            } else if (output.size() == 6) {
+                Log.w("==>", "Invalid index 6size is 5");
+            } else {
+                output.add(0, "Data retrieved using the Google Sheets API:");
+                //     mOutputText.setText(TextUtils.join("\n", output));
+                //TODO:ask
+                Log.w("onPost=>", TextUtils.join("\n", output));
+
+                Clist.adapt = new MyCoursesAdapter(Clist.List, Courses.this);
+                Clist.recyclerView.setAdapter(Clist.adapt);
+
+            }
         }
 
-
+        @Override
+        protected void onCancelled() {
+            mProgress.hide();
+            if (mLastError != null) {
+                if (mLastError instanceof GooglePlayServicesAvailabilityIOException) {
+                    showGooglePlayServicesAvailabilityErrorDialog(
+                            ((GooglePlayServicesAvailabilityIOException) mLastError)
+                                    .getConnectionStatusCode());
+                } else if (mLastError instanceof UserRecoverableAuthIOException) {
+                    startActivityForResult(
+                            ((UserRecoverableAuthIOException) mLastError).getIntent(),
+                            Courses.REQUEST_AUTHORIZATION);
+                } else {
+                    Log.w("onCancelled", "The following error occurred:\n" + mLastError.getMessage());
+                }
+            } else {
+                Log.w("onCancelled", "==>");
+            }
+        }
     }
 }
-/**
- * public class InfoCompare implements Comparator<Course> {
- * public int compare(Course e1, Course e2) {
- * return e1.subject_code.compareTo(e2.subject_code);
- * }
- * } }
- **/
-
-
-// adds in Alphabetical scroller
-
-
-// adds in Alphabetical scroller end
-
-
-
-
-
-
-
-
-
-
-
-

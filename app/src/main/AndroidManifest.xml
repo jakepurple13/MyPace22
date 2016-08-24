@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="university.pace.mypace2">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,7 +18,7 @@
     <application
         android:name=".GoogleAnalytics.AnalyticsApplication"
         android:allowBackup="true"
-        android:icon="@drawable/sss_icon_idea"
+        android:icon="@drawable/main_icon_sss"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -40,7 +41,8 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ
+          TODO:AIzaSyD5umksFDRfA_IQrjFziyVWrF-A0JLKrLA Your Sheets API Key
+            You can define the keys for the debug and release targets in src/debug/ and src/release/.AIzaSyA8qx5DD-EOlrL0iRZqguIc2XuYN5kgvYQ
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -50,7 +52,7 @@
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
         <meta-data
             android:name="com.google.android.sheets.v4.API_KEY"
-            android:value="AIzaSyD5umksFDRfA_IQrjFziyVWrF-A0JLKrLA" />
+            android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -93,11 +95,7 @@
         </activity>
         >
         <activity android:name=".TestingPackage.CardTest" />
-        <activity
-            android:name=".TutoringCenter.Tutoring"
-            android:label="@string/title_activity_tutoring"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SSSProgram.SSSprogram"
             android:label="SSS Support"
@@ -109,11 +107,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SSSProgram.SSWebView" />
-        <activity
-            android:name=".SSSMentors.Mentors"
-            android:label="Mentors"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SSSProgram.FinancialLit"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -31,21 +30,17 @@ import java.util.Date;
 
 
 import university.pace.mypace2.CalendarScreen.CalendarScreen;
-import university.pace.mypace2.Courses.CourseDisplay;
 import university.pace.mypace2.Courses.Courses;
 import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.SSSMentors.MentorActivity;
-import university.pace.mypace2.SSSMentors.Mentors;
 import university.pace.mypace2.SSSProgram.SSSprogram;
 import university.pace.mypace2.TestingPackage.CardTest;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.testfairy.TestFairy;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -306,14 +301,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Fade(v);
                 changeScreen(CardTest.class);
                 /**Tracks**/
-                Tracks("Pressed Tutoring button", "Viewing Tutoring");
-                Log.i(TAG, "Pressed Tutoring button");
+                Tracks("Pressed MyTutorAdapter button", "Viewing MyTutorAdapter");
+                Log.i(TAG, "Pressed MyTutorAdapter button");
                 /**Tracks**/
                 break;
 
             case R.id.pacemail:
                 Fade(v);
-                TakeUserToMarket(this, "ccom.microsoft.office.outlook");
+                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
                 /**Tracks**/
                 Tracks("Pressed E-mail button", "Viewing E-mail");
                 Log.i(TAG, "Pressed E-mail button");
@@ -352,10 +347,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.courses:
                 Fade(v);
                 changeScreen(Courses.class);
+
                 /**Tracks**/
                 Tracks("Pressed Courses button", "Viewing Courses content");
                 Log.i(TAG, "Pressed Courses button");
                 /**Tracks**/
+
                 break;
 
 

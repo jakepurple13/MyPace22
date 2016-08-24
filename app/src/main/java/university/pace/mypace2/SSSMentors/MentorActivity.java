@@ -19,8 +19,6 @@ import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import com.google.api.services.sheets.v4.model.*;
-import com.viethoa.RecyclerViewFastScroller;
-import com.viethoa.models.AlphabetItem;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -38,17 +36,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,7 +63,7 @@ public class MentorActivity extends Activity
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
-    private static final String BUTTON_TEXT = "Call Google Sheets API";
+    private static final String BUTTON_TEXT = "Displaying Mentors...";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
@@ -96,7 +88,7 @@ public class MentorActivity extends Activity
                 .setBackOff(new ExponentialBackOff());
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Calling Google Sheets API ...");
+        mProgress.setMessage("Displaying Mentors...");
 
 
         al = new ArrayList<>();
@@ -177,6 +169,7 @@ public class MentorActivity extends Activity
             chooseAccount();
         } else if (!isDeviceOnline()) {
             //mOutputText.setText("No network connection available.");
+
         } else {
             new MakeRequestTask(mCredential, this).execute();
         }
@@ -474,7 +467,7 @@ public class MentorActivity extends Activity
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            Mentors.REQUEST_AUTHORIZATION);
+                            MentorActivity.REQUEST_AUTHORIZATION);
                 } else {
                     Log.w("onCancelled", "The following error occurred:\n" + mLastError.getMessage());
                 }

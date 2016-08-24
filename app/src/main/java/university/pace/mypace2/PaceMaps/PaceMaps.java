@@ -61,7 +61,7 @@ import university.pace.mypace2.MainActivity;
 import university.pace.mypace2.PaceMaps.Buildings;
 import university.pace.mypace2.R;
 
-//TODO:ADD MORE PLACES tutoring center for both campuses and get enter search working
+//TODO:
 public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final int REQUEST_LOCATION = 1;
@@ -857,7 +857,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Bookstore)
                 .title("Barns & Noble BookStore").snippet("•Purchase books,apparel and more").icon(BitmapDescriptorFactory.fromResource(R.drawable.pace_library_kid)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Tutoring)
-                .title("Tutoring Center/First Year Experience/Advising Center for Exploring Majors")
+                .title("MyTutorAdapter Center/First Year Experience/Advising Center for Exploring Majors")
                 .snippet("•Student/Professional tutors and more available- 2nd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.tutormkr)));
         mMap.addMarker(new MarkerOptions().position(PaceUniNYC_Health)
                 .title("Health Center").snippet("•Nurse available-Rm 313 3rd Fl").icon(BitmapDescriptorFactory.fromResource(R.drawable.healthmkr)));

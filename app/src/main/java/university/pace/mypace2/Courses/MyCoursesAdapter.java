@@ -1,105 +1,101 @@
 package university.pace.mypace2.Courses;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.viethoa.RecyclerViewFastScroller;
 
 import java.util.ArrayList;
 
-import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
+import university.pace.mypace2.Constants;
 import university.pace.mypace2.R;
 
-/**
- * Created by Mrgds on 8/10/2016.
- */
-public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.ViewHolder> implements RecyclerViewFastScroller.BubbleTextGetter {
+
+public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.ViewHolder> {
+
     private ArrayList<Courses.Course> mDataset;
-    Courses pacecourse;
-    Courses.Course course;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item pacecourse a view holder
+    Courses incoming;
+
+
+    /**
+     * Adapter constructer
+     **/
+    public MyCoursesAdapter(ArrayList<Courses.Course> data, Courses info) {
+        mDataset = data;
+        this.incoming = info;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a strpacecourseg in this case
-        public TextView mTextView;
-        public ImageView iv;
+        TextView textView;
 
-
-        public ViewHolder(View v) {
-            super(v);
-            mTextView = (TextView) v.findViewById(R.id.textView);
-            iv = (ImageView) v.findViewById(R.id.callArrow);
+        /**
+         * constructor for View holder
+         **/
+        public ViewHolder(View V) {
+            super(V);
+            textView = (TextView) V.findViewById(R.id.textView);
 
 
         }
     }
-
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyCoursesAdapter(ArrayList<Courses.Course> myDataset, Courses pacecourse) {
-        mDataset = myDataset;
-        this.pacecourse = pacecourse;
-    }
-
     // Create new views (invoked by the layout manager)
+
     @Override
-    public MyCoursesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                          int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
+    public MyCoursesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {   // Provide a reference to the views for each data item
+        // Complex data items may need more than one view per item, and
+        // you provide access to all the views for a data item in a view holder
+
+
+        // create a new view Inflates the view where info is going to be stored
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.courses_textview, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        //create a new viewholder
+        ViewHolder viewHolder = new ViewHolder(view);
+
+        return viewHolder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).toString());
 
-        View.OnClickListener von = new View.OnClickListener() {
+        /**Action can be set to the bubble that the user's press**/
+        holder.textView.setText(mDataset.get(position).toString());
+
+//Now what happens in the buddle view
+        //set an Action
+        View.OnClickListener action = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //something
 
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOHNEMAIL}); //TODO:Default to john
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                String emailText = "I would like to take " + mDataset.get(position).title + "." + "\n" + "CRN: " + mDataset.get(position).course_number;
+                emailIntent.putExtra(Intent.EXTRA_TEXT, emailText);
+                /**Checks to see if user has email app/ if not takes to market to download**/
+                try {
+                    incoming.startActivity(Intent.createChooser(emailIntent,
+                            "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Log.wtf("WTF", ex);
+                }
             }
         };
-
-        holder.mTextView.setOnClickListener(von);
-        holder.iv.setOnClickListener(von);
-
-
+        //set on click for action to happen
+        holder.textView.setOnClickListener(action);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
 
-
-    @Override
-    public String getTextToShowInBubble(int pos) {
-        if (pos < 0 || pos >= mDataset.size())
-            return null;
-
-        String name = mDataset.get(pos).subject_code;
-        if (name == null || name.length() < 1)
-            return null;
-
-        return mDataset.get(pos).subject_code.substring(0, 1);
-    }
 
 }

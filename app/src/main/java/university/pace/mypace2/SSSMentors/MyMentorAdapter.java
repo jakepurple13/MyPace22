@@ -76,7 +76,7 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
                                                          int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.mytextview, parent, false);
+                .inflate(R.layout.mentors_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
@@ -97,7 +97,7 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mDataset.get(position).email});
                 emailIntent.setType("message/rfc822");
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                String emailText = "I need help with " + mDataset.get(position).major + ".";
+                String emailText = "Hello " + mDataset.get(position).name + " ,";
                 emailIntent.putExtra(Intent.EXTRA_TEXT, emailText);
                 /**Checks to see if user has email app/ if not takes to market to download**/
                 try {
