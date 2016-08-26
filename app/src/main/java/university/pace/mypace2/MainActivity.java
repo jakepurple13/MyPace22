@@ -79,12 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /***Important Numbers****/
         phoneButton = (ImageButton) findViewById(R.id.numbers);
 
-        phoneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeScreen(ImportantNumbers.class);
-            }
-        });
+
 
         phoneButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -180,16 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        ImageButton MentorButton = (ImageButton) findViewById(R.id.mentorButton);
-
-        MentorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeScreen(MentorActivity.class);
-            }
-        });
-
-
     }
 
 
@@ -279,40 +264,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.campusmap:
-                Fade(v);
-                changeScreen(PaceMaps.class);
                 /**Tracks**/
                 Tracks("Pressed Maps button", "Viewing Maps");
                 Log.i(TAG, "Pressed Map button");
                 /**Tracks**/
+                changeScreen(PaceMaps.class, v);
+
 
                 break;
 
             case R.id.calBut:
-                Fade(v);
-                changeScreen(CalendarScreen.class);
                 /**Tracks**/
                 Tracks("Pressed Calendar button", "Viewing Calendar");
                 Log.i(TAG, "Pressed Calendar button");
                 /**Tracks**/
+                changeScreen(CalendarScreen.class, v);
+
+                break;
+
+            case R.id.numbers:
+
+                /**Tracks**/
+                Tracks("Pressed Important numbers button", "Viewing numbers");
+                /**Tracks**/
+                changeScreen(ImportantNumbers.class, v);
+
+
                 break;
 
             case R.id.tutoringbutt:
-                Fade(v);
-                changeScreen(CardTest.class);
                 /**Tracks**/
-                Tracks("Pressed MyTutorAdapter button", "Viewing MyTutorAdapter");
-                Log.i(TAG, "Pressed MyTutorAdapter button");
+                Tracks("Pressed Tutor button", "Viewing Tutors");
+                Log.i(TAG, "Pressed Tutors button");
                 /**Tracks**/
+                // changeScreen(Tutors.class,v);
                 break;
 
             case R.id.pacemail:
-                Fade(v);
-                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
                 /**Tracks**/
                 Tracks("Pressed E-mail button", "Viewing E-mail");
                 Log.i(TAG, "Pressed E-mail button");
                 /**Tracks**/
+                Fade(v);
+                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
+
                 break;
             case R.id.blackboard:
 
@@ -331,29 +326,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 /**Tracks**/
                 Tracks("Pressed SSS button", "Viewing SSS content");
                 /**Tracks**/
-                Fade(v);
-                changeScreen(SSSprogram.class);
+                changeScreen(SSSprogram.class, v);
 
-
-                break;
-
-            case R.id.test:
-                Fade(v);
-                askaboutapp();
 
                 break;
 
             /**reads in from .xl file  8/10/16**/
             case R.id.courses:
-                Fade(v);
-                changeScreen(Courses.class);
-
                 /**Tracks**/
                 Tracks("Pressed Courses button", "Viewing Courses content");
                 Log.i(TAG, "Pressed Courses button");
                 /**Tracks**/
+                changeScreen(Courses.class, v);
+
+
 
                 break;
+
+            case R.id.mentorButton:
+                /**Tracks**/
+                Tracks("Pressed Mentor button", "Viewing Mentors");
+                Log.i(TAG, "Pressed Mentors button");
+                /**Tracks**/
+                changeScreen(MentorActivity.class, v);
+
+
+                break;
+
 
 
             default:
@@ -415,7 +414,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         context.startActivity(intent);
     }
 
-    public void changeScreen(Class cl) {
+    public void changeScreen(Class cl, View v) {
+        Fade(v);
         Intent intent = new Intent(this, cl);
         startActivity(intent);
         //this.finish();
