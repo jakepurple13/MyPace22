@@ -109,9 +109,6 @@
         <activity android:name=".SSSProgram.SSWebView" />
 
         <activity
-            android:name=".SSSProgram.FinancialLit"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Courses.Courses"
             android:label="@string/title_activity_courses"
             android:screenOrientation="portrait"

@@ -11,34 +11,19 @@ import university.pace.mypace2.R;
 
 public class SSWebView extends AppCompatActivity {
     String newString;
+    String linkstring = Constants.SSSPAGE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ssweb_view);
-        String linkstring = Constants.SSSPAGE;
-        webviewUser(linkstring);
 
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                newString = null;
-            } else {
-                newString = extras.getString("#academicservices");
-            }
-        } else {
-            newString = (String) savedInstanceState.getSerializable("#academicservices");
-        }
-    }
-
-    public void webviewUser(String LinkTo) {
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
         WebView viewfrag = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = viewfrag.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        viewfrag.loadUrl(LinkTo + newString);
-
+        viewfrag.loadUrl(linkstring + b.get("tag"));
     }
-
 
 
 }

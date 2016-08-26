@@ -1,12 +1,18 @@
 package university.pace.mypace2.Courses;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -69,6 +75,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.View
 
 //Now what happens in the buddle view
         //set an Action
+
         View.OnClickListener action = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +89,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.View
                 /**Checks to see if user has email app/ if not takes to market to download**/
                 try {
                     incoming.startActivity(Intent.createChooser(emailIntent,
-                            "Send email using..."));
+                            "Send Course to Jonathon Hooker..."));
                 } catch (android.content.ActivityNotFoundException ex) {
                     Log.wtf("WTF", ex);
                 }

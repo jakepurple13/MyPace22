@@ -29,17 +29,21 @@ import university.pace.mypace2.R;
  */
 public class SSSprogram extends AppCompatActivity implements View.OnClickListener {
     MainActivity market;
-    Button academic;
+    Button academic, cultural, financial;
     FloatingActionButton fab2, fab4;
     ImageButton JohnContact, JoyceContact;
     private Tracker mTracker;
     private final String TAG = "SSSprogram";
     private String Screentracker = "SSS Screen";
+    String newString;
+    SSWebView wv;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support);
 
+
+        wv = new SSWebView();
 /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
@@ -67,7 +71,8 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
         market = new MainActivity();
         academic = (Button) findViewById(R.id.academicbutt);
-
+        cultural = (Button) findViewById(R.id.culturalbutt);
+        financial = (Button) findViewById(R.id.Finanbutt);
 
         /**email john button****/
         JohnContact = (ImageButton) findViewById(R.id.john_email);
@@ -79,8 +84,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
         /**email joyce button****/
 
-
-
     }
 
     @Override
@@ -91,8 +94,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Academic services content", "Pressed Academic services button");
                 Log.i(TAG, "Pressed Academic services button");
                 /**Tracks**/
-                Anim(v);
-                changeScreen(SSWebView.class);
+                PutExtra("#academicservices", v);
                 break;
 
             case R.id.culturalbutt:
@@ -100,8 +102,8 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Cultural events content", "Pressed Cultural events button");
                 Log.i(TAG, "Pressed Cultural events button");
                 /**Tracks**/
-                Anim(v);
-                //    changeScreen(CulturalEventsPdfView.class);
+                PutExtra("#socialandculturalevents", v);
+
                 break;
 
             case R.id.Finanbutt:
@@ -109,9 +111,9 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Financial content", "Pressed Financial events button");
                 /**Tracks**/
                 Log.i(TAG, "Pressed Financial events button");
+                PutExtra("#financialeducationcounseling", v);
 
-                Anim(v);
-                changeScreen(FinancialLit.class);
+
                 break;
 
             case R.id.john_email:
@@ -171,17 +173,14 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
     }
 
-
-    private void inflatewebview() {
-        SupportFragment frag = new SupportFragment();
-        FragmentManager manager = getFragmentManager();
-        //swap the fragment
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.add(R.id.supportpace, frag, "Pace SSS WebPage");
-        transaction.commit();
-        Toast.makeText(this, getResources().getText(R.string.On_More_Academic_Pressed), Toast.LENGTH_SHORT).show();
+    public void PutExtra(String put, View v) {
+        Intent ii = new Intent(this, SSWebView.class);
+        ii.putExtra("tag", put);
+        Anim(v);
+        startActivity(ii);
     }
+
+
 
 
     public void Anim(View button) {

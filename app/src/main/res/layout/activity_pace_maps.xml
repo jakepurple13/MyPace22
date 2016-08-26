@@ -45,12 +45,15 @@
             android:textOn=""
             android:textOff="" />
 
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
         <ToggleButton
             style="@android:style/Widget.Button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:id="@+id/satellite"
-            android:layout_gravity="right"
             android:background="@drawable/check_maptype"
             android:clickable="true"
             android:textOn=""

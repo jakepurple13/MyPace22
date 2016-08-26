@@ -4,6 +4,8 @@ package university.pace.mypace2.SSSMentors;
  * Created by Mrgds on 8/19/2016.
  */
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -49,6 +51,7 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
 
 public class MentorActivity extends Activity
@@ -71,6 +74,9 @@ public class MentorActivity extends Activity
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<MentorInfo> al;
+    private Tracker mTracker;
+    private final String TAG = "MentorActivity";
+    private String Screentracker = "MentorScreen";
 
     /**
      * Create the main activity.
@@ -81,6 +87,18 @@ public class MentorActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentor);
+
+        /**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
+
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(

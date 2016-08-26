@@ -875,9 +875,36 @@ public class CourseDisplay extends AppCompatActivity {
     }
 }
 
+   //sets fast scroller to recycler view
+        fastScroller.setRecyclerView(recyclerView);
+        ArrayList<AlphabetItem>AZ=new ArrayList<>();
+        ArrayList<String>strAlphabet=new ArrayList<>();
+        for(int i=0; i< List.size();i++)   //looks through google sheets gather data
+        {
+            String subject=List.get(i).subject_code; //gets subject code -->MAT,ACC,BIO
+            if(subject==null ||subject.trim().isEmpty()) //if subject is = to nothing -> insufficient conditions continue
+                continue;
+        String subjectCode = subject.substring(0,1); //where to start and finish looking through subject codes
+            if(!strAlphabet.contains(subjectCode)) {
+                strAlphabet.add(subjectCode); //add it if not there
+                AZ.add(new AlphabetItem(i,subjectCode,false)); //add item to scroll list
+            }
 
 
 
+        }
+        fastScroller.setUpAlphabet(AZ); //sets up the fast scroller
 
+
+ private void inflatewebview() {
+        SupportFragment frag = new SupportFragment();
+        FragmentManager manager = getFragmentManager();
+        //swap the fragment
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.add(R.id.supportpace, frag, "Pace SSS WebPage");
+        transaction.commit();
+        Toast.makeText(this, getResources().getText(R.string.On_More_Academic_Pressed), Toast.LENGTH_SHORT).show();
+    }
 
 

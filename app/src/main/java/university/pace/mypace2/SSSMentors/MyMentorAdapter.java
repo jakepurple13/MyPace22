@@ -102,7 +102,7 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
                 /**Checks to see if user has email app/ if not takes to market to download**/
                 try {
                     in.startActivity(Intent.createChooser(emailIntent,
-                            "Send email using..."));
+                            "Email Mentor using..."));
                 } catch (android.content.ActivityNotFoundException ex) {
                     Log.wtf("WTF", ex);
                 }

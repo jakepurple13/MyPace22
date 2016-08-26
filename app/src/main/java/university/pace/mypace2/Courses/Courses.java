@@ -4,6 +4,8 @@ package university.pace.mypace2.Courses;
  * Created by Mrgds on 8/19/2016.
  */
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -19,6 +21,9 @@ import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import com.google.api.services.sheets.v4.model.*;
+import com.viethoa.RecyclerViewFastScroller;
+import com.viethoa.adapters.AlphabetAdapter;
+import com.viethoa.models.AlphabetItem;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -56,6 +61,7 @@ import java.util.List;
 import jxl.Cell;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
 
 public class Courses extends Activity
@@ -77,6 +83,9 @@ public class Courses extends Activity
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager lm;
     private RecyclerView.Adapter adapt;
+    private Tracker mTracker;
+    private final String TAG = "Courses";
+    private String Screentracker = "CoursesScreen";
     /**
      * Create the main activity.
      *
@@ -87,6 +96,19 @@ public class Courses extends Activity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.view_courses);
+
+/**Start Tracking users onCreate Screen***/
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /**Start Tracking users onCreate Screen***/
+
+
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
