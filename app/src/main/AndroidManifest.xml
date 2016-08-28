@@ -115,6 +115,14 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".SSSMentors.MentorActivity"></activity>
+
+        <activity
+            android:name=".SSSTutors.TutorActivity"
+            android:label="@string/title_activity_courses"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
     </application>
 
 </manifest>

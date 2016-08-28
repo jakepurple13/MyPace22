@@ -6,7 +6,6 @@
     android:paddingTop="10dp"
     android:paddingBottom="20dp">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,9 +18,9 @@
         android:id="@+id/textView" />
 
     <ImageView
-        android:id="@+id/mentor_help"
+        android:id="@+id/tutor_help"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:src="@drawable/mentor_bubble" />
+        android:src="@drawable/tutor_bubble" />
 
 </LinearLayout>

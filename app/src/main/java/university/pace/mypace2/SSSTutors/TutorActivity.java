@@ -1,7 +1,7 @@
-package university.pace.mypace2.SSSMentors;
+package university.pace.mypace2.SSSTutors;
 
 /**
- * Created by Mrgds on 8/19/2016.
+ * Created by Mrgds on 8/28/2016.
  */
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -54,8 +54,9 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
+import university.pace.mypace2.SSSMentors.MyMentorAdapter;
 
-public class MentorActivity extends Activity
+public class TutorActivity extends Activity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
@@ -74,10 +75,10 @@ public class MentorActivity extends Activity
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    ArrayList<MentorInfo> al;
+    ArrayList<TutorInfo> al;
     private Tracker mTracker;
-    private final String TAG = "MentorActivity";
-    private String Screentracker = "MentorScreen";
+    private final String TAG = "TutorActivity";
+    private String Screentracker = "TutorScreen";
 
     /**
      * Create the main activity.
@@ -107,7 +108,7 @@ public class MentorActivity extends Activity
                 .setBackOff(new ExponentialBackOff());
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Displaying Mentors...");
+        mProgress.setMessage("Displaying Tutors...");
 
 
         al = new ArrayList<>();
@@ -130,11 +131,8 @@ public class MentorActivity extends Activity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyMentorAdapter(al, this);
+        mAdapter = new TutorAdapter(al, TutorActivity.this);
         mRecyclerView.setAdapter(mAdapter);
-
-
-
 
 
         // adds in Alphabetical scroller end
@@ -148,12 +146,12 @@ public class MentorActivity extends Activity
     }
 
 
-    public class MentorInfo {
+    public class TutorInfo {
         String name;
         String email;
         String major;
 
-        public MentorInfo(String name, String email, String major) {
+        public TutorInfo(String name, String email, String major) {
             this.name = name;
             this.email = email;
             this.major = major;
@@ -166,12 +164,11 @@ public class MentorActivity extends Activity
 
     }
 
-    public class InfoCompare implements Comparator<MentorInfo> {
-        public int compare(MentorInfo e1, MentorInfo e2) {
+    public class InfoCompare implements Comparator<TutorInfo> {
+        public int compare(TutorInfo e1, TutorInfo e2) {
             return e1.name.compareTo(e2.name);
         }
     }
-
 
 
     /**
@@ -194,7 +191,7 @@ public class MentorActivity extends Activity
         }
 
 
-        mAdapter = new MyMentorAdapter(al, MentorActivity.this);
+        mAdapter = new TutorAdapter(al, TutorActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -392,9 +389,9 @@ public class MentorActivity extends Activity
     private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
         private com.google.api.services.sheets.v4.Sheets mService = null;
         private Exception mLastError = null;
-        MentorActivity ma;
+        TutorActivity ma;
 
-        public MakeRequestTask(GoogleAccountCredential credential, MentorActivity ma) {
+        public MakeRequestTask(GoogleAccountCredential credential, TutorActivity ma) {
             this.ma = ma;
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
@@ -427,11 +424,12 @@ public class MentorActivity extends Activity
          * @return List of names and majors
          * @throws IOException
          */
+
         private List<String> getDataFromApi() throws IOException {
 
 
-            String spreadsheetId = "1njPTxjoLI2c2QpQdBv11Q9YOxTRYZKxs0WEAgwg96PI";//"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            String range = "Mentors!A2:E";
+            String spreadsheetId = "1BSCxHudMSLj1tDzdxFWYBqWtxDbj_Dz4jC2ZN4JiTtU";//"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
+            String range = "tutor!A2:D";
             //ArrayList<MentorInfo> al = new ArrayList<>();
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
@@ -442,13 +440,13 @@ public class MentorActivity extends Activity
                 results.add("Name, Major");
                 for (List row : values) {
 
-                    MentorInfo ii = new MentorInfo((String) row.get(0) + " " + row.get(1), (String) row.get(2), (String) row.get(4));
+                    TutorInfo ii = new TutorInfo((String) row.get(0) + " " + row.get(1), (String) row.get(2), (String) row.get(3));
                     ma.al.add(ii);
                     for (int i = 0; i < row.size(); i++) {
                         Log.e("Row number: " + i, (String) row.get(i));
                     }
                     Log.e("LINE 500", ii.toString());
-                    results.add(row.get(0) + ", " + row.get(4));
+                    results.add(row.get(0) + ", " + row.get(3));
                 }
             }
             return results;
@@ -471,7 +469,7 @@ public class MentorActivity extends Activity
 
                 Log.w("onPost", TextUtils.join("\n", output));
 
-                ma.mAdapter = new MyMentorAdapter(ma.al, MentorActivity.this);
+                ma.mAdapter = new TutorAdapter(ma.al, TutorActivity.this);
                 ma.mRecyclerView.setAdapter(ma.mAdapter);
 
             }
@@ -488,7 +486,7 @@ public class MentorActivity extends Activity
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            MentorActivity.REQUEST_AUTHORIZATION);
+                            TutorActivity.REQUEST_AUTHORIZATION);
                 } else {
                     Log.w("onCancelled", "The following error occurred:\n" + mLastError.getMessage());
                 }
@@ -496,38 +494,7 @@ public class MentorActivity extends Activity
                 Log.e("cancelled", "Request cancelled.");
             }
         }
-
-        /***
-         * read data from different sheet
-         **/
-
-        private List<String> TutorDataFromApi() throws IOException {
-
-
-            String spreadsheetId = "1BSCxHudMSLj1tDzdxFWYBqWtxDbj_Dz4jC2ZN4JiTtU";//"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            String range = "Tutors!A2:E";
-            //ArrayList<MentorInfo> al = new ArrayList<>();
-            List<String> results = new ArrayList<String>();
-            ValueRange response = this.mService.spreadsheets().values()
-                    .get(spreadsheetId, range)
-                    .execute();
-            List<List<Object>> values = response.getValues();
-            if (values != null) {
-                results.add("Name, Major");
-                for (List row : values) {
-
-                    MentorInfo ii = new MentorInfo((String) row.get(0) + " " + row.get(1), (String) row.get(2), (String) row.get(4));
-                    ma.al.add(ii);
-                    for (int i = 0; i < row.size(); i++) {
-                        Log.e("Row number: " + i, (String) row.get(i));
-                    }
-                    Log.e("LINE 500", ii.toString());
-                    results.add(row.get(0) + ", " + row.get(4));
-                }
-            }
-            return results;
-        }
-
+        /***read data from different sheet**/
 
 
     }

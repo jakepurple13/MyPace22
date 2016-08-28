@@ -52,13 +52,13 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        //public ImageView iv;
+        public ImageView iv;
 
 
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.textView);
-            //iv = (ImageView) v.findViewById(R.id.callArrow);
+            iv = (ImageView) v.findViewById(R.id.mentor_help);
 
 
         }
@@ -110,7 +110,7 @@ public class MyMentorAdapter extends RecyclerView.Adapter<MyMentorAdapter.ViewHo
         };
 
         holder.mTextView.setOnClickListener(von);
-        //holder.iv.setOnClickListener(von);
+        holder.iv.setOnClickListener(von);
 
 
     }

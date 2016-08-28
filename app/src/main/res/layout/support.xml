@@ -99,7 +99,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/pace_bubble"
                     android:elevation="8dp"
-                    android:src="@drawable/hookerhoto_words"
+                    android:src="@drawable/hookerhoto_words_"
                     android:onClick="onClick"
                     android:layout_column="11" />
 
@@ -150,7 +150,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/pace_bubble"
                     android:elevation="8dp"
-                    android:src="@drawable/joycephoto_words"
+                    android:src="@drawable/joycephoto_words_"
                     android:onClick="onClick"
                     android:layout_column="19" />
 

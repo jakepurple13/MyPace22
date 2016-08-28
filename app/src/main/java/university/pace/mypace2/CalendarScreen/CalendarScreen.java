@@ -541,7 +541,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 }
 
                 for (int i = 0; i < events.size(); i++) {
-
+                    final String check = String.valueOf(events.size());
 
                     try {
 
@@ -552,7 +552,10 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
 
                         com.github.sundeepk.compactcalendarview.domain.Event e =
                                 new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
-                        compactCalendarView.addEvent(e); //TODO: deprecated method error on 554
+                        compactCalendarView.addEvent(e, true); //TODO: deprecated method error on 554
+                        // TODO 8/28/16
+
+                        Log.e("Line 558==>", check); //check ==30
                     } catch (NullPointerException e) {
                         //dt = 123123;
                     }
@@ -585,7 +588,7 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                     Toast.makeText(CalendarScreen.this, "The following error occurred:\n"
                             + mLastError.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    Log.d(TAG, mLastError.getMessage());                                                   //TODO: FIX THIS ERROR
+                    Log.d(TAG, mLastError.getMessage());
                 }
             } else {
                 Toast.makeText(CalendarScreen.this, "Request cancelled.", Toast.LENGTH_SHORT).show();

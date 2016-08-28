@@ -37,6 +37,7 @@ import university.pace.mypace2.ImportantNumbersScreen.ImportantNumbers;
 import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.SSSMentors.MentorActivity;
 import university.pace.mypace2.SSSProgram.SSSprogram;
+import university.pace.mypace2.SSSTutors.TutorActivity;
 import university.pace.mypace2.TestingPackage.CardTest;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -297,7 +298,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Tracks("Pressed Tutor button", "Viewing Tutors");
                 Log.i(TAG, "Pressed Tutors button");
                 /**Tracks**/
-                // changeScreen(Tutors.class,v);
+                changeScreen(TutorActivity.class, v);
+                //You Took to long Jacob...
                 break;
 
             case R.id.pacemail:

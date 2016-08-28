@@ -997,6 +997,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     public void onSearch(final View view) {
 
 // Get a reference to the AutoCompleteTextView in the layout
+
         String location_search = location_tf.getText().toString();
         /**search with enter button**/
         Log.d("debug", location_tf.toString());
