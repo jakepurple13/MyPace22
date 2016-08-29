@@ -47,7 +47,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
         WebView viewfrag = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = viewfrag.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        viewfrag.loadUrl(linkstring + b.get("tag"));
+        viewfrag.loadUrl((String) b.get("tag"));
         Johnfab = (FloatingActionButton) findViewById(R.id.johnfab);
         Ripple(Johnfab); //ripple animation
 

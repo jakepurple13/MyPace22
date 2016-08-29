@@ -94,7 +94,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Academic services content", "Pressed Academic services button");
                 Log.i(TAG, "Pressed Academic services button");
                 /**Tracks**/
-                PutExtra("#academicservices", v);
+                PutExtra(Constants.PDF_ACADEMICS, v);
                 break;
 
             case R.id.culturalbutt:
@@ -102,7 +102,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Cultural events content", "Pressed Cultural events button");
                 Log.i(TAG, "Pressed Cultural events button");
                 /**Tracks**/
-                PutExtra("#socialandculturalevents", v);
+                PutExtra(Constants.SSSPAGE, v);
 
                 break;
 
@@ -111,7 +111,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Financial content", "Pressed Financial events button");
                 /**Tracks**/
                 Log.i(TAG, "Pressed Financial events button");
-                PutExtra("#financialeducationcounseling", v);
+                PutExtra(Constants.PDF_FINANCIL, v);
 
 
                 break;
