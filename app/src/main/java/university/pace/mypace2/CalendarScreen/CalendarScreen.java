@@ -537,9 +537,8 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                 ArrayList<com.github.sundeepk.compactcalendarview.domain.Event> newEvents = new ArrayList<com.github.sundeepk.compactcalendarview.domain.Event>();
 
                 for (CalendarInfo e : events) {
-                    System.out.println(e);
+                    Log.e("Event", e.toString());
                 }
-
                 for (int i = 0; i < events.size(); i++) {
                     final String check = String.valueOf(events.size());
 
@@ -550,9 +549,16 @@ public class CalendarScreen extends AppCompatActivity implements EasyPermissions
                         dt = day + (86400000);
 
 
-                        com.github.sundeepk.compactcalendarview.domain.Event e =
-                                new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
-                        compactCalendarView.addEvent(e, true); //TODO: deprecated method error on 554
+                        com.github.sundeepk.compactcalendarview.domain.Event e;
+
+                        try {
+                            e = new com.github.sundeepk.compactcalendarview.domain.Event(Color.parseColor(colorOfEvent.get(i)), dt, events.get(i));
+                        } catch (IndexOutOfBoundsException q) {
+                            e = new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLUE, dt, events.get(i));
+                        }
+
+
+                        compactCalendarView.addEvent(e); //TODO: deprecated method error on 554
                         // TODO 8/28/16
 
                         Log.e("Line 558==>", check); //check ==30

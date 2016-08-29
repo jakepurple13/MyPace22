@@ -32,7 +32,6 @@ import java.util.TimeZone;
 
 import university.pace.mypace2.Constants;
 import university.pace.mypace2.R;
-import university.pace.mypace2.TestingPackage.LeaderBoards;
 
 
 /**
@@ -41,7 +40,7 @@ import university.pace.mypace2.TestingPackage.LeaderBoards;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
     //private ArrayList<CalendarScreen.CalendarInfo> mDataset;
     private List<com.github.sundeepk.compactcalendarview.domain.Event> mDataset;
-    LeaderBoards Badge = new LeaderBoards();
+    //LeaderBoards Badge = new LeaderBoards();
     CalendarScreen in;
 
     // Provide a reference to the views for each data item
@@ -173,7 +172,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                     /**TODO:Testing Badge System**/
                     int CountToken = 0;
                     CountToken++;
-                    Badge.EventBadges(CountToken);
+                    //Badge.EventBadges(CountToken);
                     /**TODO:Testing Badge System**/
 
 
