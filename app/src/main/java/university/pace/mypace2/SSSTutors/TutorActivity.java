@@ -90,6 +90,21 @@ public class TutorActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentor);
 
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.tutoringbutton_words2);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, TutorActivity.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Tutors");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
+
         /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();

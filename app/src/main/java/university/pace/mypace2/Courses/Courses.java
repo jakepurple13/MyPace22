@@ -97,6 +97,22 @@ public class Courses extends Activity
 
         setContentView(R.layout.view_courses);
 
+
+        // create shortcut if requested
+        Intent.ShortcutIconResource icon =
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.coursesbutton);
+
+        Intent intent = new Intent();
+
+        Intent launchIntent = new Intent(this, Courses.class);
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Courses");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+
+        setResult(RESULT_OK, intent);
+
+
 /**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
