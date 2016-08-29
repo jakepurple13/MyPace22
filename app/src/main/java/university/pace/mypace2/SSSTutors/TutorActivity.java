@@ -174,7 +174,7 @@ public class TutorActivity extends Activity
 
         @Override
         public String toString() {
-            return name + "\nEmail: " + email + "\nMajor: " + major;
+            return name + "\nEmail: " + email + "\nSubject: " + major;
         }
 
     }
