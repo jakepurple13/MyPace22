@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
 
         multiDexEnabled true
 
@@ -31,9 +31,9 @@ android {
         }
     }
 
-    //  dexOptions {
-    //  javaMaxHeapSize "4g"
-    //}
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 
     //fixed  java.lang.OutOfMemoryError: 7/20/16
     dependencies {
