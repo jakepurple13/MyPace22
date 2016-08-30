@@ -10,4 +10,6 @@
     <color name="Pace_Goldenrod">#DAA520</color>
     <color name="Pace_red">#ff0000</color>
     <color name="Pace_bluish">#0000ff</color>
+    <color name="Pace_hueBlue">#4562f5</color>
+
 </resources>

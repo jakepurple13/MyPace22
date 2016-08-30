@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "Pressed E-mail button");
                 /**Tracks**/
                 Fade(v);
-                NoDeceptiveads("com.microsoft.exchange.mowa");
+                NoDeceptiveads("com.microsoft.exchange.mowa", this, "com.microsoft.exchange.mowa");
                 // TakeUserToMarket(this, "com.microsoft.exchange.mowa");
 
                 break;
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "Pressed Blackboard  button");
 
                 Fade(v);
-                NoDeceptiveads("com.blackboard.android");
+                NoDeceptiveads("com.blackboard.android", this, "com.blackboard.android");
                 /**Tracks
                  AlertDialog ad = new AlertDialog.Builder(this).setMessage(
                  R.string.UserConsent).setTitle(
@@ -445,8 +445,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //this.finish();
     }
 
-    public void NoDeceptiveads(final String DownloadApp) {
-
+    public void NoDeceptiveads(final String DownloadApp, Context context, String packageName) {
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null) {
         AlertDialog ad = new AlertDialog.Builder(this).setMessage(
                 R.string.UserConsent).setTitle(
                 R.string.Tothemarketplace).setCancelable(false)
@@ -455,8 +456,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
                                 // Bring user to the market
-                                TakeUserToMarket(MainActivity.this, DownloadApp);
 
+                                TakeUserToMarket(MainActivity.this, DownloadApp);
 
                             }
                         }).setNeutralButton(android.R.string.cancel,
@@ -466,6 +467,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(MainActivity.this, "This function will not be available with out this app", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
                             }
                         }).show();
+        } else
+            TakeUserToMarket(MainActivity.this, DownloadApp);
+
+
     }
 
 

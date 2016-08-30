@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/Pace_red"
+    android:background="@color/Pace_hueBlue"
     tools:context=".SSSTutors.TutorActivity">
 
 
