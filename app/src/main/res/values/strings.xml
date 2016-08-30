@@ -150,6 +150,8 @@
     <string name="title_activity_courses">Courses</string>
     <string name="OnPressMessage">Do you want to go here?</string>
     <string name="UndertitleLocation">Get turn by turn Directions</string>
+    <string name="UserConsent">Go to the Play Store to download now?</string>
+    <string name="Tothemarketplace">To complete this action you need an outside app</string>
 
     <!--blackboard   -->
 

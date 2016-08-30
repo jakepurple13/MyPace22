@@ -88,7 +88,7 @@ public class TutorActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mentor);
+        setContentView(R.layout.active_tutoring);
 
         // create shortcut if requested
         Intent.ShortcutIconResource icon =
@@ -135,7 +135,7 @@ public class TutorActivity extends Activity
 
         Collections.sort(al, new InfoCompare());
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_mentor);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_tutors);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

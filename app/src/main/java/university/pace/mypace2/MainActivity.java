@@ -308,7 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "Pressed E-mail button");
                 /**Tracks**/
                 Fade(v);
-                TakeUserToMarket(this, "com.microsoft.exchange.mowa");
+                NoDeceptiveads("com.microsoft.exchange.mowa");
+                // TakeUserToMarket(this, "com.microsoft.exchange.mowa");
 
                 break;
             case R.id.blackboard:
@@ -316,9 +317,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 /**Tracks**/
                 Tracks("Pressed Blackboard button", "Viewing Blackboard content");
                 Log.i(TAG, "Pressed Blackboard  button");
-                /**Tracks**/
+
                 Fade(v);
-                TakeUserToMarket(this, "com.blackboard.android");
+                NoDeceptiveads("com.blackboard.android");
+                /**Tracks
+                 AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+                 R.string.UserConsent).setTitle(
+                 R.string.Tothemarketplace).setCancelable(false)
+                 .setPositiveButton(android.R.string.ok,
+                 new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog,
+                 int whichButton) {
+                 // Bring user to the market
+                 TakeUserToMarket(MainActivity.this, "com.blackboard.android");
+
+
+                 }
+                 }).setNeutralButton(android.R.string.cancel,
+                 new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog,
+                 int whichButton) {
+                 Toast.makeText(MainActivity.this, "This function will not be available with out th", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
+                 }
+                 }).show();
+                 **/
 
 
                 break;
@@ -423,34 +445,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //this.finish();
     }
 
-
-    private void askaboutapp() {
+    public void NoDeceptiveads(final String DownloadApp) {
 
         AlertDialog ad = new AlertDialog.Builder(this).setMessage(
-                R.string.UserExperience).setTitle(
-                R.string.more).setCancelable(false)
-                .setPositiveButton(R.string.useful,
+                R.string.UserConsent).setTitle(
+                R.string.Tothemarketplace).setCancelable(false)
+                .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-
-                                // [START custom_event]
-                                Bundle params = new Bundle();
-                                params.putString("image_name", getResources().getString(R.string.useful));
-
-                                // [END custom_event]
+                                // Bring user to the market
+                                TakeUserToMarket(MainActivity.this, DownloadApp);
 
 
                             }
-                        }).setNeutralButton(R.string.bad,
+                        }).setNeutralButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                Toast.makeText(MainActivity.this, "We are sorry to hear that", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
+                                Toast.makeText(MainActivity.this, "This function will not be available with out this app", Toast.LENGTH_LONG).show();  // User selects Cancel, discard all changes
                             }
                         }).show();
-
     }
+
+
 
 
     public void Fade(View v) {
