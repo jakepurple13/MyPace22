@@ -38,7 +38,6 @@ import university.pace.mypace2.PaceMaps.PaceMaps;
 import university.pace.mypace2.SSSMentors.MentorActivity;
 import university.pace.mypace2.SSSProgram.SSSprogram;
 import university.pace.mypace2.SSSTutors.TutorActivity;
-import university.pace.mypace2.TestingPackage.CardTest;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;

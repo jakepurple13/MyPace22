@@ -45,10 +45,6 @@
             android:textOn=""
             android:textOff="" />
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
-
         <ToggleButton
             style="@android:style/Widget.Button"
             android:layout_width="wrap_content"

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import university.pace.mypace2.Constants;
 import university.pace.mypace2.R;
 
 

@@ -39,7 +39,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -54,7 +53,6 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import university.pace.mypace2.GoogleAnalytics.AnalyticsApplication;
 import university.pace.mypace2.R;
-import university.pace.mypace2.SSSMentors.MyMentorAdapter;
 
 public class TutorActivity extends Activity
         implements EasyPermissions.PermissionCallbacks {

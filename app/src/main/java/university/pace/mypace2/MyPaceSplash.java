@@ -24,7 +24,7 @@ public class MyPaceSplash extends AppCompatActivity {
                 @Override
                 public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                    Intent mainIntent = new Intent(MyPaceSplash.this, MainActivity.class); //Takes to Main Need2Feed Screen
+                    Intent mainIntent = new Intent(MyPaceSplash.this, MainActivity.class); //Takes to MainScreen
                     MyPaceSplash.this.startActivity(mainIntent);
                     MyPaceSplash.this.finish();
                   overridePendingTransition(R.anim.mainfadein,R.anim.mainfadeout);
