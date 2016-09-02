@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "939895770228",
-    "project_id": "firebase-sssapp"
+    "project_number": "188326135946",
+    "project_id": "firebase-sssfreshman"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:939895770228:android:e12317606bb4599a",
+        "mobilesdk_app_id": "1:188326135946:android:c6cdcfecb0da1562",
         "android_client_info": {
-          "package_name": "university.pace.mypace2"
+          "package_name": "university.pace.sssfreshman"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAyQyn8e7RsHXkNPMOT2ZZXWK2ti7giB4o"
+          "current_key": "AIzaSyDgh722GKm5Oj_sXPqdcDjMPobVLN8uKkY"
         }
       ],
       "services": {
         "analytics_service": {
           "status": 2,
           "analytics_property": {
-            "tracking_id": "UA-82744810-1"
+            "tracking_id": "UA-82744810-2"
           }
         },
         "appinvite_service": {

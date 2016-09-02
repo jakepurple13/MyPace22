@@ -4,12 +4,12 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "university.pace.mypace2"
+        applicationId "university.pace.sssfreshman"
         minSdkVersion 19
         targetSdkVersion 23
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
 
         multiDexEnabled true
 
