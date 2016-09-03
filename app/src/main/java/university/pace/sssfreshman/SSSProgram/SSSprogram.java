@@ -36,6 +36,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     private String Screentracker = "SSS Screen";
     String newString;
     SSWebView wv;
+    AlertDialog ad;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
 
-        AlertDialog ad = new AlertDialog.Builder(this).setTitle(
+        ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
                 .setPositiveButton(R.string.Email,
@@ -201,7 +202,17 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
                                 ;  // User Calls SSS Employer
                             }
+                        }).setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                ad.cancel();
+
+                                // cancel
+                            }
                         }).show();
+
+
 
     }
 

@@ -33,6 +33,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
     private String Screentracker = "SSS Webpage";
     FloatingActionButton Johnfab, Joycefab;
     ToggleButton plusmore;
+    AlertDialog ad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +153,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
 
-        AlertDialog ad = new AlertDialog.Builder(this).setTitle(
+        ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
                 .setPositiveButton(R.string.Email,
@@ -189,7 +190,17 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
 
                                 ;  // User Calls SSS Employer
                             }
+                        }).setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                ad.cancel();
+
+                                // cancel
+                            }
                         }).show();
+
+
 
 
     }

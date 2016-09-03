@@ -447,7 +447,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void NoDeceptiveads(final String DownloadApp, Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
-        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+            AlertDialog ad = new AlertDialog.Builder(this).setIcon(R.drawable.play_store).setMessage(
                 R.string.UserConsent).setTitle(
                 R.string.Tothemarketplace).setCancelable(false)
                 .setPositiveButton(android.R.string.ok,
