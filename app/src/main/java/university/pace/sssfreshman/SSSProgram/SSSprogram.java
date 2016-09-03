@@ -1,8 +1,11 @@
 package university.pace.sssfreshman.SSSProgram;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -90,7 +93,8 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Academic services content", "Pressed Academic services button");
                 Log.i(TAG, "Pressed Academic services button");
                 /**Tracks**/
-                PutExtra(Constants.PDF_ACADEMICS, v);
+                LoadOutsidePdf(Constants.PDF_ACADEMICS);
+                // PutExtra(Constants.PDF_ACADEMICS, v);
                 break;
 
             case R.id.culturalbutt:
@@ -99,7 +103,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Log.i(TAG, "Pressed Cultural events button");
                 /**Tracks**/
                 PutExtra(Constants.SSSPAGE, v);
-
                 break;
 
             case R.id.Finanbutt:
@@ -107,62 +110,25 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Financial content", "Pressed Financial events button");
                 /**Tracks**/
                 Log.i(TAG, "Pressed Financial events button");
-                PutExtra(Constants.PDF_FINANCIL, v);
-
-
+                LoadOutsidePdf(Constants.PDF_FINANCIL);
+                //PutExtra(Constants.PDF_FINANCIL, v);
                 break;
 
             case R.id.john_email:
-
-                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOHNEMAIL});
-                emailIntent.setType("message/rfc822");
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello Mr.Hooker,");
-                /**Checks to see if user has email app/ if not takes to market to download**/
-                try {
-                    startActivity(Intent.createChooser(emailIntent,
-                            "Send email using..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this,
-                            "No email clients installed.",
-                            Toast.LENGTH_SHORT).show();
-                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
-                }
-
+                MethodOfContact(Constants.JOHNPHONE, Constants.JOHNEMAIL, "Hello Mr.Hooker,");
                 /**Tracks**/
                 Tracks("Contacting John Hooker", "Pressed email John button");
                 /**Tracks**/
                 Log.i(TAG, "Pressed email John button");
-
-
                 break;
 
 
             case R.id.joyce_email:
-                Intent emailj = new Intent(android.content.Intent.ACTION_SEND);
-                emailj.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.JOYCEEMAIL});
-                emailj.setType("plain/text");
-                emailj.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
-                emailj.putExtra(Intent.EXTRA_TEXT, "Hello Ms.Lau,");
-                /**Checks to see if user has email app/ if not takes to market to download**/
-                try {
-                    startActivity(Intent.createChooser(emailj,
-                            "Send email using..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this,
-                            "No email clients installed.",
-                            Toast.LENGTH_SHORT).show();
-                    market.TakeUserToMarket(this, "com.microsoft.exchange.mowa");
-                }
+                MethodOfContact(Constants.JOYCEPHONE, Constants.JOYCEEMAIL, "Hello Ms.Lau,");
                 /**Tracks**/
                 Tracks("Contacting Joyce Lau", "Pressed email Joyce button");
                 /**Tracks**/
-
                 break;
-
-
-
 
         }
 
@@ -177,7 +143,11 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     }
 
 
+    public void LoadOutsidePdf(String pdf_url) {
 
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pdf_url));
+        startActivity(browserIntent);
+    }
 
     public void Anim(View button) {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
@@ -190,6 +160,51 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
         //this.finish();
     }
+
+    public void MethodOfContact(final String number, final String Email, final String Greeting) {
+
+        AlertDialog ad = new AlertDialog.Builder(this).setTitle(
+                R.string.methodofcontact).setMessage(
+                R.string.calloremail).setCancelable(false)
+                .setPositiveButton(R.string.Email,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                // user emails SSS Employer
+
+                                Intent emailj = new Intent(android.content.Intent.ACTION_SEND);
+                                emailj.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Email});
+                                emailj.setType("plain/text");
+                                emailj.putExtra(Intent.EXTRA_SUBJECT, "From an SSS app user");
+                                emailj.putExtra(Intent.EXTRA_TEXT, Greeting);
+                                /**Checks to see if user has email app/ if not takes to market to download**/
+                                try {
+                                    startActivity(Intent.createChooser(emailj,
+                                            "Send email using..."));
+                                } catch (android.content.ActivityNotFoundException ex) {
+                                    Toast.makeText(SSSprogram.this,
+                                            "No email clients installed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    market.TakeUserToMarket(SSSprogram.this, "com.microsoft.exchange.mowa");
+                                }
+
+                            }
+                        }).setNeutralButton(R.string.Call,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+
+
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                intent.setData(Uri.parse("tel:" + number));
+                                startActivity(intent);
+
+                                ;  // User Calls SSS Employer
+                            }
+                        }).show();
+
+    }
+
 
     public void Tracks(String catogory, String action) {
         mTracker.send(new HitBuilders.EventBuilder()

@@ -11,4 +11,6 @@ public class Constants {
     public static final String NORMAEMAIL = "nquiridumbay@pace.edu";
     public static final String PDF_FINANCIL = "https://drive.google.com/file/d/0B35gGagDNpQBTDFEc0JJU2dmWFE/view?usp=sharing";
     public static final String PDF_ACADEMICS = "https://drive.google.com/file/d/0B35gGagDNpQBUVdMSy1HTTF0WWM/view?usp=sharing";
+    public static final String JOHNPHONE = "2123461217";
+    public static final String JOYCEPHONE = "2123461146";
 }

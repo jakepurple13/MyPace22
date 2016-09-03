@@ -152,6 +152,10 @@
     <string name="UndertitleLocation">Get turn by turn Directions</string>
     <string name="UserConsent">Go to the Play Store to download now?</string>
     <string name="Tothemarketplace">To complete this action you need an outside app</string>
+    <string name="methodofcontact">How would you like to contact this person?</string>
+    <string name="calloremail">Call or Email?</string>
+    <string name="Email">Email</string>
+    <string name="Call">Call</string>
 
     <!--blackboard   -->
 

@@ -929,7 +929,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
         }
            /*If latitude is less than user latitude user is south  */
-        if (lat <= Pace_NYC_ACCESSPOINT_LAT)  //TODO:CHANGE THE LAT
+        else   //TODO:CHANGE THE LAT
         {
             NYVCampusOnMapView();
             Position = PaceUniNYC;

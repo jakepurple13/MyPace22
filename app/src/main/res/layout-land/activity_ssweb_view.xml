@@ -10,20 +10,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="university.pace.sssfreshman.SSSProgram.SSWebView">
 
+    <ToggleButton
+        android:id="@+id/plusemore"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/plusmoreoptions"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textOff=""
+        android:textOn=""
+        android:layout_gravity="right|bottom" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/joycefab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/joycephoto"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         app:fabSize="normal"
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:rippleColor="@android:color/transparent"
         android:layout_gravity="right|bottom"
-        android:onClick="onClick" />
+        android:onClick="onClick"
+        android:layout_above="@+id/plusemore"
+        android:layout_alignParentEnd="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/johnfab"
@@ -40,6 +50,7 @@
         android:layout_above="@+id/joycefab"
         android:layout_alignParentEnd="true" />
 
+
     <WebView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,4 +61,31 @@
         android:layout_alignParentEnd="true" />
 
 
-</RelativeLayout>
+</RelativeLayout><!--<android.support.design.widget.FloatingActionButton
+    android:id="@+id/joycefab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/joycephoto"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    app:fabSize="normal"
+    app:borderWidth="0dp"
+    app:elevation="6dp"
+    app:pressedTranslationZ="12dp"
+    app:rippleColor="@android:color/transparent"
+    android:layout_gravity="right|bottom"
+    android:onClick="onClick" />
+
+    <android.support.design.widget.FloatingActionButton
+    android:id="@+id/johnfab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/hookerhoto"
+    app:fabSize="normal"
+    app:borderWidth="0dp"
+    app:elevation="6dp"
+    app:pressedTranslationZ="12dp"
+    app:rippleColor="@android:color/transparent"
+    android:layout_gravity="left|bottom"
+    android:layout_alignTop="@+id/joycefab"
+    android:onClick="onClick" /> -->
