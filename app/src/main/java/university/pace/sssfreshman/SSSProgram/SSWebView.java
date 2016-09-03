@@ -146,7 +146,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
         ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
-                .setPositiveButton(R.string.Email,
+                .setNegativeButton(R.string.Email,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
@@ -180,7 +180,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
 
                                 ;  // User Calls SSS Employer
                             }
-                        }).setNegativeButton(android.R.string.cancel,
+                        }).setPositiveButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
@@ -189,7 +189,6 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
                                 // cancel
                             }
                         }).show();
-
 
 
 
