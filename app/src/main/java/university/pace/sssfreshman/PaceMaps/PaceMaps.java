@@ -570,7 +570,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                            final String location_search = location_tf.getText().toString();
+                            String location_search = location_tf.getText().toString();
                             performSearch(location_search);
                             Tracks("Entered Search " + location_search, "pressed Enter");
                             Log.d("Entered Search", "pressed Enter");

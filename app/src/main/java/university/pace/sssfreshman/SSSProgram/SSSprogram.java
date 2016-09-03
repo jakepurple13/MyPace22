@@ -1,8 +1,14 @@
 package university.pace.sssfreshman.SSSProgram;
 
+import android.Manifest;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -18,10 +24,17 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+
+
+import com.google.android.gms.drive.Drive;
+
+
 import university.pace.sssfreshman.Constants;
 import university.pace.sssfreshman.GoogleAnalytics.AnalyticsApplication;
 import university.pace.sssfreshman.MainActivity;
 import university.pace.sssfreshman.R;
+
 
 /**
  * Created by Mrgds on 8/5/2016.
@@ -34,13 +47,17 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
     private Tracker mTracker;
     private final String TAG = "SSSprogram";
     private String Screentracker = "SSS Screen";
-    String newString;
     SSWebView wv;
     AlertDialog ad;
+
+
+    GoogleAccountCredential mCredential;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support);
+
 
 
         wv = new SSWebView();
@@ -94,8 +111,8 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 Tracks("Viewing Academic services content", "Pressed Academic services button");
                 Log.i(TAG, "Pressed Academic services button");
                 /**Tracks**/
+                Anim(v);
                 LoadOutsidePdf(Constants.PDF_ACADEMICS);
-                // PutExtra(Constants.PDF_ACADEMICS, v);
                 break;
 
             case R.id.culturalbutt:
@@ -110,9 +127,10 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                 /**Tracks**/
                 Tracks("Viewing Financial content", "Pressed Financial events button");
                 /**Tracks**/
+                Anim(v);
                 Log.i(TAG, "Pressed Financial events button");
                 LoadOutsidePdf(Constants.PDF_FINANCIL);
-                //PutExtra(Constants.PDF_FINANCIL, v);
+
                 break;
 
             case R.id.john_email:
@@ -145,21 +163,18 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
 
     public void LoadOutsidePdf(String pdf_url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        browserIntent.setDataAndType(Uri.parse(pdf_url), "text/html");
 
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pdf_url));
-        startActivity(browserIntent);
-    }
+        Intent chooser = Intent.createChooser(browserIntent, getString(R.string.chooser_title));
+        chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // optional
 
-    public void Anim(View button) {
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        button.startAnimation(shake);
+        startActivity(chooser);
 
-    }
 
-    public void changeScreen(Class cl) {
-        Intent intent = new Intent(this, cl);
-        startActivity(intent);
-        //this.finish();
+        // Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pdf_url));
+
+        //   startActivity(browserIntent);
     }
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
@@ -167,7 +182,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
         ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
-                .setPositiveButton(R.string.Email,
+                .setNegativeButton(R.string.Email,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
@@ -202,7 +217,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
                                 ;  // User Calls SSS Employer
                             }
-                        }).setNegativeButton(android.R.string.cancel,
+                        }).setPositiveButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
@@ -211,7 +226,6 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
                                 // cancel
                             }
                         }).show();
-
 
 
     }
@@ -225,6 +239,10 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    public void Anim(View button) {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        button.startAnimation(shake);
 
+    }
 
 }
