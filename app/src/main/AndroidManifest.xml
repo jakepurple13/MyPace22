@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="university.pace.sssfreshman">
 
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="23" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,12 +19,12 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="23" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="university.pace.sssfreshman.GoogleAnalytics.AnalyticsApplication"
+        android:name=".GoogleAnalytics.AnalyticsApplication"
         android:allowBackup="true"
         android:icon="@drawable/sss_icon_idea"
         android:label="@string/app_name"
@@ -28,10 +32,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name="university.pace.sssfreshman.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="university.pace.sssfreshman.MyPaceSplash"
+            android:name=".MyPaceSplash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,9 +59,11 @@
         <meta-data
             android:name="com.google.android.calendar.v3.API_KEY"
             android:value="AIzaSyCjhPB5npZM1fU8jJnwLqRFLyD8e4iS3Fg" />
-        <!--<meta-data
+        <!--
+            <meta-data
             android:name="com.google.android.calendar.v3.API_KEY"
-            android:value="AIzaSyBAL5v6QYoXVRV0lOdkzEFT0JXyIhnTWj8" />-->
+            android:value="AIzaSyBAL5v6QYoXVRV0lOdkzEFT0JXyIhnTWj8" />
+        -->
 
         <meta-data
             android:name="com.google.android.sheets.v4.API_KEY"
@@ -66,15 +72,13 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
-
         <!--
             <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         -->
         <activity
-            android:name="university.pace.sssfreshman.PaceMaps.PaceMaps"
+            android:name=".PaceMaps.PaceMaps"
             android:label="@string/title_activity_pace_maps"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light">
@@ -85,7 +89,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="university.pace.sssfreshman.ImportantNumbersScreen.ImportantNumbers"
+            android:name=".ImportantNumbersScreen.ImportantNumbers"
             android:label="Hotline">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -94,7 +98,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="university.pace.sssfreshman.CalendarScreen.CalendarScreen"
+            android:name=".CalendarScreen.CalendarScreen"
             android:label="Calendar">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -103,10 +107,9 @@
             </intent-filter>
         </activity>
         >
-        <activity android:name="university.pace.sssfreshman.TestingPackage.CardTest" />
-
+        <activity android:name=".TestingPackage.CardTest" />
         <activity
-            android:name="university.pace.sssfreshman.SSSProgram.SSSprogram"
+            android:name=".SSSProgram.SSSprogram"
             android:label="SSS Support"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -115,10 +118,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="university.pace.sssfreshman.SSSProgram.SSWebView" />
-
+        <activity android:name=".SSSProgram.SSWebView" />
         <activity
-            android:name="university.pace.sssfreshman.Courses.Courses"
+            android:name=".Courses.Courses"
             android:label="Courses"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -126,11 +128,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
-            android:name="university.pace.sssfreshman.SSSMentors.MentorActivity"
+            android:name=".SSSMentors.MentorActivity"
             android:label="Mentors"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -139,9 +139,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="university.pace.sssfreshman.SSSTutors.TutorActivity"
+            android:name=".SSSTutors.TutorActivity"
             android:label="Tutors"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -150,8 +149,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
+        <activity
+            android:name=".EventChecker.EventChecker"
+            android:label="@string/title_activity_event_checker"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ android {
         main {
             java {
                 exclude '**FinancialLit/.java'
-                exclude '**MyTutorAdapter/.java'
+                exclude '**LeaderBoards/.java'
             }
         }
         buildTypes {

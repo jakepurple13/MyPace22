@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/badgebg"
+    android:weightSum="1">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+    </TableLayout>
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Name"
+        android:id="@+id/usrname"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:id="@+id/usricon"
+        android:src="@drawable/avatar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.20" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change icon"
+        android:id="@+id/changeicon"
+        android:layout_gravity="center_horizontal" />
+
+    <TableRow
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Badge"
+            android:src="@drawable/badge"
+            android:layout_weight="0.20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/Achievements" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+    </TableRow>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Enter Event code"
+        android:id="@+id/Eventcode"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

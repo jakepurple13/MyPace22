@@ -198,6 +198,43 @@
             <!---   text font Copper gothic bold size 40 -->
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:layout_column="9" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:layout_column="9" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/Eventbadgebutt"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+
+
+                android:onClick="onClick"
+                android:clickable="true"
+                android:background="@drawable/eventbadgebutt"
+                android:layout_column="9" />
+
+
+        </TableRow>
+
+
     </TableLayout>
 
 

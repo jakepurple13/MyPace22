@@ -157,6 +157,7 @@
     <string name="Email">Email</string>
     <string name="Call">Call</string>
     <string name="chooser_title">Complete task with</string>
+    <string name="title_activity_event_checker">EventChecker</string>
 
     <!--blackboard   -->
 
