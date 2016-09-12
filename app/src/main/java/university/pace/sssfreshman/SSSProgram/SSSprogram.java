@@ -179,7 +179,7 @@ public class SSSprogram extends AppCompatActivity implements View.OnClickListene
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
 
-        ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
+        ad = new AlertDialog.Builder(this).setIcon(R.drawable.ic_cast_dark).setTitle(  //TODO:Change back to contact
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
                 .setNegativeButton(R.string.Email,

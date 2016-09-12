@@ -34,6 +34,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
     FloatingActionButton Johnfab, Joycefab;
     ToggleButton plusmore;
     AlertDialog ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +144,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
 
-        ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
+        ad = new AlertDialog.Builder(this).setIcon(R.drawable.ic_cast_dark).setTitle( //TODO:Change to contact
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
                 .setNegativeButton(R.string.Email,

@@ -908,3 +908,19 @@ public class CourseDisplay extends AppCompatActivity {
     }
 
 
+out.setAnimationListener(new AnimationListener() {
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        mSwitcher.setText("New Text");
+        mSwitcher.startAnimation(in);
+
+    }
+});
+Then, in your onClick() method:
+
+public void onClick(View v) {
+
+    mSwitcher.startAnimation(out);
+
+}

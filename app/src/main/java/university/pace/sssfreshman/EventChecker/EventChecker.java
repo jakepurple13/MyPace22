@@ -36,11 +36,14 @@ public class EventChecker extends AppCompatActivity {
             }
         });
 
-        usrName.getText().toString();
+        String setusrname = usrName.getText().toString();//gets user's name
 
+        usrName.setText(setusrname);//sets it
+
+        String code = EventCode.getText().toString();
         //TODO: save user name here
 
-
+        Checkcode(code);
     }
 
 
@@ -55,6 +58,19 @@ public class EventChecker extends AppCompatActivity {
 
 
     }
+
+    public void Checkcode(String code) {
+        String keyowrd = "omellte du fromage";
+
+        if (code.equals(keyowrd)) {
+
+        }
+
+
+    }
+
+
+
 
 
 }
