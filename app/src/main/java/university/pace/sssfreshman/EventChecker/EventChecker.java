@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import university.pace.sssfreshman.R;
 
@@ -50,27 +51,28 @@ public class EventChecker extends AppCompatActivity {
         final String setusrname = usrName.getText().toString();//gets user's name
 
 /**Set name with enter******/
-        usrName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+        usrName.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
                     /**stores it in memory**/
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EventChecker.this);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("username", setusrname);
                     editor.apply();
-                    usrName.setText(setusrname, TextView.BufferType.EDITABLE); //sets users name
+                    usrName.setText(setusrname, TextView.BufferType.NORMAL); //sets users name
                     /**stores it in memory**/
-
-
-                    //    Tracks("Entered Search " + location_search, "pressed Enter");
-                    //      Log.d("Entered Search", "pressed Enter");
                     return true;
-
                 }
                 return false;
             }
         });
+
+
+        //    Tracks("Entered Search " + location_search, "pressed Enter");
+        //      Log.d("Entered Search", "pressed Enter");
 /**Set name with enter******/
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EventChecker.this);
         String name = preferences.getString("username", setusrname); //pulls it on create

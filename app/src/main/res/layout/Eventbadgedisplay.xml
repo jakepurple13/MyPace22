@@ -55,7 +55,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Name"
         android:id="@+id/usrname"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:lines="1"/>
 
     <ImageView
         android:layout_width="wrap_content"
