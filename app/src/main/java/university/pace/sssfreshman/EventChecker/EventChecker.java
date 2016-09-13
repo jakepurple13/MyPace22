@@ -1,7 +1,9 @@
 package university.pace.sssfreshman.EventChecker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +39,15 @@ public class EventChecker extends AppCompatActivity {
         });
 
         String setusrname = usrName.getText().toString();//gets user's name
+        /**stores it in memory**/
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username", setusrname);
+        editor.apply();
+        /**stores it in memory**/
+        String name = preferences.getString("username", setusrname); //pulls it on create
+        usrName.setText(setusrname);//sets users name
 
-        usrName.setText(setusrname);//sets it
 
         String code = EventCode.getText().toString();
         //TODO: save user name here

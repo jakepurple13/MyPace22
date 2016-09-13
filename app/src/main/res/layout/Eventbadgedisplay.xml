@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:id="@+id/usricon"
-        android:src="@drawable/ic_cast_off_light"
+        android:src="@drawable/avatar"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.20" />
 
@@ -81,7 +81,7 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:id="@+id/Badge"
-            android:src="@drawable/ic_cast_dark"
+            android:src="@drawable/badge"
             android:layout_weight="0.20" />
 
         <TextView

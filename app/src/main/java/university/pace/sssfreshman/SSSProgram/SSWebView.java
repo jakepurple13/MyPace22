@@ -144,7 +144,7 @@ public class SSWebView extends AppCompatActivity implements View.OnClickListener
 
     public void MethodOfContact(final String number, final String Email, final String Greeting) {
 
-        ad = new AlertDialog.Builder(this).setIcon(R.drawable.ic_cast_dark).setTitle( //TODO:Change to contact
+        ad = new AlertDialog.Builder(this).setIcon(R.drawable.contact).setTitle(
                 R.string.methodofcontact).setMessage(
                 R.string.calloremail).setCancelable(false)
                 .setNegativeButton(R.string.Email,
