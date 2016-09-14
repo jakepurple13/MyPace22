@@ -1,5 +1,6 @@
 package university.pace.sssfreshman.EventChecker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,10 +17,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import university.pace.sssfreshman.R;
 
@@ -28,7 +32,9 @@ public class EventChecker extends AppCompatActivity {
     ImageView usricon;
     private static int PICK_PHOTO_FOR_AVATAR = 1;
     EditText usrName, EventCode;
-
+    String setusrname;
+    private CheckBox remember;
+    private boolean saveMemory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,37 @@ public class EventChecker extends AppCompatActivity {
             }
         });
 
-        final String setusrname = usrName.getText().toString();//gets user's name
+
+
+/*   *****************When remember me is checked it save the users data on return**** */
+        remember = (CheckBox) findViewById(R.id.checkBox);
+        remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveMemory = isChecked;
+
+            }
+        });
+/**Loads name on remember me ******/
+        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+        saveMemory = preferences.getBoolean("save", false);
+        remember.setChecked(saveMemory);
+        String name = preferences.getString("username", ""); //pulls it on create
+        usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
+
+        if (saveMemory)//if checked
+        {
+
+            // disable editing password
+            usrName.setFocusable(false);
+            usrName.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+            usrName.setClickable(false); // user navigates with wheel and selects widget
+        } else { // enable editing of password
+            usrName.setFocusable(true);
+            usrName.setFocusableInTouchMode(true);
+            usrName.setClickable(true);
+        }
+
 
 /**Set name with enter******/
         usrName.setOnKeyListener(new View.OnKeyListener() {
@@ -58,12 +94,21 @@ public class EventChecker extends AppCompatActivity {
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
                     /**stores it in memory**/
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EventChecker.this);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("username", setusrname);
-                    editor.apply();
-                    usrName.setText(setusrname, TextView.BufferType.NORMAL); //sets users name
-                    /**stores it in memory**/
+                    if (saveMemory) {
+                        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        setusrname = usrName.getText().toString();//gets user's name
+                        editor.putString("username", setusrname);
+                        editor.putBoolean("save", true);
+                        editor.apply();
+                        Log.d("name saved==>", setusrname);
+                    }
+
+
+                    Log.d("pressed enter", "==>");
+                    Log.d("username", usrName.getText().toString());
+                    Log.d("setname", setusrname);
+
                     return true;
                 }
                 return false;
@@ -73,9 +118,6 @@ public class EventChecker extends AppCompatActivity {
 
         //    Tracks("Entered Search " + location_search, "pressed Enter");
         //      Log.d("Entered Search", "pressed Enter");
-/**Set name with enter******/
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EventChecker.this);
-        String name = preferences.getString("username", setusrname); //pulls it on create
 
 
 

@@ -924,3 +924,15 @@ public void onClick(View v) {
     mSwitcher.startAnimation(out);
 
 }
+
+if (cbProhibitEditPW.isChecked()) { // disable editing password
+       editTextPassword.setFocusable(false);
+       editTextPassword.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+       editTextPassword.setClickable(false); // user navigates with wheel and selects widget
+       isProhibitEditPassword= true;
+} else { // enable editing of password
+       editTextPassword.setFocusable(true);
+       editTextPassword.setFocusableInTouchMode(true);
+       editTextPassword.setClickable(true);
+       isProhibitEditPassword= false;
+}
