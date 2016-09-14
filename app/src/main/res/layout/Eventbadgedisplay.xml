@@ -16,38 +16,6 @@
 
     </TableLayout>
 
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,11 +24,13 @@
         android:hint="Name"
         android:id="@+id/usrname"
         android:layout_gravity="center_horizontal"
-        android:lines="1"/>
+        android:lines="1"
+        android:singleLine="true"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:id="@+id/usricon"
         android:src="@drawable/avatar"
         android:layout_gravity="center_horizontal"
@@ -73,10 +43,27 @@
         android:id="@+id/changeicon"
         android:layout_gravity="center_horizontal" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember me"
+        android:id="@+id/checkBox"
+        android:layout_gravity="center_horizontal"/>
+
     <TableRow
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
 
         <ImageView
             android:layout_width="35dp"
@@ -89,12 +76,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
+            android:text="x0"
             android:id="@+id/Achievements" />
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
+
 
         <Space
             android:layout_width="20px"
@@ -137,6 +122,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Enter Event code"
         android:id="@+id/Eventcode"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:lines="1"
+        android:singleLine="true"
+        android:background="#ffffff"/>
+
 
 </LinearLayout>

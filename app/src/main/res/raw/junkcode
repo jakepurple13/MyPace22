@@ -936,3 +936,20 @@ if (cbProhibitEditPW.isChecked()) { // disable editing password
        editTextPassword.setClickable(true);
        isProhibitEditPassword= false;
 }
+
+
+ if (Checkcode(usrcode).contains(eventinfo.eventcode)) {
+                        //Code correct
+                            Log.d("Code Correct==>",usrcode);
+                            Log.d("Match==>",usrcode + eventinfo.eventcode);
+                            Toast.makeText(EventChecker.this,"Welcome to Event:" + eventinfo.name,Toast.LENGTH_LONG).show();
+
+
+                        }
+                        else
+                        {
+                            //incorrect <code>
+                            Log.e("No Match==>",usrcode);
+                            Toast.makeText(EventChecker.this,"No event code matches " + usrcode,Toast.LENGTH_LONG).show();
+
+                        }

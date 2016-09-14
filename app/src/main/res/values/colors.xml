@@ -11,5 +11,9 @@
     <color name="Pace_red">#ff0000</color>
     <color name="Pace_bluish">#0000ff</color>
     <color name="Pace_hueBlue">#4562f5</color>
+    <color name="Succuess">#1d8500</color>
+    <color name="Succuess_bg">#4dff0d</color>
+    <color name="wrong_bg">#ff0015</color>
+    <color name="wrong">#000000</color>
 
 </resources>
