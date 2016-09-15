@@ -77,12 +77,11 @@ public class EventChecker extends AppCompatActivity
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
-    ArrayList<String> events;
+    ArrayList<Eventinfo> events;
     private Tracker mTracker;
     private final String TAG = "";
     private String Screentracker = "EventChecker";
     private String usrcode;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,14 +101,17 @@ public class EventChecker extends AppCompatActivity
         });
 
 
-
 /*   *****************When remember me is checked it save the users data on return**** */
         remember = (CheckBox) findViewById(R.id.checkBox);
         remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 saveMemory = isChecked;
-
+                //if checked
+                // disable editing password
+                usrName.setFocusable(false);
+                usrName.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+                usrName.setClickable(false); // user navigates with wheel and selects widget
             }
         });
         /**Loads name on remember me ******/
@@ -119,18 +121,19 @@ public class EventChecker extends AppCompatActivity
         String name = preferences.getString("username", ""); //pulls it on create
         usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
 
-        if (saveMemory)//if checked
-        {
+        usrName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
 
-            // disable editing password
-            usrName.setFocusable(false);
-            usrName.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
-            usrName.setClickable(false); // user navigates with wheel and selects widget
-        } else if (!saveMemory) { // enable editing of password
-            usrName.setFocusable(true);
-            usrName.setFocusableInTouchMode(true);
-            usrName.setClickable(true);
-        }
+// enable editing of password
+                usrName.setFocusable(true);
+                usrName.setFocusableInTouchMode(true);
+                usrName.setClickable(true);
+                Log.i("Pressed usrname", "Long click");
+                return false;
+            }
+        });
+
 
 
         /**Set name with enter******/
@@ -159,6 +162,8 @@ public class EventChecker extends AppCompatActivity
                     return true;
                 }
                 return false;
+
+
             }
         });
 
@@ -168,6 +173,7 @@ public class EventChecker extends AppCompatActivity
 
         EventCode.setOnKeyListener(new View.OnKeyListener() {
 
+            @TargetApi(Build.VERSION_CODES.M)
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN
                         && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -176,7 +182,13 @@ public class EventChecker extends AppCompatActivity
                     Checkcode(usrcode);
                     return true;
                 }
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    //this is for backspace
+                    EventCode.setBackgroundColor(getResources().getColor(R.color.white, null));
+                    EventCode.setTextColor(getResources().getColor(R.color.wrong, null));//color black
 
+                    return true;
+                }
                 return false;
             }
 
@@ -224,17 +236,17 @@ public class EventChecker extends AppCompatActivity
 
     public void Checkcode(String code) {
         Log.d("Checkcode==>", code);
-        for (String e : events) //for-each loop looks through list
+        for (Eventinfo e : events) //for-each loop looks through list
         {
-            Log.d("Mylist", e);
+            Log.d("Mylist", e.toString());
 
-            if (code.equals(e)) {
+            if (code.equals(e.eventcode)) {
                 //Code correct
                 Log.d("Code Correct==>", code);
-                Log.d("Match==>", code + e);
+                Log.d("Match==>", code + e.eventcode);
                 CodeSound(R.raw.tejat);
                 FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
-                Toast.makeText(EventChecker.this, "Welcome to Event:" + e, Toast.LENGTH_LONG).show();
+                Toast.makeText(EventChecker.this, "Welcome to Event:" + e.name, Toast.LENGTH_LONG).show();
                 break; //breaks out of loop
             } else {
                 //incorrect <code>
@@ -251,7 +263,7 @@ public class EventChecker extends AppCompatActivity
     public class Eventinfo {
         String name;
         String eventcode;
-
+//TODO:use this better
 
         public Eventinfo(String name, String eventcode) {
             this.name = name;
@@ -555,7 +567,7 @@ public class EventChecker extends AppCompatActivity
                 for (List row : values) {
 
                     Eventinfo eventinfo = new Eventinfo((String) row.get(3), (String) row.get(4));
-                    events.add(eventinfo.eventcode);
+                    events.add(eventinfo);
                     //       Log.i("getdatafromapi",eventinfo.eventcode);
 
                     //TODO:Find where is my data and test with user input

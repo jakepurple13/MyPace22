@@ -15,5 +15,5 @@
     <color name="Succuess_bg">#4dff0d</color>
     <color name="wrong_bg">#ff0015</color>
     <color name="wrong">#000000</color>
-
+    <color name="white">#FFFFFF</color>
 </resources>
