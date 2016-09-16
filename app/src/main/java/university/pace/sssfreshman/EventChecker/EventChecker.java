@@ -78,6 +78,7 @@ public class EventChecker extends AppCompatActivity
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
     ArrayList<Eventinfo> events;
+    ArrayList<Eventinfo> visted;
     private Tracker mTracker;
     private final String TAG = "";
     private String Screentracker = "EventChecker";
@@ -121,6 +122,7 @@ public class EventChecker extends AppCompatActivity
         String name = preferences.getString("username", ""); //pulls it on create
         usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
 
+
         usrName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -133,9 +135,6 @@ public class EventChecker extends AppCompatActivity
                 return false;
             }
         });
-
-
-
         /**Set name with enter******/
         usrName.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -205,6 +204,7 @@ public class EventChecker extends AppCompatActivity
 
 
         events = new ArrayList<>();
+        visted = new ArrayList<>();
 
 
         /*for(int i=0;i<al.size();i++) {
@@ -236,27 +236,45 @@ public class EventChecker extends AppCompatActivity
 
     public void Checkcode(String code) {
         Log.d("Checkcode==>", code);
-        for (Eventinfo e : events) //for-each loop looks through list
+//TODO:Check this code // FIXME: 9/15/2016
+        for (Eventinfo v : visted)// Checks visted list first: 9/15/2016
         {
-            Log.d("Mylist", e.toString());
-
-            if (code.equals(e.eventcode)) {
-                //Code correct
-                Log.d("Code Correct==>", code);
-                Log.d("Match==>", code + e.eventcode);
-                CodeSound(R.raw.tejat);
-                FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
-                Toast.makeText(EventChecker.this, "Welcome to Event:" + e.name, Toast.LENGTH_LONG).show();
-                break; //breaks out of loop
-            } else {
-                //incorrect <code>
+            if (code.equals(v.eventcode)) {
+                Log.d("StoredEventList", v.toString());
                 CodeSound(R.raw.wrongsoundeffect);
                 FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
-                Log.e("No Match==>", code);
-                Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
+                Toast.makeText(EventChecker.this, "You've already been to " + v.name, Toast.LENGTH_LONG).show();
+
                 break;
+            } else {
+                for (Eventinfo e : events) //for-each loop looks through Event list
+                {
+
+                    Log.d("Eventlist", e.toString());
+
+                    if (code.equals(e.eventcode)) {
+                        //Code correct
+                        Log.d("Code Correct==>", code);
+                        Log.d("Match==>", code + e.eventcode);
+                        CodeSound(R.raw.correctsoundeffect);
+                        FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
+                        Toast.makeText(EventChecker.this, "Welcome to the " + e.name, Toast.LENGTH_LONG).show();
+                        Eventinfo storeEventcode = new Eventinfo(e.name, e.eventcode);
+                        visted.add(storeEventcode);//store in ArrayList visted
+                        break; //breaks out of loop
+                    } else {
+                        //incorrect <code>
+                        CodeSound(R.raw.wrongsoundeffect);
+                        FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
+                        Log.e("No Match==>", code);
+                        Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+
             }
         }
+
 
     }
 
@@ -641,6 +659,11 @@ public class EventChecker extends AppCompatActivity
 
         et.setTextColor(getResources().getColor(textcolor, null));
         et.setBackgroundColor(getResources().getColor(bgcolor, null));
+    }
+
+
+    public void IncrementBadge() {
+
     }
 
 }
