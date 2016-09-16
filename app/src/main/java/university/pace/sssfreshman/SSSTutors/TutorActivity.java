@@ -455,6 +455,7 @@ public class TutorActivity extends Activity
 
                     TutorInfo ii = new TutorInfo((String) row.get(0) + " " + row.get(1), (String) row.get(2), (String) row.get(3));
                     ma.al.add(ii);
+                    Log.e("array read ", ma.al.toString());
                     for (int i = 0; i < row.size(); i++) {
                         Log.e("Row number: " + i, (String) row.get(i));
                     }

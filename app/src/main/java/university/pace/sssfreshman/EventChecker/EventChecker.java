@@ -62,6 +62,7 @@ public class EventChecker extends AppCompatActivity
     ImageView usricon;
 
     EditText usrName, EventCode;
+    TextView badgecounter;
     String setusrname;
     AudioManager am;
     private CheckBox remember;
@@ -93,6 +94,7 @@ public class EventChecker extends AppCompatActivity
 
         usrName = (EditText) findViewById(R.id.usrname);
         EventCode = (EditText) findViewById(R.id.Eventcode);
+        badgecounter = (TextView) findViewById(R.id.BadgesEarned);
 
         IconChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +117,8 @@ public class EventChecker extends AppCompatActivity
                 usrName.setClickable(false); // user navigates with wheel and selects widget
             }
         });
+
+
         /**Loads name on remember me ******/
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
         saveMemory = preferences.getBoolean("save", false);
@@ -123,6 +127,7 @@ public class EventChecker extends AppCompatActivity
         usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
 
 
+        /***allows user to edittext on edittext hold**/
         usrName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -135,6 +140,7 @@ public class EventChecker extends AppCompatActivity
                 return false;
             }
         });
+
         /**Set name with enter******/
         usrName.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -236,43 +242,53 @@ public class EventChecker extends AppCompatActivity
 
     public void Checkcode(String code) {
         Log.d("Checkcode==>", code);
+        Log.d("arrayevents", events.toString());
 //TODO:Check this code // FIXME: 9/15/2016
-        for (Eventinfo v : visted)// Checks visted list first: 9/15/2016
+        /**     if(!visted.isEmpty())
+         for (Eventinfo v : visted)
         {
             if (code.equals(v.eventcode)) {
                 Log.d("StoredEventList", v.toString());
                 CodeSound(R.raw.wrongsoundeffect);
                 FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
                 Toast.makeText(EventChecker.this, "You've already been to " + v.name, Toast.LENGTH_LONG).show();
-
                 break;
-            } else {
-                for (Eventinfo e : events) //for-each loop looks through Event list
-                {
-
-                    Log.d("Eventlist", e.toString());
-
-                    if (code.equals(e.eventcode)) {
-                        //Code correct
-                        Log.d("Code Correct==>", code);
-                        Log.d("Match==>", code + e.eventcode);
-                        CodeSound(R.raw.correctsoundeffect);
-                        FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
-                        Toast.makeText(EventChecker.this, "Welcome to the " + e.name, Toast.LENGTH_LONG).show();
-                        Eventinfo storeEventcode = new Eventinfo(e.name, e.eventcode);
-                        visted.add(storeEventcode);//store in ArrayList visted
-                        break; //breaks out of loop
-                    } else {
-                        //incorrect <code>
-                        CodeSound(R.raw.wrongsoundeffect);
-                        FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
-                        Log.e("No Match==>", code);
-                        Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
-                        break;
-                    }
-                }
-
             }
+         }**/
+//TODO:e is only Grad fair ???? WTF
+        for (Eventinfo e : events) //for-each loop looks through Event list
+        {
+
+            Log.d("mylist", e.toString());
+
+            if (code.equals(e.eventcode)) {
+                //Code correct
+                Log.d("Code Correct==>", code);
+                Log.d("Match==>", code + e.eventcode);
+                CodeSound(R.raw.correctsoundeffect);
+                FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
+                BadgeEarned(badgecounter); //adds badge in view
+                Toast.makeText(EventChecker.this, "Welcome to the " + e.name, Toast.LENGTH_LONG).show();
+                Eventinfo storeEventcode = new Eventinfo(e.name, e.eventcode);
+                //    visted.add(storeEventcode);//store in ArrayList visted  *user attended event*
+
+                break; //breaks out of loop
+            } else {
+                //incorrect <code>
+                CodeSound(R.raw.wrongsoundeffect);
+                FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
+                Log.e("No Match==>", code);
+                Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
+                break;
+            }
+
+
+        }
+        for (Eventinfo v : visted) {
+            Log.d("myStoredList", v.eventcode);
+            if (v.equals(""))
+                Log.d("myStoredList", v.eventcode);
+            break;
         }
 
 
@@ -289,7 +305,10 @@ public class EventChecker extends AppCompatActivity
 
         }
 
-
+        @Override
+        public String toString() {
+            return "Event Name:" + "\n" + name + "\n" + "EventCode:" + "\n" + eventcode;
+        }
     }
 
     /**
@@ -586,14 +605,15 @@ public class EventChecker extends AppCompatActivity
 
                     Eventinfo eventinfo = new Eventinfo((String) row.get(3), (String) row.get(4));
                     events.add(eventinfo);
-                    //       Log.i("getdatafromapi",eventinfo.eventcode);
+                    Log.e("eventslist", events.toString());
+                    //Log.i("getdatafromapi",eventinfo.eventcode);
 
                     //TODO:Find where is my data and test with user input
                     for (int i = 0; i < row.size(); i++) {
                         Log.e("Row number: " + i, (String) row.get(i));
                     }
 
-                    Log.e("EventData", eventinfo.toString());
+                    Log.e("EventData", eventinfo.eventcode);
                     results.add(row.get(0) + ", " + row.get(3));
                 }
             }
@@ -662,7 +682,11 @@ public class EventChecker extends AppCompatActivity
     }
 
 
-    public void IncrementBadge() {
+    public void BadgeEarned(TextView badgecount) { //only if user gets eventcode correct
+        int count = 0;
+
+        count++;
+        badgecount.setText(String.valueOf(count));
 
     }
 
