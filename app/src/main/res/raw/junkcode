@@ -953,3 +953,15 @@ if (cbProhibitEditPW.isChecked()) { // disable editing password
                             Toast.makeText(EventChecker.this,"No event code matches " + usrcode,Toast.LENGTH_LONG).show();
 
                         }
+
+                     if (!(code.equals(l.eventcode))) {
+
+                                       //incorrect <code>
+                                       CodeSound(R.raw.wrongsoundeffect);
+                               FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
+                               Log.e("No Match==>292", code);
+                               Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
+
+
+
+

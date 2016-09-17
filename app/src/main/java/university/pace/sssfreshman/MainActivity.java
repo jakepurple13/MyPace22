@@ -5,12 +5,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +26,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -47,6 +53,8 @@ import com.google.android.gms.analytics.Tracker;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton phoneButton, MapButton;
+    TextView BadgeNumber;
+    ImageView usricon;
     AudioManager am;
     private RelativeLayout bg2;
     private Tracker mTracker;
@@ -79,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         /***Important Numbers****/
         phoneButton = (ImageButton) findViewById(R.id.numbers);
-
+        BadgeNumber = (TextView) findViewById(R.id.Badgenumber_main);
+        usricon = (ImageView) findViewById(R.id.usricon);
 
 
         phoneButton.setOnLongClickListener(new View.OnLongClickListener() {
@@ -124,8 +133,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /***Important Numbers****/////////////
 
 
-        //TODO: button grey out on press testing
+        //TODO: UPdate:  9/16/2016
+        /**Shared from EventChecker Class***/
+        final SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        int value = (mSharedPreference.getInt("badgenum", 0));
+        BadgeNumber.setText("x " + String.valueOf(value), TextView.BufferType.NORMAL); //sets users name
 
+/**photo icon**/
+        final SharedPreferences mPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String path = (mPreference.getString("imagepath", ""));
+        usricon.setImageBitmap(getScaledBitmap(path, 135, 135));
+
+
+        //TODO: UPdate:  9/16/2016
 
         MapButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -397,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void AskPremission() {
 
         String[] perms = {"android.permission.READ_CALENDAR", "android.permission.Write_CALENDAR",
-                "android.permission.GET_ACCOUNTS", "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
+                "android.permission.GET_ACCOUNTS", "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
         int permsRequestCode = 200;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -406,6 +426,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.GET_ACCOUNTS
             ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_CALENDAR
             ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_CALENDAR
+            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED) {
 
                 // Should we show an explanation?
@@ -488,5 +510,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Animation Anim = AnimationUtils.loadAnimation(this, R.anim.alpha_fade);
         v.startAnimation(Anim);
 
+    }
+
+    /**
+     * Loads Large Images from gallery
+     ***/
+    private Bitmap getScaledBitmap(String picturePath, int width, int height) {
+        BitmapFactory.Options sizeOptions = new BitmapFactory.Options();
+        sizeOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(picturePath, sizeOptions);
+
+        int inSampleSize = calculateInSampleSize(sizeOptions, width, height);
+
+        sizeOptions.inJustDecodeBounds = false;
+        sizeOptions.inSampleSize = inSampleSize;
+
+        return BitmapFactory.decodeFile(picturePath, sizeOptions);
+    }
+
+    /**
+     * Loads Large Images from gallery
+     ***/
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and
+            // width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will
+            // guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
     }
 }

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,6 +19,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +56,7 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.sssfreshman.MainActivity;
 import university.pace.sssfreshman.R;
 
 public class EventChecker extends AppCompatActivity
@@ -65,6 +68,7 @@ public class EventChecker extends AppCompatActivity
     TextView badgecounter;
     String setusrname;
     AudioManager am;
+    private static int count = 0;
     private CheckBox remember;
     private boolean saveMemory;
     GoogleAccountCredential mCredential;
@@ -79,7 +83,7 @@ public class EventChecker extends AppCompatActivity
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
 
     ArrayList<Eventinfo> events;
-    ArrayList<Eventinfo> visted;
+    private static ArrayList<String> visted;
     private Tracker mTracker;
     private final String TAG = "";
     private String Screentracker = "EventChecker";
@@ -126,6 +130,16 @@ public class EventChecker extends AppCompatActivity
         String name = preferences.getString("username", ""); //pulls it on create
         usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
 
+        /**Loads badge count number*****/
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int rememberedcount = prefs.getInt("badgenum", 0); //pulls it on create
+        badgecounter.setText("x " + String.valueOf(rememberedcount), TextView.BufferType.NORMAL); //sets users name
+
+        /**Loads Photo*****/
+        SharedPreferences prefphoto = PreferenceManager.getDefaultSharedPreferences(this);
+        String savephoto = prefphoto.getString("imagepath", ""); //pulls it on create
+        usricon.setImageBitmap(getScaledBitmap(savephoto, 135, 135));//sets users name
+
 
         /***allows user to edittext on edittext hold**/
         usrName.setOnLongClickListener(new View.OnLongClickListener() {
@@ -156,13 +170,13 @@ public class EventChecker extends AppCompatActivity
                         editor.putString("username", setusrname);
                         editor.putBoolean("save", true);
                         editor.apply();
-                        Log.d("name saved==>", setusrname);
+                        //       Log.d("name saved==>", setusrname);
                     }
 
 
                     Log.d("pressed enter", "==>");
                     Log.d("username", usrName.getText().toString());
-                    Log.d("setname", setusrname);
+//                    Log.d("setname", setusrname);
 
                     return true;
                 }
@@ -189,10 +203,12 @@ public class EventChecker extends AppCompatActivity
                 }
                 if (keyCode == KeyEvent.KEYCODE_DEL) {
                     //this is for backspace
+                    Log.d("Delete it===>", "backspace");
                     EventCode.setBackgroundColor(getResources().getColor(R.color.white, null));
                     EventCode.setTextColor(getResources().getColor(R.color.wrong, null));//color black
+                    badgecounter.setBackgroundColor(getResources().getColor(R.color.white, null));
 
-                    return true;
+
                 }
                 return false;
             }
@@ -211,7 +227,8 @@ public class EventChecker extends AppCompatActivity
 
         events = new ArrayList<>();
         visted = new ArrayList<>();
-
+        loadArray(this); //Loads Array
+        Log.i("Visted==>loaded", "=");
 
         /*for(int i=0;i<al.size();i++) {
             Log.w("Row " + i, al.get(i).toString());
@@ -229,9 +246,8 @@ public class EventChecker extends AppCompatActivity
 
 
     public void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, PICK_PHOTO_FOR_AVATAR);
     }
 
     public void SetIcon() {
@@ -243,61 +259,36 @@ public class EventChecker extends AppCompatActivity
     public void Checkcode(String code) {
         Log.d("Checkcode==>", code);
         Log.d("arrayevents", events.toString());
-//TODO:Check this code // FIXME: 9/15/2016
-        /**     if(!visted.isEmpty())
-         for (Eventinfo v : visted)
-        {
-            if (code.equals(v.eventcode)) {
-                Log.d("StoredEventList", v.toString());
-                CodeSound(R.raw.wrongsoundeffect);
-                FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
-                Toast.makeText(EventChecker.this, "You've already been to " + v.name, Toast.LENGTH_LONG).show();
-                break;
-            }
-         }**/
-//TODO:e is only Grad fair ???? WTF
+        Log.d("vistedList==>", visted.toString());
+
+//TODO:FIXED // FIXedME: 9/16/2016
         for (Eventinfo e : events) //for-each loop looks through Event list
         {
 
-            Log.d("mylist", e.toString());
+            Log.d("mylist==>", e.toString());
+            Log.d("mycodes==>", e.eventcode);
+            Log.d("myeventname==>", e.name);
+            //Log.d("notfound()===>",String.valueOf(notfound(code)) );
 
-            if (code.equals(e.eventcode)) {
+            if (code.equals(e.eventcode) && !VistedEvent(code)) {
                 //Code correct
                 Log.d("Code Correct==>", code);
                 Log.d("Match==>", code + e.eventcode);
-                CodeSound(R.raw.correctsoundeffect);
-                FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
-                BadgeEarned(badgecounter); //adds badge in view
-                Toast.makeText(EventChecker.this, "Welcome to the " + e.name, Toast.LENGTH_LONG).show();
-                Eventinfo storeEventcode = new Eventinfo(e.name, e.eventcode);
-                //    visted.add(storeEventcode);//store in ArrayList visted  *user attended event*
 
-                break; //breaks out of loop
-            } else {
-                //incorrect <code>
-                CodeSound(R.raw.wrongsoundeffect);
-                FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
-                Log.e("No Match==>", code);
-                Toast.makeText(EventChecker.this, "No event codes matches " + code, Toast.LENGTH_LONG).show();
-                break;
+                BadgeEarned(badgecounter, e.name); //adds badge in view
+                visted.add(e.eventcode);
+
+//store in ArrayList visted  *user attended event*
+                Log.d("REMOVED", visted.toString());
+
             }
-
-
+            saveArray(); //save visted array
         }
-        for (Eventinfo v : visted) {
-            Log.d("myStoredList", v.eventcode);
-            if (v.equals(""))
-                Log.d("myStoredList", v.eventcode);
-            break;
-        }
-
-
     }
-
     public class Eventinfo {
         String name;
         String eventcode;
-//TODO:use this better
+
 
         public Eventinfo(String name, String eventcode) {
             this.name = name;
@@ -430,7 +421,16 @@ public class EventChecker extends AppCompatActivity
                     cursor.close();
 
                     ImageView imageView = (ImageView) findViewById(R.id.usricon);
-                    imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    if (imageView != null) {
+                        imageView.setImageBitmap(getScaledBitmap(picturePath, 135, 135));
+                        Log.d("Image Loading==>", "Imageview");
+                        SharedPreferences shre = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor edit = shre.edit();
+                        edit.putString("imagepath", picturePath);
+                        edit.commit();
+                    } else
+                        Log.e("Failed Image Loading", "Imageview");
+                    //  imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
                 }
                 /**
@@ -608,12 +608,12 @@ public class EventChecker extends AppCompatActivity
                     Log.e("eventslist", events.toString());
                     //Log.i("getdatafromapi",eventinfo.eventcode);
 
-                    //TODO:Find where is my data and test with user input
+
                     for (int i = 0; i < row.size(); i++) {
                         Log.e("Row number: " + i, (String) row.get(i));
                     }
 
-                    Log.e("EventData", eventinfo.eventcode);
+                    Log.e("EventData==>", eventinfo.eventcode);
                     results.add(row.get(0) + ", " + row.get(3));
                 }
             }
@@ -682,13 +682,125 @@ public class EventChecker extends AppCompatActivity
     }
 
 
-    public void BadgeEarned(TextView badgecount) { //only if user gets eventcode correct
-        int count = 0;
+    @TargetApi(Build.VERSION_CODES.M)
+    public void BadgeEarned(TextView badgecount, String name) { //only if user gets eventcode correct
+
 
         count++;
-        badgecount.setText(String.valueOf(count));
+        CodeSound(R.raw.tejat);
+        FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
+        Toast.makeText(EventChecker.this, "Welcome to the " + name + " event", Toast.LENGTH_LONG).show();
+        SharedPreferences badgestored = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edit = badgestored.edit();
+        edit.putInt("badgenum", count);
+        edit.commit();
+        badgecount.setText("x " + String.valueOf(count));
+        badgecount.setBackgroundColor(getResources().getColor(R.color.Succuess_bg, null));
+        //PutExtra(count);
+//TODO: provide better counting // FIXME: 9/17/2016
+
 
     }
 
+    public boolean VistedEvent(String code) {
+
+
+        for (String v : visted) {
+            if (code.equals(v)) {
+
+                //code used <code>
+                CodeSound(R.raw.wrongsoundeffect);
+                FindTextColor(EventCode, R.color.wrong, R.color.wrong_bg);
+                Toast.makeText(EventChecker.this, "You've already stored this code " + v, Toast.LENGTH_LONG).show();
+
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public void PutExtra(int put) {
+        Intent ii = new Intent(EventChecker.this, MainActivity.class);
+        ii.putExtra("num", put);
+
+        //   startActivity(ii);
+    }
+
+
+    /**
+     * Saves visted array to shared prefrences
+     **/
+    public boolean saveArray() {
+
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(EventChecker.this);
+        SharedPreferences.Editor mEdit1 = sp.edit();
+    /* visted is an array */
+        mEdit1.putInt("visted_size", visted.size());
+
+        for (int i = 0; i < visted.size(); i++) {
+            mEdit1.remove("visted_" + i);
+            mEdit1.putString("visted_" + i, visted.get(i));
+        }
+
+        return mEdit1.commit();
+    }
+
+    /**
+     * loads Array from shared prefrences
+     **/
+    public static void loadArray(Context mContext) {
+        SharedPreferences mSharedPreference1 = PreferenceManager.getDefaultSharedPreferences(mContext);
+        visted.clear();
+        int size = mSharedPreference1.getInt("visted_size", 0);
+
+        for (int i = 0; i < size; i++) {
+            visted.add(mSharedPreference1.getString("visted_" + i, null));
+        }
+
+    }
+
+    /**
+     * Loads Large Images from gallery
+     ***/
+    private Bitmap getScaledBitmap(String picturePath, int width, int height) {
+        BitmapFactory.Options sizeOptions = new BitmapFactory.Options();
+        sizeOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(picturePath, sizeOptions);
+
+        int inSampleSize = calculateInSampleSize(sizeOptions, width, height);
+
+        sizeOptions.inJustDecodeBounds = false;
+        sizeOptions.inSampleSize = inSampleSize;
+
+        return BitmapFactory.decodeFile(picturePath, sizeOptions);
+    }
+
+    /**
+     * Loads Large Images from gallery
+     ***/
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and
+            // width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will
+            // guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
+    }
 }
 

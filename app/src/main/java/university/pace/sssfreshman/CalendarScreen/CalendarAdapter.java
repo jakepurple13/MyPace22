@@ -164,12 +164,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                         Log.wtf("WTF", ex);
                     }
 
-                    /**TODO:Testing Badge System**/
-                    int CountToken = 0;
-                    CountToken++;
-                    //Badge.EventBadges(CountToken);
-                    /**TODO:Testing Badge System**/
-
 
                 } else {
                     Toast.makeText(in, "You already have it", Toast.LENGTH_SHORT).show();

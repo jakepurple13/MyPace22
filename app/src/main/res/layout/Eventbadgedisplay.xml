@@ -29,12 +29,13 @@
         />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/usricon"
         android:src="@drawable/avatar"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.20" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -77,7 +78,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="x0"
-            android:id="@+id/BadgesEarned"/>
+            android:id="@+id/BadgesEarned"
+            android:background="#ffffff" />
 
 
 
