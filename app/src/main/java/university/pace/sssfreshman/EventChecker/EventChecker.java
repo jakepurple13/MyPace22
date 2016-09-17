@@ -68,7 +68,7 @@ public class EventChecker extends AppCompatActivity
     TextView badgecounter;
     String setusrname;
     AudioManager am;
-    private static int count = 0;
+    private static int count = 1;//count stars at one
     private CheckBox remember;
     private boolean saveMemory;
     GoogleAccountCredential mCredential;
@@ -130,10 +130,21 @@ public class EventChecker extends AppCompatActivity
         String name = preferences.getString("username", ""); //pulls it on create
         usrName.setText(name, TextView.BufferType.NORMAL); //sets users name
 
-        /**Loads badge count number*****/
+        /**Loads badge count number*******/
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int rememberedcount = prefs.getInt("badgenum", 0); //pulls it on create
+        int rememberedcount = prefs.getInt("badgenum", count); //pulls it on create
+        Log.i("start==>", String.valueOf(count));//ex> start 1
         badgecounter.setText("x " + String.valueOf(rememberedcount), TextView.BufferType.NORMAL); //sets users name
+        ++rememberedcount;// increment remebered by one
+        getPreferences(MODE_PRIVATE).edit().putInt("count_key", rememberedcount).commit();//save number in shared prefs
+        count = getPreferences(MODE_PRIVATE).getInt("count_key", count); //count becomes that value and is sent to badgeearned()
+        Log.i("end==>", String.valueOf(count));//ex> ends 2
+        Log.i("numremembered==>", String.valueOf(rememberedcount));
+
+
+
+
 
         /**Loads Photo*****/
         SharedPreferences prefphoto = PreferenceManager.getDefaultSharedPreferences(this);
@@ -227,14 +238,10 @@ public class EventChecker extends AppCompatActivity
 
         events = new ArrayList<>();
         visted = new ArrayList<>();
-        loadArray(this); //Loads Array
-        Log.i("Visted==>loaded", "=");
 
-        /*for(int i=0;i<al.size();i++) {
-            Log.w("Row " + i, al.get(i).toString());
-        }*/
+        loadArray(this);//LoadsArray
+        Log.i("Visted==>loaded", visted.toString());
 
-        //  Collections.sort(events, new Eventinfo.InfoCompare());
 
 
         getResultsFromApi();
@@ -686,15 +693,16 @@ public class EventChecker extends AppCompatActivity
     public void BadgeEarned(TextView badgecount, String name) { //only if user gets eventcode correct
 
 
-        count++;
-        CodeSound(R.raw.tejat);
+        //  count++;
+        CodeSound(R.raw.correctsoundeffect);
         FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
         Toast.makeText(EventChecker.this, "Welcome to the " + name + " event", Toast.LENGTH_LONG).show();
         SharedPreferences badgestored = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = badgestored.edit();
         edit.putInt("badgenum", count);
         edit.commit();
-        badgecount.setText("x " + String.valueOf(count));
+        Log.i("numberofbadges==>", String.valueOf(count));
+        badgecount.setText("x " + String.valueOf(count++));
         badgecount.setBackgroundColor(getResources().getColor(R.color.Succuess_bg, null));
         //PutExtra(count);
 //TODO: provide better counting // FIXME: 9/17/2016
