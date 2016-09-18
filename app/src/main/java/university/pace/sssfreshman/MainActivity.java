@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //TestFairy.begin(this, "bde19002b059bcf18e75d5029b2862d582033bf4");
-/**Start Tracking users onCreate Screen
+/**Start Tracking users onCreate Screen***/
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(TAG, TAG + Screentracker);
         mTracker.setScreenName(Screentracker);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
- ***/
+
         /**Start Tracking users onCreate Screen***/
 
 
@@ -447,13 +447,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    /**
+     * tracks user
+     **/
     public void Tracks(String catogory, String action) {
-        /**    mTracker.send(new HitBuilders.EventBuilder()
+        mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(catogory)
                 .setAction(action)
                 .build());
-         **/
+
     }
 
     public void TakeUserToMarket(Context context, String packageName) {

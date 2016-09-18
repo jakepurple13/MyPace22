@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -56,6 +57,7 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import university.pace.sssfreshman.GoogleAnalytics.AnalyticsApplication;
 import university.pace.sssfreshman.MainActivity;
 import university.pace.sssfreshman.R;
 
@@ -68,7 +70,8 @@ public class EventChecker extends AppCompatActivity
     TextView badgecounter;
     String setusrname;
     AudioManager am;
-    private static int count = 1;//count stars at one
+    private static int count;//count stars at one
+    int rememberedcount;
     private CheckBox remember;
     private boolean saveMemory;
     GoogleAccountCredential mCredential;
@@ -85,7 +88,7 @@ public class EventChecker extends AppCompatActivity
     ArrayList<Eventinfo> events;
     private static ArrayList<String> visted;
     private Tracker mTracker;
-    private final String TAG = "";
+    private final String TAG = "EventChecker";
     private String Screentracker = "EventChecker";
     private String usrcode;
     @Override
@@ -104,9 +107,18 @@ public class EventChecker extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 pickImage();
+                Tracks("Set Icon", "Changed User Icon");
             }
         });
 
+
+        /**Start Tracking users onCreate Screen ***/
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        Log.i(TAG, TAG + Screentracker);
+        mTracker.setScreenName(Screentracker);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
 /*   *****************When remember me is checked it save the users data on return**** */
         remember = (CheckBox) findViewById(R.id.checkBox);
@@ -114,11 +126,7 @@ public class EventChecker extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 saveMemory = isChecked;
-                //if checked
-                // disable editing password
-                usrName.setFocusable(false);
-                usrName.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
-                usrName.setClickable(false); // user navigates with wheel and selects widget
+
             }
         });
 
@@ -133,15 +141,10 @@ public class EventChecker extends AppCompatActivity
         /**Loads badge count number*******/
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int rememberedcount = prefs.getInt("badgenum", count); //pulls it on create
-        Log.i("start==>", String.valueOf(count));//ex> start 1
+        rememberedcount = prefs.getInt("badgenum", count); //pulls it on create
+        Log.i("start==>", String.valueOf(rememberedcount));//ex> start 1
         badgecounter.setText("x " + String.valueOf(rememberedcount), TextView.BufferType.NORMAL); //sets users name
-        ++rememberedcount;// increment remebered by one
-        getPreferences(MODE_PRIVATE).edit().putInt("count_key", rememberedcount).commit();//save number in shared prefs
-        count = getPreferences(MODE_PRIVATE).getInt("count_key", count); //count becomes that value and is sent to badgeearned()
-        Log.i("end==>", String.valueOf(count));//ex> ends 2
-        Log.i("numremembered==>", String.valueOf(rememberedcount));
-
+        Tracks("Badge Number", String.valueOf(rememberedcount)); //tracks badge numbers
 
 
 
@@ -150,6 +153,14 @@ public class EventChecker extends AppCompatActivity
         SharedPreferences prefphoto = PreferenceManager.getDefaultSharedPreferences(this);
         String savephoto = prefphoto.getString("imagepath", ""); //pulls it on create
         usricon.setImageBitmap(getScaledBitmap(savephoto, 135, 135));//sets users name
+
+/***on remember me checked**/
+        if (saveMemory) {//if checked
+            // disable editing password
+            usrName.setFocusable(false);
+            usrName.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+            usrName.setClickable(false); // user navigates with wheel and selects widget
+        }
 
 
         /***allows user to edittext on edittext hold**/
@@ -181,13 +192,13 @@ public class EventChecker extends AppCompatActivity
                         editor.putString("username", setusrname);
                         editor.putBoolean("save", true);
                         editor.apply();
-                        //       Log.d("name saved==>", setusrname);
+                        // Log.d("name saved==>", setusrname);
+                        Tracks("User Name", setusrname);
                     }
-
 
                     Log.d("pressed enter", "==>");
                     Log.d("username", usrName.getText().toString());
-//                    Log.d("setname", setusrname);
+                    //Log.d("setname", setusrname);
 
                     return true;
                 }
@@ -241,7 +252,7 @@ public class EventChecker extends AppCompatActivity
 
         loadArray(this);//LoadsArray
         Log.i("Visted==>loaded", visted.toString());
-
+        Tracks(visted.toString(), "Visted Eventcodes");
 
 
         getResultsFromApi();
@@ -697,14 +708,22 @@ public class EventChecker extends AppCompatActivity
         CodeSound(R.raw.correctsoundeffect);
         FindTextColor(EventCode, R.color.Succuess, R.color.Succuess_bg);
         Toast.makeText(EventChecker.this, "Welcome to the " + name + " event", Toast.LENGTH_LONG).show();
+
+
+        ++rememberedcount;// increment remebered by one
+        getPreferences(MODE_PRIVATE).edit().putInt("count_key", rememberedcount).commit();//save number in shared prefs
+        count = getPreferences(MODE_PRIVATE).getInt("count_key", count); //count becomes that value and is sent to badgeearned()
+        Log.i("end==>", String.valueOf(count));//ex> ends 2
+        Log.i("numremembered==>", String.valueOf(rememberedcount));
+        Log.i("numberofbadges==>", String.valueOf(count));
         SharedPreferences badgestored = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = badgestored.edit();
         edit.putInt("badgenum", count);
         edit.commit();
-        Log.i("numberofbadges==>", String.valueOf(count));
-        badgecount.setText("x " + String.valueOf(count++));
+        badgecount.setText("x " + String.valueOf(count));
         badgecount.setBackgroundColor(getResources().getColor(R.color.Succuess_bg, null));
-        //PutExtra(count);
+
+
 //TODO: provide better counting // FIXME: 9/17/2016
 
 
@@ -809,6 +828,17 @@ public class EventChecker extends AppCompatActivity
         }
 
         return inSampleSize;
+    }
+
+    /**
+     * tracks user
+     **/
+    public void Tracks(String catogory, String action) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(catogory)
+                .setAction(action)
+                .build());
+
     }
 }
 
